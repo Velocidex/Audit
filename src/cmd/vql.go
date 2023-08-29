@@ -13,6 +13,8 @@ var (
 	build_vql_file_arg = build_vql_cmd.Arg(
 		"file", "The model file to compile",
 	).Required().String()
+	build_vql_name = build_vql_cmd.Flag("name", "Artifact name").
+			Default("Audit").String()
 )
 
 func doBuildVQL() error {
@@ -21,7 +23,7 @@ func doBuildVQL() error {
 		return err
 	}
 
-	fmt.Println(old_model.BuildVQL())
+	fmt.Println(old_model.BuildArtifact(*build_vql_name))
 
 	return nil
 }

@@ -103,15 +103,29 @@ var (
 
 	command_with_regex = regexp.MustCompile(`^c:(.+) +-> +r:(.+)`)
 
-	reg_value_match_regex  = regexp.MustCompile(`^r:(.+) +-> (.+) +-> +(.+)$`)
-	reg_value_exists_regex = regexp.MustCompile(`^r:(.+) +-> (.+)$`)
-	reg_key_exists_regex   = regexp.MustCompile(`^r:(.+)$`)
+	reg_value_numeric_regex     = regexp.MustCompile(`^r:(.+) +-> (.+) +-> n:.+compare +(.+)$`)
+	reg_value_match_regex       = regexp.MustCompile(`^r:(.+) +-> (.+) +-> +(.+)$`)
+	reg_value_regex_match_regex = regexp.MustCompile(`^r:(.+) +-> +(.+) +-> +r:+(.+)$`)
+	reg_value_exists_regex      = regexp.MustCompile(`^r:(.+) +-> (.+)$`)
+	reg_key_exists_regex        = regexp.MustCompile(`^r:(.+)$`)
+	not_regex                   = regexp.MustCompile(`^not +(.+)$`)
 )
 
 func parseSCARule(rule *generator.Test) {
+	matches := not_regex.FindStringSubmatch(rule.OriginalTest)
+	if len(matches) > 0 {
+		original := rule.OriginalTest
+		rule.OriginalTest = matches[1]
+		parseSCARule(rule)
+
+		rule.WhereExpression = "NOT " + rule.WhereExpression
+		rule.OriginalTest = original
+		return
+	}
+
 	// Check for a command: Example
 	// c:net.exe accounts -> n:Length of password history maintained:\\s+(\\d+) compare <= 24
-	matches := command_with_numeric_check_regex.FindStringSubmatch(rule.OriginalTest)
+	matches = command_with_numeric_check_regex.FindStringSubmatch(rule.OriginalTest)
 	if len(matches) > 0 {
 		if rule.Env == nil {
 			rule.Env = ordereddict.NewDict()
@@ -140,6 +154,30 @@ func parseSCARule(rule *generator.Test) {
 		return
 	}
 
+	matches = reg_value_numeric_regex.FindStringSubmatch(rule.OriginalTest)
+	if len(matches) > 0 {
+		if rule.Env == nil {
+			rule.Env = ordereddict.NewDict()
+		}
+		rule.Env.Set("k", matches[1]).Set("v", matches[2])
+		rule.Name = "Value"
+		rule.ColumnExpression = fmt.Sprintf("int(int=Reg(k=k + '/' + v).value)")
+		rule.WhereExpression = fmt.Sprintf("Value %v", matches[3])
+		return
+	}
+
+	matches = reg_value_regex_match_regex.FindStringSubmatch(rule.OriginalTest)
+	if len(matches) > 0 {
+		if rule.Env == nil {
+			rule.Env = ordereddict.NewDict()
+		}
+		rule.Env.Set("k", matches[1]).Set("v", matches[2]).Set("regex", matches[3])
+		rule.Name = "Value"
+		rule.ColumnExpression = fmt.Sprintf("Reg(k=k + '/' + v).value")
+		rule.WhereExpression = "Value =~ regex"
+		return
+	}
+
 	matches = reg_value_match_regex.FindStringSubmatch(rule.OriginalTest)
 	if len(matches) > 0 {
 		if rule.Env == nil {
@@ -147,7 +185,7 @@ func parseSCARule(rule *generator.Test) {
 		}
 		rule.Env.Set("k", matches[1]).Set("v", matches[2])
 		rule.Name = "Value"
-		rule.ColumnExpression = fmt.Sprintf("Reg(k=k + '/' + v)")
+		rule.ColumnExpression = fmt.Sprintf("Reg(k=k + '/' + v).value")
 		rule.WhereExpression = fmt.Sprintf("Value = %v", matches[3])
 		return
 	}

@@ -4,11 +4,10 @@ import (
 	"io/ioutil"
 	"os"
 
-	"www.velocidex.com/golang/velociraptor/json"
+	"encoding/json"
 )
 
 func (self *Rules) Save(filename string) error {
-	serialized := json.MustMarshalIndent(self)
 	out_fd, err := os.OpenFile(filename,
 		os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0600)
 	if err != nil {
@@ -16,8 +15,11 @@ func (self *Rules) Save(filename string) error {
 	}
 	defer out_fd.Close()
 
-	_, err = out_fd.Write(serialized)
-	return err
+	encoder := json.NewEncoder(out_fd)
+	encoder.SetEscapeHTML(false)
+	encoder.SetIndent("", " ")
+
+	return encoder.Encode(self)
 }
 
 func LoadModel(filename string) (*Rules, error) {
