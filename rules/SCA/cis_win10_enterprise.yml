@@ -1,11 +1,15 @@
 Source: cis_win10_enterprise.yml
-Type: SCA
+ArtifactName: Windows.Audit.CISWin10Enterprise
+Precondition: |
+  SELECT * FROM info() WHERE OS =~ "windows"
+Description: |
+  This artifact was generated from the Wahzu SCA project.
 Export: |
   LET RunPowerShell(S) = SELECT * FROM execve(
       argv=["Powershell", "-ExecutionPolicy",
             "unrestricted", "-EncodedCommand",
             base64encode(string=utf16_encode(string=S))])
-
+Type: SCA
 Checks:
 - Id: "15500"
   Title: Ensure 'Enforce password history' is set to '24 or more password(s)'.
@@ -2612,7 +2616,6 @@ Checks:
   Title: Ensure 'Windows Push Notifications System Service (WpnService)' is set to
     'Disabled'.
   Condition: all
-  Remediate: RunPowerShell(S='Get-Service WpnService | Stop-Service -PassThru | Set-Service -StartupType Disabled')
   Rules:
   - Name: Value
     ColumnExpression: Reg(k=k + '/' + v).value
@@ -2623,6 +2626,8 @@ Checks:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WpnService
       v: Start
   Verified: true
+  Remediate: |
+    RunPowerShell(S='Get-Service WpnService | Stop-Service -PassThru | Set-Service -StartupType Disabled')
 - Id: "15612"
   Title: Ensure 'Windows PushToInstall Service (PushToInstall)' is set to 'Disabled'.
   Condition: all

@@ -102,7 +102,8 @@ func ConvertToVQL(ruleset *RuleSet) {
 var (
 	command_with_numeric_check_regex = regexp.MustCompile(`^c:(.+) +-> +n:(.+) +compare(.+)`)
 
-	command_with_regex = regexp.MustCompile(`^c:(.+) +-> +r:(.+)`)
+	command_with_regex   = regexp.MustCompile(`^c:(.+) +-> +r:(.+)`)
+	command_with_2_regex = regexp.MustCompile(`^c:(.+) +-> +r:(.+?) +&& +(r:.+)`)
 
 	reg_value_numeric_regex     = regexp.MustCompile(`^r:(.+) +-> (.+) +-> n:.+compare +(.+)$`)
 	reg_value_match_regex       = regexp.MustCompile(`^r:(.+) +-> (.+) +-> +(.+)$`)
@@ -110,18 +111,22 @@ var (
 	reg_value_exists_regex      = regexp.MustCompile(`^r:(.+) +-> (.+)$`)
 	reg_key_exists_regex        = regexp.MustCompile(`^r:(.+)$`)
 	not_regex                   = regexp.MustCompile(`^not +(.+)$`)
+
+	file_exists_regex = regexp.MustCompile(`^f:(.+)`)
+	file_with_regex   = regexp.MustCompile(`^f:(.+) +-> +r:(.+)`)
 )
 
-func parseSCARule(rule *generator.Test) {
+func parseSCARule(rule *generator.Test) []*generator.Test {
 	matches := not_regex.FindStringSubmatch(rule.OriginalTest)
 	if len(matches) > 0 {
 		original := rule.OriginalTest
+		rule.WhereExpression = ""
 		rule.OriginalTest = matches[1]
-		parseSCARule(rule)
+		extra := parseSCARule(rule)
 
 		rule.WhereExpression = "NOT " + rule.WhereExpression
 		rule.OriginalTest = original
-		return
+		return extra
 	}
 
 	// Check for a command: Example
@@ -138,7 +143,39 @@ func parseSCARule(rule *generator.Test) {
 		rule.ColumnExpression = fmt.Sprintf(
 			"int(int=CmdOut(cmd=cmd, re=re).g1 || 0)")
 		rule.WhereExpression = fmt.Sprintf("Value %v", matches[3])
-		return
+		return nil
+	}
+
+	matches = command_with_2_regex.FindStringSubmatch(rule.OriginalTest)
+	if len(matches) > 0 {
+		if rule.Env == nil {
+			rule.Env = ordereddict.NewDict()
+		}
+		rule.Env.
+			Set("cmd", matches[1]).
+			Set("re", matches[2])
+		rule.Name = "Value"
+		rule.ColumnExpression = fmt.Sprintf("CmdMatch(cmd=cmd, re=re)")
+		rule.WhereExpression = "Value"
+
+		extras := []*generator.Test{}
+
+		// Sometimes the next steps have an && as well
+		extra_parts := strings.Split(matches[3], " && ")
+		for _, extra_part := range extra_parts {
+
+			// Make a copy for the next rule.
+			extra := &generator.Test{
+				Name:             rule.Name,
+				ColumnExpression: rule.ColumnExpression,
+				WhereExpression:  rule.WhereExpression,
+				Env: ordereddict.NewDict().
+					Set("cmd", matches[1]).
+					Set("re", strings.TrimPrefix(extra_part, "r:")),
+			}
+			extras = append(extras, extra)
+		}
+		return extras
 	}
 
 	matches = command_with_regex.FindStringSubmatch(rule.OriginalTest)
@@ -152,7 +189,7 @@ func parseSCARule(rule *generator.Test) {
 		rule.Name = "Value"
 		rule.ColumnExpression = fmt.Sprintf("CmdMatch(cmd=cmd, re=re)")
 		rule.WhereExpression = "Value"
-		return
+		return nil
 	}
 
 	matches = reg_value_numeric_regex.FindStringSubmatch(rule.OriginalTest)
@@ -164,7 +201,7 @@ func parseSCARule(rule *generator.Test) {
 		rule.Name = "Value"
 		rule.ColumnExpression = fmt.Sprintf("int(int=Reg(k=k + '/' + v).value)")
 		rule.WhereExpression = fmt.Sprintf("Value %v", matches[3])
-		return
+		return nil
 	}
 
 	matches = reg_value_regex_match_regex.FindStringSubmatch(rule.OriginalTest)
@@ -176,7 +213,7 @@ func parseSCARule(rule *generator.Test) {
 		rule.Name = "Value"
 		rule.ColumnExpression = fmt.Sprintf("Reg(k=k + '/' + v).value")
 		rule.WhereExpression = "Value =~ regex"
-		return
+		return nil
 	}
 
 	matches = reg_value_match_regex.FindStringSubmatch(rule.OriginalTest)
@@ -188,7 +225,7 @@ func parseSCARule(rule *generator.Test) {
 		rule.Name = "Value"
 		rule.ColumnExpression = fmt.Sprintf("Reg(k=k + '/' + v).value")
 		rule.WhereExpression = fmt.Sprintf("Value = %v", matches[3])
-		return
+		return nil
 	}
 
 	matches = reg_value_exists_regex.FindStringSubmatch(rule.OriginalTest)
@@ -200,7 +237,7 @@ func parseSCARule(rule *generator.Test) {
 		rule.Name = "Value"
 		rule.ColumnExpression = fmt.Sprintf("Reg(k=k + '/' + v)")
 		rule.WhereExpression = fmt.Sprintf("Value")
-		return
+		return nil
 	}
 
 	matches = reg_key_exists_regex.FindStringSubmatch(rule.OriginalTest)
@@ -212,8 +249,34 @@ func parseSCARule(rule *generator.Test) {
 		rule.Name = "Value"
 		rule.ColumnExpression = fmt.Sprintf("Reg(k=k)")
 		rule.WhereExpression = fmt.Sprintf("Value")
-		return
+		return nil
 	}
+
+	matches = file_with_regex.FindStringSubmatch(rule.OriginalTest)
+	if len(matches) > 0 {
+		if rule.Env == nil {
+			rule.Env = ordereddict.NewDict()
+		}
+		rule.Env.Set("f", matches[1]).Set("re", matches[2])
+		rule.Name = "Value"
+		rule.ColumnExpression = fmt.Sprintf("FMatch(f=f, re=re)")
+		rule.WhereExpression = fmt.Sprintf("Value")
+		return nil
+	}
+
+	matches = file_exists_regex.FindStringSubmatch(rule.OriginalTest)
+	if len(matches) > 0 {
+		if rule.Env == nil {
+			rule.Env = ordereddict.NewDict()
+		}
+		rule.Env.Set("f", matches[1]).Set("re", "..")
+		rule.Name = "Value"
+		rule.ColumnExpression = fmt.Sprintf("FMatch(f=f, re=re)")
+		rule.WhereExpression = fmt.Sprintf("Value")
+		return nil
+	}
+
+	return nil
 }
 
 // Do our best to convert from SCA rule format to VQL.
@@ -223,9 +286,12 @@ func compileCheck(check *generator.Check) {
 		return
 	}
 
+	extra := []*generator.Test{}
 	for _, c := range check.Rules {
-		parseSCARule(c)
+		extra = append(extra, parseSCARule(c)...)
 	}
+
+	check.Rules = append(check.Rules, extra...)
 }
 
 func buildModel(
