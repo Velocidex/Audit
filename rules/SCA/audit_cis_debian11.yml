@@ -4,6 +4,8 @@ Precondition: |
   SELECT * FROM info() WHERE OS =~ "linux"
 Description: |
   This artifact was generated from the Wahzu SCA project.
+
+  Using the file cis_debian11.yml.
 Type: SCA
 Checks:
 - Id: "29500"
@@ -17,6 +19,7 @@ Checks:
     Env:
       cmd: findmnt --kernel /tmp
       re: ^/tmp\s+
+    Context: CmdContext(cmd=cmd, re=re)
   - Name: Value
     ColumnExpression: CmdMatch(cmd=cmd, re=re)
     WhereExpression: Value
@@ -24,6 +27,7 @@ Checks:
     Env:
       cmd: systemctl is-enabled tmp.mount
       re: enabled|generated
+    Context: CmdContext(cmd=cmd, re=re)
   Verified: true
 - Id: "29501"
   Title: Ensure nodev option set on /tmp partition.
@@ -36,6 +40,7 @@ Checks:
     Env:
       cmd: findmnt --kernel /tmp
       re: ^/tmp\s+
+    Context: CmdContext(cmd=cmd, re=re)
   - Name: Value
     ColumnExpression: CmdMatch(cmd=cmd, re=re)
     WhereExpression: Value
@@ -43,6 +48,7 @@ Checks:
     Env:
       cmd: findmnt --kernel /tmp
       re: nodev
+    Context: CmdContext(cmd=cmd, re=re)
   Verified: true
 - Id: "29502"
   Title: Ensure noexec option set on /tmp partition.
@@ -55,6 +61,7 @@ Checks:
     Env:
       cmd: findmnt --kernel /tmp
       re: ^/tmp\s+
+    Context: CmdContext(cmd=cmd, re=re)
   - Name: Value
     ColumnExpression: CmdMatch(cmd=cmd, re=re)
     WhereExpression: Value
@@ -62,6 +69,7 @@ Checks:
     Env:
       cmd: findmnt --kernel /tmp
       re: noexec
+    Context: CmdContext(cmd=cmd, re=re)
   Verified: true
 - Id: "29503"
   Title: Ensure nosuid option set on /tmp partition.
@@ -74,6 +82,7 @@ Checks:
     Env:
       cmd: findmnt --kernel /tmp
       re: ^/tmp\s+
+    Context: CmdContext(cmd=cmd, re=re)
   - Name: Value
     ColumnExpression: CmdMatch(cmd=cmd, re=re)
     WhereExpression: Value
@@ -81,6 +90,7 @@ Checks:
     Env:
       cmd: findmnt --kernel /tmp
       re: nosuid
+    Context: CmdContext(cmd=cmd, re=re)
   Verified: true
 - Id: "29504"
   Title: Ensure separate partition exists for /var.
@@ -93,6 +103,7 @@ Checks:
     Env:
       cmd: findmnt --kernel /var
       re: ^/var\s+
+    Context: CmdContext(cmd=cmd, re=re)
   Verified: true
 - Id: "29505"
   Title: Ensure nodev option set on /var partition.
@@ -105,6 +116,7 @@ Checks:
     Env:
       cmd: findmnt --kernel /var
       re: ^/var\s+
+    Context: CmdContext(cmd=cmd, re=re)
   - Name: Value
     ColumnExpression: CmdMatch(cmd=cmd, re=re)
     WhereExpression: Value
@@ -112,6 +124,7 @@ Checks:
     Env:
       cmd: findmnt --kernel /var
       re: nodev
+    Context: CmdContext(cmd=cmd, re=re)
   Verified: true
 - Id: "29506"
   Title: Ensure nosuid option set on /var partition.
@@ -124,6 +137,7 @@ Checks:
     Env:
       cmd: findmnt --kernel /var
       re: ^/var\s+
+    Context: CmdContext(cmd=cmd, re=re)
   - Name: Value
     ColumnExpression: CmdMatch(cmd=cmd, re=re)
     WhereExpression: Value
@@ -131,6 +145,7 @@ Checks:
     Env:
       cmd: findmnt --kernel /var
       re: nosuid
+    Context: CmdContext(cmd=cmd, re=re)
   Verified: true
 - Id: "29507"
   Title: Ensure separate partition exists for /var/tmp.
@@ -143,6 +158,7 @@ Checks:
     Env:
       cmd: findmnt --kernel /var/tmp
       re: ^/var/tmp\s+
+    Context: CmdContext(cmd=cmd, re=re)
   Verified: true
 - Id: "29508"
   Title: Ensure noexec option set on /var/tmp partition.
@@ -155,6 +171,7 @@ Checks:
     Env:
       cmd: findmnt --kernel /var/tmp
       re: ^/var/tmp\s+
+    Context: CmdContext(cmd=cmd, re=re)
   - Name: Value
     ColumnExpression: CmdMatch(cmd=cmd, re=re)
     WhereExpression: Value
@@ -162,6 +179,7 @@ Checks:
     Env:
       cmd: findmnt --kernel /var/tmp
       re: noexec
+    Context: CmdContext(cmd=cmd, re=re)
   Verified: true
 - Id: "29509"
   Title: Ensure nosuid option set on /var/tmp partition.
@@ -174,6 +192,7 @@ Checks:
     Env:
       cmd: findmnt --kernel /var/tmp
       re: ^/var/tmp\s+
+    Context: CmdContext(cmd=cmd, re=re)
   - Name: Value
     ColumnExpression: CmdMatch(cmd=cmd, re=re)
     WhereExpression: Value
@@ -181,6 +200,7 @@ Checks:
     Env:
       cmd: findmnt --kernel /var/tmp
       re: nosuid
+    Context: CmdContext(cmd=cmd, re=re)
   Verified: true
 - Id: "29510"
   Title: Ensure nodev option set on /var/tmp partition.
@@ -193,6 +213,7 @@ Checks:
     Env:
       cmd: findmnt --kernel /var/tmp
       re: ^/var/tmp\s+
+    Context: CmdContext(cmd=cmd, re=re)
   - Name: Value
     ColumnExpression: CmdMatch(cmd=cmd, re=re)
     WhereExpression: Value
@@ -200,6 +221,7 @@ Checks:
     Env:
       cmd: findmnt --kernel /var/tmp
       re: nodev
+    Context: CmdContext(cmd=cmd, re=re)
   Verified: true
 - Id: "29511"
   Title: Ensure separate partition exists for /var/log.
@@ -212,6 +234,7 @@ Checks:
     Env:
       cmd: findmnt --kernel /var/log
       re: ^/var/log\s+
+    Context: CmdContext(cmd=cmd, re=re)
   Verified: true
 - Id: "29512"
   Title: Ensure nodev option set on /var/log partition.
@@ -224,6 +247,7 @@ Checks:
     Env:
       cmd: findmnt --kernel /var/log
       re: ^/var/log\s+
+    Context: CmdContext(cmd=cmd, re=re)
   - Name: Value
     ColumnExpression: CmdMatch(cmd=cmd, re=re)
     WhereExpression: Value
@@ -231,6 +255,7 @@ Checks:
     Env:
       cmd: findmnt --kernel /var/log
       re: nodev
+    Context: CmdContext(cmd=cmd, re=re)
   Verified: true
 - Id: "29513"
   Title: Ensure noexec option set on /var/log partition.
@@ -243,6 +268,7 @@ Checks:
     Env:
       cmd: findmnt --kernel /var/log
       re: ^/var/log\s+
+    Context: CmdContext(cmd=cmd, re=re)
   - Name: Value
     ColumnExpression: CmdMatch(cmd=cmd, re=re)
     WhereExpression: Value
@@ -250,6 +276,7 @@ Checks:
     Env:
       cmd: findmnt --kernel /var/log
       re: noexec
+    Context: CmdContext(cmd=cmd, re=re)
   Verified: true
 - Id: "29514"
   Title: Ensure nosuid option set on /var/log partition.
@@ -262,6 +289,7 @@ Checks:
     Env:
       cmd: findmnt --kernel /var/log
       re: ^/var/log\s+
+    Context: CmdContext(cmd=cmd, re=re)
   - Name: Value
     ColumnExpression: CmdMatch(cmd=cmd, re=re)
     WhereExpression: Value
@@ -269,6 +297,7 @@ Checks:
     Env:
       cmd: findmnt --kernel /var/log
       re: nosuid
+    Context: CmdContext(cmd=cmd, re=re)
   Verified: true
 - Id: "29515"
   Title: Ensure separate partition exists for /var/log/audit.
@@ -281,6 +310,7 @@ Checks:
     Env:
       cmd: findmnt --kernel /var/log/audit
       re: ^/var/log/audit\s+
+    Context: CmdContext(cmd=cmd, re=re)
   Verified: true
 - Id: "29516"
   Title: Ensure noexec option set on /var/log/audit partition.
@@ -293,6 +323,7 @@ Checks:
     Env:
       cmd: findmnt --kernel /var/log/audit
       re: ^/var/log/audit
+    Context: CmdContext(cmd=cmd, re=re)
   - Name: Value
     ColumnExpression: CmdMatch(cmd=cmd, re=re)
     WhereExpression: Value
@@ -300,6 +331,7 @@ Checks:
     Env:
       cmd: findmnt --kernel /var/log/audit
       re: noexec
+    Context: CmdContext(cmd=cmd, re=re)
   Verified: true
 - Id: "29517"
   Title: Ensure nodev option set on /var/log/audit partition.
@@ -312,6 +344,7 @@ Checks:
     Env:
       cmd: findmnt --kernel /var/log/audit
       re: ^/var/log/audit
+    Context: CmdContext(cmd=cmd, re=re)
   - Name: Value
     ColumnExpression: CmdMatch(cmd=cmd, re=re)
     WhereExpression: Value
@@ -319,6 +352,7 @@ Checks:
     Env:
       cmd: findmnt --kernel /var/log/audit
       re: nodev
+    Context: CmdContext(cmd=cmd, re=re)
   Verified: true
 - Id: "29518"
   Title: Ensure nosuid option set on /var/log/audit partition.
@@ -331,6 +365,7 @@ Checks:
     Env:
       cmd: findmnt --kernel /var/log/audit
       re: ^/var/log/audit
+    Context: CmdContext(cmd=cmd, re=re)
   - Name: Value
     ColumnExpression: CmdMatch(cmd=cmd, re=re)
     WhereExpression: Value
@@ -338,6 +373,7 @@ Checks:
     Env:
       cmd: findmnt --kernel /var/log/audit
       re: nosuid
+    Context: CmdContext(cmd=cmd, re=re)
   Verified: true
 - Id: "29519"
   Title: Ensure separate partition exists for /home.
@@ -350,6 +386,7 @@ Checks:
     Env:
       cmd: findmnt --kernel /home
       re: ^/home\s+
+    Context: CmdContext(cmd=cmd, re=re)
   Verified: true
 - Id: "29520"
   Title: Ensure nodev option set on /home partition.
@@ -362,6 +399,7 @@ Checks:
     Env:
       cmd: findmnt --kernel /home
       re: ^/home\s+
+    Context: CmdContext(cmd=cmd, re=re)
   - Name: Value
     ColumnExpression: CmdMatch(cmd=cmd, re=re)
     WhereExpression: Value
@@ -369,6 +407,7 @@ Checks:
     Env:
       cmd: findmnt --kernel /home
       re: nodev
+    Context: CmdContext(cmd=cmd, re=re)
   Verified: true
 - Id: "29521"
   Title: Ensure nosuid option set on /home partition.
@@ -381,6 +420,7 @@ Checks:
     Env:
       cmd: findmnt --kernel /home
       re: ^/home\s+
+    Context: CmdContext(cmd=cmd, re=re)
   - Name: Value
     ColumnExpression: CmdMatch(cmd=cmd, re=re)
     WhereExpression: Value
@@ -388,6 +428,7 @@ Checks:
     Env:
       cmd: findmnt --kernel /home
       re: nosuid
+    Context: CmdContext(cmd=cmd, re=re)
   Verified: true
 - Id: "29522"
   Title: Ensure nodev option set on /dev/shm partition.
@@ -400,6 +441,7 @@ Checks:
     Env:
       cmd: findmnt --kernel /dev/shm
       re: ^/dev/shm\s+
+    Context: CmdContext(cmd=cmd, re=re)
   - Name: Value
     ColumnExpression: CmdMatch(cmd=cmd, re=re)
     WhereExpression: Value
@@ -407,6 +449,7 @@ Checks:
     Env:
       cmd: findmnt --kernel /dev/shm
       re: nodev
+    Context: CmdContext(cmd=cmd, re=re)
   Verified: true
 - Id: "29523"
   Title: Ensure noexec option set on /dev/shm partition.
@@ -419,6 +462,7 @@ Checks:
     Env:
       cmd: findmnt --kernel /dev/shm
       re: ^/dev/shm
+    Context: CmdContext(cmd=cmd, re=re)
   - Name: Value
     ColumnExpression: CmdMatch(cmd=cmd, re=re)
     WhereExpression: Value
@@ -426,6 +470,7 @@ Checks:
     Env:
       cmd: findmnt --kernel /dev/shm
       re: noexec
+    Context: CmdContext(cmd=cmd, re=re)
   Verified: true
 - Id: "29524"
   Title: Ensure nosuid option set on /dev/shm partition.
@@ -438,6 +483,7 @@ Checks:
     Env:
       cmd: findmnt --kernel /dev/shm
       re: ^/dev/shm
+    Context: CmdContext(cmd=cmd, re=re)
   - Name: Value
     ColumnExpression: CmdMatch(cmd=cmd, re=re)
     WhereExpression: Value
@@ -445,6 +491,7 @@ Checks:
     Env:
       cmd: findmnt --kernel /dev/shm
       re: nosuid
+    Context: CmdContext(cmd=cmd, re=re)
   Verified: true
 - Id: "29525"
   Title: Disable Automounting.
@@ -458,6 +505,7 @@ Checks:
     Env:
       cmd: systemctl is-enabled autofs
       re: 'Failed to get unit file state for autofs.service: No such file or directory'
+    Context: CmdContext(cmd=cmd, re=re)
   - Name: Value
     ColumnExpression: CmdMatch(cmd=cmd, re=re)
     WhereExpression: Value
@@ -465,6 +513,7 @@ Checks:
     Env:
       cmd: systemctl is-enabled autofs
       re: disabled
+    Context: CmdContext(cmd=cmd, re=re)
   Verified: true
 - Id: "29526"
   Title: Ensure AIDE is installed.
@@ -479,6 +528,7 @@ Checks:
       cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
         aide
       re: install ok installed
+    Context: CmdContext(cmd=cmd, re=re)
   - Name: Value
     ColumnExpression: CmdMatch(cmd=cmd, re=re)
     WhereExpression: Value
@@ -488,6 +538,7 @@ Checks:
       cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
         aide-common
       re: install ok installed
+    Context: CmdContext(cmd=cmd, re=re)
   Verified: true
 - Id: "29527"
   Title: Ensure filesystem integrity is regularly checked.
@@ -500,6 +551,7 @@ Checks:
     Env:
       cmd: systemctl is-enabled aidecheck.service
       re: enabled
+    Context: CmdContext(cmd=cmd, re=re)
   - Name: Value
     ColumnExpression: CmdMatch(cmd=cmd, re=re)
     WhereExpression: Value
@@ -507,6 +559,7 @@ Checks:
     Env:
       cmd: systemctl is-enabled aidecheck.timer
       re: enabled
+    Context: CmdContext(cmd=cmd, re=re)
   - Name: Value
     ColumnExpression: CmdMatch(cmd=cmd, re=re)
     WhereExpression: Value
@@ -514,6 +567,7 @@ Checks:
     Env:
       cmd: systemctl status aidecheck.timer
       re: active
+    Context: CmdContext(cmd=cmd, re=re)
   Verified: true
 - Id: "29528"
   Title: Ensure bootloader password is set.
@@ -545,6 +599,7 @@ Checks:
     Env:
       cmd: stat -L /boot/grub/grub.cfg
       re: Access:\s*\(0400/-r--------\)\s*Uid:\s*\(\s*\t*0/\s*\t*root\)\s*\t*Gid:\s*\(\s*\t*0/\s*\t*root\)
+    Context: CmdContext(cmd=cmd, re=re)
   Verified: true
 - Id: "29530"
   Title: Ensure authentication required for single user mode.
@@ -571,6 +626,7 @@ Checks:
       cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
         prelink
       re: 'dpkg-query: no packages found matching prelink'
+    Context: CmdContext(cmd=cmd, re=re)
   Verified: true
 - Id: "29532"
   Title: Ensure Automatic Error Reporting is not enabled.
@@ -583,6 +639,7 @@ Checks:
     Env:
       cmd: systemctl is-active apport.service
       re: inactive
+    Context: CmdContext(cmd=cmd, re=re)
   Verified: true
 - Id: "29533"
   Title: Ensure core dumps are restricted.
@@ -595,6 +652,7 @@ Checks:
     Env:
       cmd: sysctl fs.suid_dumpable
       re: ^fs.suid_dumpable = 0
+    Context: CmdContext(cmd=cmd, re=re)
   - Name: Value
     ColumnExpression: CmdMatch(cmd=cmd, re=re)
     WhereExpression: Value
@@ -603,6 +661,7 @@ Checks:
     Env:
       cmd: grep -Rh fs\.suid_dumpable /etc/sysctl.conf /etc/sysctl.d
       re: ^fs.suid_dumpable = 0
+    Context: CmdContext(cmd=cmd, re=re)
   - Name: Value
     ColumnExpression: CmdMatch(cmd=cmd, re=re)
     WhereExpression: Value
@@ -612,6 +671,7 @@ Checks:
       cmd: grep -Rh ^*[[:space:]]*hard[[:space:]][[:space:]]*core[[:space:]][[:space:]]*
         /etc/security/limits.conf /etc/security/limits.d
       re: ^* hard core 0
+    Context: CmdContext(cmd=cmd, re=re)
   Verified: true
 - Id: "29534"
   Title: Ensure AppArmor is installed.
@@ -626,6 +686,7 @@ Checks:
       cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
         apparmor
       re: install ok installed
+    Context: CmdContext(cmd=cmd, re=re)
   - Name: Value
     ColumnExpression: CmdMatch(cmd=cmd, re=re)
     WhereExpression: Value
@@ -635,6 +696,7 @@ Checks:
       cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
         apparmor-utils
       re: install ok installed
+    Context: CmdContext(cmd=cmd, re=re)
   Verified: true
 - Id: "29535"
   Title: Ensure AppArmor is enabled in the bootloader configuration.
@@ -666,6 +728,7 @@ Checks:
     Env:
       cmd: apparmor_status
       re: ^0\s*processes are unconfined
+    Context: CmdContext(cmd=cmd, re=re)
   Verified: true
 - Id: "29537"
   Title: Ensure all AppArmor Profiles are enforcing.
@@ -685,6 +748,7 @@ Checks:
     Env:
       cmd: apparmor_status
       re: ^0\s*profiles are in complain mode
+    Context: CmdContext(cmd=cmd, re=re)
   - Name: Value
     ColumnExpression: CmdMatch(cmd=cmd, re=re)
     WhereExpression: Value
@@ -692,6 +756,7 @@ Checks:
     Env:
       cmd: apparmor_status
       re: ^0\s*processes are unconfined
+    Context: CmdContext(cmd=cmd, re=re)
   Verified: true
 - Id: "29538"
   Title: Ensure message of the day is configured properly.

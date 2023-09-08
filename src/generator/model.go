@@ -26,6 +26,10 @@ type Test struct {
 	Error            string `json:"Error,omitempty"`
 
 	Env *ordereddict.Dict `json:"Env,omitempty"`
+
+	// A VQL expression to provide context on the test (for example
+	// contents of reg value).
+	Context string `json:"Context,omitempty"`
 }
 
 // If changing this update the merge rules in merge.go

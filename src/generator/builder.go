@@ -39,6 +39,11 @@ parameters:
   type: bool
   description: If enabled we remediate the configuration if possible.
 
+- name: ContextLength
+  type: int
+  description: Length of context to return
+  default: 100
+
 sources:
 - name: FailedChecks
   query: |
@@ -48,7 +53,7 @@ sources:
 - name: FailedTests
   query: |
     -- For failed checks show all tests
-    SELECT Id, TestId, CheckDetails, Value, pass
+    SELECT Id, TestId, CheckDetails, Value, Context, pass
     FROM foreach(row={
       SELECT Id AS FailedId FROM Failours
     },
@@ -144,11 +149,17 @@ LET _Cmd(cmd) = SELECT Stdout
 LET CmdOut(cmd, re) = parse_string_with_regex(regex=re,
     string=cache(func=_Cmd(cmd=cmd)[0].Stdout, key=cmd))
 
-LET CmdMatch(cmd, re) = cache(func=_Cmd(cmd=cmd)[0].Stdout, key=cmd) =~ re
+LET M <= '(?m)'
+
+LET CmdMatch(cmd, re) = cache(func=_Cmd(cmd=cmd)[0].Stdout, key=cmd) =~ M+re
+LET CmdContext(cmd, re) = format(format="match '%%v' on '%%v': %%v", args=[re,
+       cmd, cache(func=_Cmd(cmd=cmd)[0].Stdout, key=cmd)[:ContextLength] ])
 
 LET _Reg(Path) = SELECT Data FROM stat(filename=Path, accessor="registry")
 
 LET Reg(k) = _Reg(Path=k)[0].Data
+
+LET FMatch(f, re) = read_file(filename=f) =~ M+re
 
 %v
 
@@ -195,17 +206,22 @@ func (self *Check) BuildVQL(env *ordereddict.Dict) string {
 
 		env.Set(test_idx, test_env)
 
+		context := t.Context
+		if context == "" {
+			context = "''"
+		}
+
 		parts = append(parts, fmt.Sprintf(`
 t%d={
   SELECT %v AS Id, %v AS TestId, Title,
-     C(E=%v) AS pass, %v, expected
+     C(E=%v) AS pass, %v, expected, Context
   FROM foreach(row={
-    SELECT *, %v AS %v
+    SELECT *, %v AS %v, %v AS Context
     FROM foreach(row=%s)
   })
 }`,
 			idx, self.Id, idx, t.WhereExpression, t.Name,
-			t.ColumnExpression, t.Name,
+			t.ColumnExpression, t.Name, context,
 			fmt.Sprintf("Env.`%s`.`%s`", self.Id, test_idx),
 		))
 	}
