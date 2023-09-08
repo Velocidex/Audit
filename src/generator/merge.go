@@ -30,12 +30,6 @@ func (self *Rules) Merge(other *Rules) error {
 	return nil
 }
 
-func updateRule(r *Test) {
-	if r.ColumnExpression == "CmdMatch(cmd=cmd, re=re)" && r.Context == "" {
-		r.Context = "CmdContext(cmd=cmd, re=re)"
-	}
-}
-
 func (self *Check) Merge(other *Check) error {
 	if other == nil {
 		return nil
@@ -47,9 +41,6 @@ func (self *Check) Merge(other *Check) error {
 	// Do not mess with verified rules
 	if other.Verified {
 		self.Rules = other.Rules
-		for _, r := range self.Rules {
-			updateRule(r)
-		}
 		return nil
 	}
 

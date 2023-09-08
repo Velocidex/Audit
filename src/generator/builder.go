@@ -160,6 +160,8 @@ LET _Reg(Path) = SELECT Data FROM stat(filename=Path, accessor="registry")
 LET Reg(k) = _Reg(Path=k)[0].Data
 
 LET FMatch(f, re) = read_file(filename=f) =~ M+re
+LET FContext(f, re) = format(format="match '%%v' on file '%%v': %%v", args=[re,
+     f, read_file(filename=f, length=ContextLength)])
 
 %v
 
@@ -188,6 +190,21 @@ LET AllTests <= SELECT * FROM chain(%v)
 	return preamble + strings.Join(parts, "\n") + postscript
 }
 
+func (self *Test) GetContext() string {
+	if self.Context != "" {
+		return self.Context
+	}
+
+	switch self.ColumnExpression {
+	case "CmdMatch(cmd=cmd, re=re)":
+		return "CmdContext(cmd=cmd, re=re)"
+	case "FMatch(f=f, re=re)":
+		return "FContext(f=f, re=re)"
+	default:
+		return "''"
+	}
+}
+
 func (self *Check) BuildVQL(env *ordereddict.Dict) string {
 	parts := []string{}
 	for idx, t := range self.Rules {
@@ -206,11 +223,6 @@ func (self *Check) BuildVQL(env *ordereddict.Dict) string {
 
 		env.Set(test_idx, test_env)
 
-		context := t.Context
-		if context == "" {
-			context = "''"
-		}
-
 		parts = append(parts, fmt.Sprintf(`
 t%d={
   SELECT %v AS Id, %v AS TestId, Title,
@@ -221,7 +233,7 @@ t%d={
   })
 }`,
 			idx, self.Id, idx, t.WhereExpression, t.Name,
-			t.ColumnExpression, t.Name, context,
+			t.ColumnExpression, t.Name, t.GetContext(),
 			fmt.Sprintf("Env.`%s`.`%s`", self.Id, test_idx),
 		))
 	}
