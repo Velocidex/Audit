@@ -4,7 +4,7 @@ go 1.20
 
 require (
 	github.com/Velocidex/json v0.0.0-20220224052537-92f3c0326e5a // indirect
-	github.com/Velocidex/ordereddict v0.0.0-20221110130714-6a7cb85851cd // indirect
+	github.com/Velocidex/ordereddict v0.0.0-20230909174157-2aa49cc5d11d // indirect
 	github.com/Velocidex/yaml v2.1.0+incompatible // indirect
 	github.com/Velocidex/yaml/v2 v2.2.8 // indirect
 	github.com/alecthomas/kingpin/v2 v2.3.2 // indirect
@@ -19,3 +19,6 @@ require (
 	www.velocidex.com/golang/velociraptor v0.7.0 // indirect
 	www.velocidex.com/golang/vfilter v0.0.0-20230730233014-4610600570e4 // indirect
 )
+
+//replace github.com/Velocidex/yaml => /home/mic/projects/yaml
+// replace github.com/Velocidex/ordereddict => /home/mic/projects/ordereddict

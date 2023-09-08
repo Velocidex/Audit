@@ -3,8 +3,11 @@ package generator
 import (
 	"io/ioutil"
 	"os"
+	"strings"
 
 	"encoding/json"
+
+	"github.com/Velocidex/yaml/v2"
 )
 
 func (self *Rules) Save(filename string) error {
@@ -15,11 +18,22 @@ func (self *Rules) Save(filename string) error {
 	}
 	defer out_fd.Close()
 
-	encoder := json.NewEncoder(out_fd)
-	encoder.SetEscapeHTML(false)
-	encoder.SetIndent("", " ")
+	if strings.HasSuffix(filename, "json") {
+		encoder := json.NewEncoder(out_fd)
+		encoder.SetEscapeHTML(false)
+		encoder.SetIndent("", " ")
 
-	return encoder.Encode(self)
+		return encoder.Encode(self)
+	}
+
+	// Otherwise encode in yaml
+	serialized, err := yaml.Marshal(self)
+	if err != nil {
+		return err
+	}
+
+	_, err = out_fd.Write(serialized)
+	return err
 }
 
 func LoadModel(filename string) (*Rules, error) {
@@ -34,6 +48,6 @@ func LoadModel(filename string) (*Rules, error) {
 	}
 
 	res := &Rules{}
-	err = json.Unmarshal(data, res)
+	err = yaml.Unmarshal(data, res)
 	return res, err
 }
