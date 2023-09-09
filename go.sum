@@ -2,6 +2,8 @@ github.com/Velocidex/json v0.0.0-20220224052537-92f3c0326e5a h1:AeXPUzhU0yhID/v5
 github.com/Velocidex/json v0.0.0-20220224052537-92f3c0326e5a/go.mod h1:ukJBuruT9b24pdgZwWDvOaCYHeS03B7oQPCUWh25bwM=
 github.com/Velocidex/ordereddict v0.0.0-20221110130714-6a7cb85851cd h1:GA/Aogkc2wf0RCvjiSXIILg2WqGoSb5OsozwX3gvZFY=
 github.com/Velocidex/ordereddict v0.0.0-20221110130714-6a7cb85851cd/go.mod h1:+MqO5UMBemyFSm+yRXslbpFTwPUDhFHUf7HPV92twg4=
+github.com/Velocidex/ordereddict v0.0.0-20230909174157-2aa49cc5d11d h1:fn372EqKyazBxYUP5HPpBi3jId4MXuppEypEALGfvEk=
+github.com/Velocidex/ordereddict v0.0.0-20230909174157-2aa49cc5d11d/go.mod h1:+MqO5UMBemyFSm+yRXslbpFTwPUDhFHUf7HPV92twg4=
 github.com/Velocidex/yaml v2.1.0+incompatible h1:XtpJSzJ95+UbheJ5ZwHZOUH8sHhYpypGaL3zmaL2klc=
 github.com/Velocidex/yaml v2.1.0+incompatible/go.mod h1:CzH+PG+PA8o7RiH4/ZkHx5rHDWFZlzZVc3R6pe/gJMg=
 github.com/Velocidex/yaml/v2 v2.2.8 h1:GUrSy4SBJ6RjGt43k6MeBKtw2z/27gh4A3hfFmFY3No=

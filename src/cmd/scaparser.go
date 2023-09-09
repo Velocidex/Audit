@@ -10,7 +10,7 @@ import (
 
 	"github.com/Velocidex/Audit/src/generator"
 	"github.com/Velocidex/ordereddict"
-	"github.com/Velocidex/yaml"
+	"github.com/Velocidex/yaml/v2"
 )
 
 // Get the sca file from https://github.com/wazuh/wazuh/blob/master/ruleset/sca/windows/cis_win2019.yml
@@ -28,9 +28,10 @@ var (
 
 // Used to parse the SCA files
 type Check struct {
-	Id    int
-	Title string
-	Rules []string
+	Id        int
+	Title     string
+	Condition string
+	Rules     []string
 }
 
 type RuleSet struct {
@@ -236,8 +237,9 @@ func buildModel(
 
 	for _, c := range rule_file.Checks {
 		check := &generator.Check{
-			Id:    fmt.Sprintf("%v", c.Id),
-			Title: c.Title,
+			Id:        fmt.Sprintf("%v", c.Id),
+			Title:     c.Title,
+			Condition: c.Condition,
 		}
 
 		for _, r := range c.Rules {

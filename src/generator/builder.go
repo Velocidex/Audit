@@ -18,6 +18,16 @@ func indent(text string, indent string) string {
 func (self *Rules) BuildArtifact(name string) string {
 	return fmt.Sprintf(`
 name: %v
+parameters:
+- name: OverruleChecks
+  default: |
+    Id,Title,Reason
+    0,RuleTitle,Reason For Overruling
+
+- name: Remediate
+  type: bool
+  description: If enabled we remediate the configuration if possible.
+
 sources:
 - name: FailedChecks
   query: |
@@ -43,7 +53,19 @@ sources:
   query: |
     SELECT * FROM AllTests
 
-`, name, indent(self.BuildVQL(), "    "))
+- name: Remediation
+  query: |
+%v
+
+- name: Stats
+  query: |
+    LET TotalFailed <= SELECT count() AS Total FROM Failours GROUP BY 1
+    LET TotalChecks <= %d
+
+    SELECT TotalFailed[0].Total AS TotalFailed, TotalChecks FROM scope()
+
+`, name, indent(self.BuildVQL(), "    "),
+		indent(self.BuildRemediations(), "    "), len(self.Checks))
 }
 
 func (self *Rules) encodeJsonBlob(blob interface{}) string {
@@ -55,6 +77,28 @@ func (self *Rules) encodeJsonBlob(blob interface{}) string {
 	gz.Write(serialized)
 	gz.Close()
 	return base64.StdEncoding.EncodeToString(b.Bytes())
+}
+
+func (self *Rules) BuildRemediations() string {
+	parts := []string{}
+	for idx, t := range self.Checks {
+		if t.Remediate != "" {
+			parts = append(parts,
+				fmt.Sprintf(`r%d={ SELECT Id, Title,
+       %v AS _Result
+       FROM Check%vStatus WHERE NOT OK }`,
+					idx, t.Remediate, t.Id))
+		}
+	}
+
+	result := fmt.Sprintf(`
+SELECT * FROM if(condition=Remediate, then={
+  SELECT * FROM chain(
+%v
+)})
+`, indent(strings.Join(parts, ",\n"), "  "))
+
+	return result
 }
 
 // Produce a VQL query from the rules
@@ -74,6 +118,14 @@ func (self *Rules) BuildVQL() string {
 LET JSONEnv = "%v"
 LET Env <= parse_json(data=gunzip(string=base64decode(string=JSONEnv)))
 
+LET C(E) = if(condition=E, then=1, else=0)
+
+LET OverruleChecks <= SELECT * FROM if(
+    condition=format(format="%%T", args=OverruleChecks) =~ "string",
+    then={ SELECT * FROM parse_csv(filename=OverruleChecks, accessor='data')})
+
+LET O <= OverruleChecks.Id
+
 LET _Cmd(cmd) = SELECT Stdout
   FROM execve(argv=commandline_split(command=cmd), length=1000000)
 
@@ -86,7 +138,9 @@ LET _Reg(Path) = SELECT Data FROM stat(filename=Path, accessor="registry")
 
 LET Reg(k) = _Reg(Path=k)[0].Data
 
-`, self.encodeJsonBlob(env))
+%v
+
+`, self.encodeJsonBlob(env), self.Export)
 
 	chained_status := []string{}
 	chained_all := []string{}
@@ -124,15 +178,18 @@ func (self *Check) BuildVQL(env *ordereddict.Dict) string {
 		test_env.Set("expected", t.WhereExpression).
 			Set("Title", self.Title).
 			Set("Value", t.ColumnExpression).
-			Set("Id", self.Id)
+			Set("Id", self.Id).
+			Set("Cond", self.Condition)
 
 		env.Set(test_idx, test_env)
 
 		parts = append(parts, fmt.Sprintf(`
 t%d={
-  SELECT %v AS Id, %v AS TestId, Title, if(condition=%v, then=1, else=0) AS pass, %v, expected
+  SELECT %v AS Id, %v AS TestId, Title,
+     C(E=%v) AS pass, %v, expected
   FROM foreach(row={
-    SELECT *, %v AS %v FROM foreach(row=%s)
+    SELECT *, %v AS %v
+    FROM foreach(row=%s)
   })
 }`,
 			idx, self.Id, idx, t.WhereExpression, t.Name,
@@ -141,11 +198,28 @@ t%d={
 		))
 	}
 
+	// Depending on the condition we have different criteria for
+	// "passing" the check.
+	var condition string
+	switch self.Condition {
+	case "all":
+		// All tests must match
+		condition = fmt.Sprintf("sum(item=pass) = %d", len(self.Rules))
+	case "any":
+		// Any test must pass
+		condition = "sum(item=pass) > 0"
+	case "none":
+		// No condition should match
+		condition = "sum(item=pass) = 0"
+	default:
+		condition = "'Invalid Condition'"
+	}
+
 	return fmt.Sprintf(`
 LET Check%v <= SELECT * FROM chain(%v)
 
-LET Check%vStatus <= SELECT Id, Title, sum(item=pass) = %d AS OK
+LET Check%vStatus <= SELECT Id, Title, %v OR Id IN O AS OK
 FROM Check%v
 GROUP BY 1
-`, self.Id, strings.Join(parts, ","), self.Id, len(self.Rules), self.Id)
+`, self.Id, strings.Join(parts, ","), self.Id, condition, self.Id)
 }
