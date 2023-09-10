@@ -1,0 +1,1025 @@
+Source: cis_apple_macOS_13.x.yml
+ArtifactName: Darwin.Audit.CISMacOS13
+Precondition: |
+  SELECT * FROM info() WHERE OS =~ "darwin"
+Description: |
+  This artifact was generated from the Wahzu SCA project.
+
+  Using the cis_apple_macOS_13.x.yml.
+Type: SCA
+Checks:
+- Id: "31000"
+  Title: Ensure All Apple-provided Software Is Current.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:softwareupdate -l -> r:No new software available.
+    Env:
+      cmd: softwareupdate -l
+      re: No new software available.
+  Verified: true
+- Id: "31001"
+  Title: Ensure Auto Update Is Enabled.
+  Condition: any
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.SoftwareUpdate').objectForKey('AutomaticCheckEnabled')"
+      -> r:^1$
+    Env:
+      cmd: osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.SoftwareUpdate').objectForKey('AutomaticCheckEnabled')"
+      re: ^1$
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not c:osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.SoftwareUpdate').objectForKey('AutomaticCheckEnabled')"
+      -> r:\.+
+    Env:
+      cmd: osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.SoftwareUpdate').objectForKey('AutomaticCheckEnabled')"
+      re: \.+
+  Verified: true
+- Id: "31002"
+  Title: Ensure Download New Updates When Available Is Enabled.
+  Condition: any
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.SoftwareUpdate').objectForKey('AutomaticDownload')"
+      -> r:^1$
+    Env:
+      cmd: osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.SoftwareUpdate').objectForKey('AutomaticDownload')"
+      re: ^1$
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not c:osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.SoftwareUpdate').objectForKey('AutomaticDownload')"
+      -> r:\.+
+    Env:
+      cmd: osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.SoftwareUpdate').objectForKey('AutomaticDownload')"
+      re: \.+
+  Verified: true
+- Id: "31003"
+  Title: Ensure Install of macOS Updates Is Enabled.
+  Condition: any
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.SoftwareUpdate').objectForKey('AutomaticallyInstallMacOSUpdates')"
+      -> r:^1$
+    Env:
+      cmd: osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.SoftwareUpdate').objectForKey('AutomaticallyInstallMacOSUpdates')"
+      re: ^1$
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not c:osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.SoftwareUpdate').objectForKey('AutomaticallyInstallMacOSUpdates')"
+      -> r:\.+
+    Env:
+      cmd: osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.SoftwareUpdate').objectForKey('AutomaticallyInstallMacOSUpdates')"
+      re: \.+
+  Verified: true
+- Id: "31004"
+  Title: Ensure Install Application Updates from the App Store Is Enabled.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:defaults read /Library/Preferences/com.apple.commerce AutoUpdate
+      -> r:^1$
+    Env:
+      cmd: defaults read /Library/Preferences/com.apple.commerce AutoUpdate
+      re: ^1$
+  Verified: true
+- Id: "31005"
+  Title: Ensure Install Security Responses and System Files Is Enabled.
+  Condition: any
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.SoftwareUpdate').objectForKey('ConfigDataInstall')"
+      && c:osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.SoftwareUpdate').objectForKey('CriticalUpdateInstall')"
+      -> r:^1$
+    Env:
+      cmd: osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.SoftwareUpdate').objectForKey('ConfigDataInstall')"
+        && c:osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.SoftwareUpdate').objectForKey('CriticalUpdateInstall')"
+      re: ^1$
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not c:osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.SoftwareUpdate').objectForKey('ConfigDataInstall')"
+      && c:osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.SoftwareUpdate').objectForKey('CriticalUpdateInstall')"
+      -> r:\.+
+    Env:
+      cmd: osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.SoftwareUpdate').objectForKey('ConfigDataInstall')"
+        && c:osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.SoftwareUpdate').objectForKey('CriticalUpdateInstall')"
+      re: \.+
+  Verified: true
+- Id: "31006"
+  Title: Ensure Software Update Deferment Is Less Than or Equal to 30 Days.
+  Condition: any
+  Rules:
+  - Name: Value
+    ColumnExpression: int(int=CmdOut(cmd=cmd, re=re).g1 || 0)
+    WhereExpression: Value  <= 30
+    OriginalTest: c:osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.applicationaccess').objectForKey('enforcedSoftwareUpdateDelay')"
+      -> n:^(\d+)$ compare <= 30
+    Env:
+      cmd: osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.applicationaccess').objectForKey('enforcedSoftwareUpdateDelay')"
+      re: ^(\d+)$
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not c:osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.applicationaccess').objectForKey('enforcedSoftwareUpdateDelay')"
+      -> r:\.+
+    Env:
+      cmd: osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.applicationaccess').objectForKey('enforcedSoftwareUpdateDelay')"
+      re: \.+
+  Verified: true
+- Id: "31007"
+  Title: Ensure Firewall Is Enabled.
+  Condition: any
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:defaults read /Library/Preferences/com.apple.alf globalstate ->
+      r:^1$|^2$
+    Env:
+      cmd: defaults read /Library/Preferences/com.apple.alf globalstate
+      re: ^1$|^2$
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:defaults read /Library/Preferences/com.apple.security.firewall
+      EnableFirewall -> r:^1$|^2$|^true$
+    Env:
+      cmd: defaults read /Library/Preferences/com.apple.security.firewall EnableFirewall
+      re: ^1$|^2$|^true$
+  Verified: true
+- Id: "31008"
+  Title: Ensure Firewall Stealth Mode Is Enabled.
+  Condition: any
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:defaults read /Library/Preferences/com.apple.alf stealthenabled
+      -> r:^1$|^2$
+    Env:
+      cmd: defaults read /Library/Preferences/com.apple.alf stealthenabled
+      re: ^1$|^2$
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:defaults read /Library/Preferences/com.apple.security.firewall
+      EnableStealthMode -> r:^1$|^2$|^true$
+    Env:
+      cmd: defaults read /Library/Preferences/com.apple.security.firewall EnableStealthMode
+      re: ^1$|^2$|^true$
+  Verified: true
+- Id: "31009"
+  Title: Ensure Set Time and Date Automatically Is Enabled.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:/usr/sbin/systemsetup -getusingnetworktime -> r:Network Time:\s*\t*On
+    Env:
+      cmd: /usr/sbin/systemsetup -getusingnetworktime
+      re: Network Time:\s*\t*On
+  Verified: true
+- Id: "31010"
+  Title: Ensure Time Is Set Within Appropriate Limits.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: 'c:systemsetup -getnetworktimeserver -> r:Network Time Server:'
+    Env:
+      cmd: systemsetup -getnetworktimeserver
+      re: 'Network Time Server:'
+  Verified: true
+- Id: "31011"
+  Title: Ensure DVD or CD Sharing Is Disabled.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:sh -c "launchctl list | grep -c com.apple.ODSAgent" -> r:^0$
+    Env:
+      cmd: sh -c "launchctl list | grep -c com.apple.ODSAgent"
+      re: ^0$
+  Verified: true
+- Id: "31012"
+  Title: Ensure Screen Sharing Is Disabled.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:sh -c "launchctl list | grep -c com.apple.screensharing" -> r:^0$
+    Env:
+      cmd: sh -c "launchctl list | grep -c com.apple.screensharing"
+      re: ^0$
+  Verified: true
+- Id: "31013"
+  Title: Ensure File Sharing Is Disabled.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:sh -c "launchctl list | grep -c com.apple.smbd" -> r:^0$
+    Env:
+      cmd: sh -c "launchctl list | grep -c com.apple.smbd"
+      re: ^0$
+  Verified: true
+- Id: "31014"
+  Title: Ensure Printer Sharing Is Disabled.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:sh -c "cupsctl | grep _share_printers | cut -d '=' -f2" -> r:^0$
+    Env:
+      cmd: sh -c "cupsctl | grep _share_printers | cut -d '=' -f2"
+      re: ^0$
+  Verified: true
+- Id: "31015"
+  Title: Ensure Remote Login Is Disabled.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:systemsetup -getremotelogin -> r:Remote Login:\s*\t*Off
+    Env:
+      cmd: systemsetup -getremotelogin
+      re: Remote Login:\s*\t*Off
+  Verified: true
+- Id: "31016"
+  Title: Ensure Remote Management Is Disabled.
+  Condition: all
+  Rules:
+  - WhereExpression: 'NOT '
+    OriginalTest: not p:/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/MacOS/ARDAgent
+  Verified: false
+- Id: "31017"
+  Title: Ensure Remote Apple Events Is Disabled.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:systemsetup -getremoteappleevents -> r:Remote Apple Events:\s*\t*Off
+    Env:
+      cmd: systemsetup -getremoteappleevents
+      re: Remote Apple Events:\s*\t*Off
+  Verified: false
+- Id: "31018"
+  Title: Ensure Internet Sharing Is Disabled.
+  Condition: any
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not c:defaults read /Library/Preferences/SystemConfiguration/com.apple.nat
+      -> r:Enabled\s*\t*=\s*\t*1
+    Env:
+      cmd: defaults read /Library/Preferences/SystemConfiguration/com.apple.nat
+      re: Enabled\s*\t*=\s*\t*1
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.MCX').objectForKey('forceInternetSharingOff')"
+      -> r:^true$
+    Env:
+      cmd: osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.MCX').objectForKey('forceInternetSharingOff')"
+      re: ^true$
+  Verified: false
+- Id: "31019"
+  Title: Ensure Content Caching Is Disabled.
+  Condition: any
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.AssetCache').objectForKey('Activated')"
+      -> r:^0$
+    Env:
+      cmd: osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.AssetCache').objectForKey('Activated')"
+      re: ^0$
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.applicationaccess').objectForKey('allowContentCaching')"
+      -> r:^0$|^true$
+    Env:
+      cmd: osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.applicationaccess').objectForKey('allowContentCaching')"
+      re: ^0$|^true$
+  Verified: false
+- Id: "31020"
+  Title: Ensure Backup Automatically is Enabled If Time Machine Is Enabled.
+  Condition: any
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.TimeMachine').objectForKey('AutoBackup')"
+      -> r:^1$
+    Env:
+      cmd: osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.TimeMachine').objectForKey('AutoBackup')"
+      re: ^1$
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not c:osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.TimeMachine').objectForKey('LastDestinationID')"
+      -> r:^\.+$
+    Env:
+      cmd: osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.TimeMachine').objectForKey('LastDestinationID')"
+      re: ^\.+$
+  Verified: false
+- Id: "31021"
+  Title: Ensure Time Machine Volumes Are Encrypted If Time Machine Is Enabled.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: 'c: sh -c "defaults read /Library/Preferences/com.apple.TimeMachine.plist
+      | grep -c NotEncrypted" -> r:^0$'
+    Env:
+      cmd: ' sh -c "defaults read /Library/Preferences/com.apple.TimeMachine.plist
+        | grep -c NotEncrypted"'
+      re: ^0$
+  Verified: false
+- Id: "31022"
+  Title: Ensure Location Services Is Enabled.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:sh -c "launchctl list | grep -c com.apple.locationd" -> r:^1$
+    Env:
+      cmd: sh -c "launchctl list | grep -c com.apple.locationd"
+      re: ^1$
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:sudo -u _locationd /usr/bin/osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.locationd').objectForKey('LocationServicesEnabled')"
+      -> r:^1$
+    Env:
+      cmd: sudo -u _locationd /usr/bin/osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.locationd').objectForKey('LocationServicesEnabled')"
+      re: ^1$
+  Verified: false
+- Id: "31023"
+  Title: Ensure Location Services Is in the Menu Bar.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:defaults read /Library/Preferences/com.apple.locationmenu.plist
+      ShowSystemServices -> r:^1$|^true$
+    Env:
+      cmd: defaults read /Library/Preferences/com.apple.locationmenu.plist ShowSystemServices
+      re: ^1$|^true$
+  Verified: false
+- Id: "31024"
+  Title: Ensure Gatekeeper Is Enabled.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:spctl --status -> r:^assessments enabled
+    Env:
+      cmd: spctl --status
+      re: ^assessments enabled
+  Verified: false
+- Id: "31025"
+  Title: Ensure FileVault Is Enabled.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:fdesetup status -> r:^FileVault is On
+    Env:
+      cmd: fdesetup status
+      re: ^FileVault is On
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:osascript -l JavaScript -e "osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.MCX').objectForKey('dontAllowFDEDisable')"
+      -> r:^0$
+    Env:
+      cmd: osascript -l JavaScript -e "osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.MCX').objectForKey('dontAllowFDEDisable')"
+      re: ^0$
+  Verified: false
+- Id: "31026"
+  Title: Ensure an Administrator Password Is Required to Access System-Wide Preferences.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:security authorizationdb read system.preferences | grep -A1 shared
+      -> r:>false<
+    Env:
+      cmd: security authorizationdb read system.preferences | grep -A1 shared
+      re: '>false<'
+  Verified: false
+- Id: "31027"
+  Title: Ensure Power Nap Is Disabled for Intel Macs.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not c:sh -c "pmset -g custom" -> r:powernap\s*\t*1
+    Env:
+      cmd: sh -c "pmset -g custom"
+      re: powernap\s*\t*1
+  Verified: false
+- Id: "31028"
+  Title: Ensure Wake for Network Access Is Disabled.
+  Condition: any
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:sh -c "pmset -g | grep -e womp" -> r:0
+    Env:
+      cmd: sh -c "pmset -g | grep -e womp"
+      re: "0"
+  - Name: Value
+    ColumnExpression: int(int=CmdOut(cmd=cmd, re=re).g1 || 0)
+    WhereExpression: NOT Value  != 0
+    OriginalTest: not c:sh -c "profiles -P -o stdout | grep 'Wake On LAN'" -> n:=\s*(\d)
+      compare != 0
+    Env:
+      cmd: sh -c "profiles -P -o stdout | grep 'Wake On LAN'"
+      re: =\s*(\d)
+  - Name: Value
+    ColumnExpression: int(int=CmdOut(cmd=cmd, re=re).g1 || 0)
+    WhereExpression: NOT Value  != 0
+    OriginalTest: not c:sh -c "profiles -P -o stdout | grep 'Wake On Modem Ring'"
+      -> n:=\s*(\d) compare != 0
+    Env:
+      cmd: sh -c "profiles -P -o stdout | grep 'Wake On Modem Ring'"
+      re: =\s*(\d)
+  Verified: false
+- Id: "31029"
+  Title: Ensure a Password is Required to Wake the Computer From Sleep or Screen Saver
+    Is Enabled.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: int(int=CmdOut(cmd=cmd, re=re).g1 || 0)
+    WhereExpression: Value  == 1
+    OriginalTest: c:osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.screensaver').objectForKey('askForPassword')"
+      -> n:^(\d+)$ compare == 1
+    Env:
+      cmd: osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.screensaver').objectForKey('askForPassword')"
+      re: ^(\d+)$
+  - Name: Value
+    ColumnExpression: int(int=CmdOut(cmd=cmd, re=re).g1 || 0)
+    WhereExpression: Value  <= 5
+    OriginalTest: c:osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.screensaver').objectForKey('askForPasswordDelay')"
+      -> n:^(\d+)$ compare <= 5
+    Env:
+      cmd: osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.screensaver').objectForKey('askForPasswordDelay')"
+      re: ^(\d+)$
+  Verified: false
+- Id: "31030"
+  Title: Ensure a Custom Message for the Login Screen Is Enabled.
+  Condition: any
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.loginwindow').objectForKey('LoginwindowText')"
+      -> r:^\.+$
+    Env:
+      cmd: osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.loginwindow').objectForKey('LoginwindowText')"
+      re: ^\.+$
+  Verified: false
+- Id: "31031"
+  Title: Ensure Login Window Displays as Name and Password Is Enabled.
+  Condition: any
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.loginwindow').objectForKey('SHOWFULLNAME')"
+      -> r:^1$|^true$
+    Env:
+      cmd: osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.loginwindow').objectForKey('SHOWFULLNAME')"
+      re: ^1$|^true$
+  Verified: false
+- Id: "31032"
+  Title: Ensure Show Password Hints Is Disabled.
+  Condition: any
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.loginwindow').objectForKey('RetriesUntilHint')"
+      -> r:^0$
+    Env:
+      cmd: osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.loginwindow').objectForKey('RetriesUntilHint')"
+      re: ^0$
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not c:osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.loginwindow').objectForKey('RetriesUntilHint')"
+      -> r:\w+
+    Env:
+      cmd: osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.loginwindow').objectForKey('RetriesUntilHint')"
+      re: \w+
+  Verified: false
+- Id: "31033"
+  Title: Ensure Users' Accounts Do Not Have a Password Hint.
+  Condition: none
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not c:dscl . -list /Users hint -> r:^\w*$
+    Env:
+      cmd: dscl . -list /Users hint
+      re: ^\w*$
+  Verified: false
+- Id: "31034"
+  Title: Ensure Guest Account Is Disabled.
+  Condition: any
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.MCX').objectForKey('DisableGuestAccount')"
+      -> r:^1$
+    Env:
+      cmd: osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.MCX').objectForKey('DisableGuestAccount')"
+      re: ^1$
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.loginwindow').objectForKey('GuestEnabled')"
+      -> r:^0$
+    Env:
+      cmd: osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.loginwindow').objectForKey('GuestEnabled')"
+      re: ^0$
+  Verified: false
+- Id: "31035"
+  Title: Ensure Guest Access to Shared Folders Is Disabled.
+  Condition: any
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:sysadminctl -smbGuestAccess status -> r:SMB guest access disabled
+    Env:
+      cmd: sysadminctl -smbGuestAccess status
+      re: SMB guest access disabled
+  Verified: false
+- Id: "31036"
+  Title: Ensure Automatic Login Is Disabled.
+  Condition: any
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.loginwindow').objectForKey('com.apple.login.mcx.DisableAutoLoginClient')"
+      -> r:^1$
+    Env:
+      cmd: osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.loginwindow').objectForKey('com.apple.login.mcx.DisableAutoLoginClient')"
+      re: ^1$
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not c:osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.loginwindow').objectForKey('autoLoginUser')"
+      -> r:^\.+$
+    Env:
+      cmd: osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.loginwindow').objectForKey('autoLoginUser')"
+      re: ^\.+$
+  Verified: false
+- Id: "31037"
+  Title: Ensure Security Auditing Is Enabled.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:launchctl list -> r:com.apple.auditd
+    Env:
+      cmd: launchctl list
+      re: com.apple.auditd
+  Verified: false
+- Id: "31038"
+  Title: Ensure Security Auditing Flags For User-Attributable Events Are Configured
+    Per Local Organizational Requirements.
+  Condition: any
+  Rules:
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/security/audit_control -> r:^flags && r:-fm && r:-ex && r:ad
+      && r:aa && r:lo && r:-fr && r:-fw
+    Env:
+      f: /etc/security/audit_control
+      re: ^flags && r:-fm && r:-ex && r:ad && r:aa && r:lo && r:-fr && r:-fw
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/security/audit_control -> r:^flags && r:-all && r:ad && r:aa
+      && r:lo
+    Env:
+      f: /etc/security/audit_control
+      re: ^flags && r:-all && r:ad && r:aa && r:lo
+  Verified: false
+- Id: "31039"
+  Title: Ensure install.log Is Retained for 365 or More Days and No Maximum Size.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/asl/com.apple.install -> n:^\s*ttl=(\d+) compare > 364
+    Env:
+      f: /etc/asl/com.apple.install -> n:^\s*ttl=(\d+) compare > 364
+      re: ..
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not f:/etc/asl/com.apple.install -> r:^\s*all_max=
+    Env:
+      f: /etc/asl/com.apple.install
+      re: ^\s*all_max=
+  Verified: false
+- Id: "31040"
+  Title: Ensure Security Auditing Retention Is Enabled.
+  Condition: any
+  Rules:
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/security/audit_control -> n:^expire-after:\s*(\d+)s OR \d+\w
+      compare => 5184000
+    Env:
+      f: /etc/security/audit_control -> n:^expire-after:\s*(\d+)s OR \d+\w compare
+        => 5184000
+      re: ..
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/security/audit_control -> n:^expire-after:\s*(\d+)h OR \d+\w
+      compare => 1440
+    Env:
+      f: /etc/security/audit_control -> n:^expire-after:\s*(\d+)h OR \d+\w compare
+        => 1440
+      re: ..
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/security/audit_control -> n:^expire-after:\s*(\d+)d OR \d+\w
+      compare => 60
+    Env:
+      f: /etc/security/audit_control -> n:^expire-after:\s*(\d+)d OR \d+\w compare
+        => 60
+      re: ..
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/security/audit_control -> n:^expire-after:\s*(\d+)y OR \d+\w
+      compare => 1
+    Env:
+      f: /etc/security/audit_control -> n:^expire-after:\s*(\d+)y OR \d+\w compare
+        => 1
+      re: ..
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/security/audit_control -> n:^expire-after:\s*\d+\w OR (\d+)b
+      compare => 5368709120
+    Env:
+      f: /etc/security/audit_control -> n:^expire-after:\s*\d+\w OR (\d+)b compare
+        => 5368709120
+      re: ..
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/security/audit_control -> n:^expire-after:\s*\d+\w OR (\d+)k
+      compare => 5242880
+    Env:
+      f: /etc/security/audit_control -> n:^expire-after:\s*\d+\w OR (\d+)k compare
+        => 5242880
+      re: ..
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/security/audit_control -> n:^expire-after:\s*\d+\w OR (\d+)m
+      compare => 5120
+    Env:
+      f: /etc/security/audit_control -> n:^expire-after:\s*\d+\w OR (\d+)m compare
+        => 5120
+      re: ..
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/security/audit_control -> n:^expire-after:\s*\d+\w OR (\d+)g
+      compare => 5
+    Env:
+      f: /etc/security/audit_control -> n:^expire-after:\s*\d+\w OR (\d+)g compare
+        => 5
+      re: ..
+  Verified: false
+- Id: "31041"
+  Title: Ensure Bonjour Advertising Services Is Disabled.
+  Condition: any
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.mDNSResponder').objectForKey('NoMulticastAdvertisements')"
+      -> r:^1$
+    Env:
+      cmd: osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.mDNSResponder').objectForKey('NoMulticastAdvertisements')"
+      re: ^1$
+  Verified: false
+- Id: "31042"
+  Title: Ensure HTTP Server Is Disabled.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not c:launchctl list -> r:org.apache.httpd
+    Env:
+      cmd: launchctl list
+      re: org.apache.httpd
+  Verified: false
+- Id: "31043"
+  Title: Ensure NFS Server Is Disabled.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not c:launchctl list -> r:com.apple.nfsd
+    Env:
+      cmd: launchctl list
+      re: com.apple.nfsd
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not f:/etc/exports
+    Env:
+      f: /etc/exports
+      re: ..
+  Verified: false
+- Id: "31044"
+  Title: Ensure Home Folders Are Secure.
+  Condition: any
+  Rules:
+  - WhereExpression: 'NOT '
+    OriginalTest: not c:sh -c "ls -l /Users | grep -v total" -> !r:^drwx------ &&
+      !r:^drwx--x--x
+  Verified: false
+- Id: "31045"
+  Title: Ensure System Integrity Protection Status (SIP) Is Enabled.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: 'c:csrutil status -> r:^System Integrity Protection status: enabled.'
+    Env:
+      cmd: csrutil status
+      re: '^System Integrity Protection status: enabled.'
+  Verified: false
+- Id: "31046"
+  Title: Ensure Apple Mobile File Integrity (AMFI) Is Enabled.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not c:nvram -p -> r:amfi_get_out_of_my_way=1
+    Env:
+      cmd: nvram -p
+      re: amfi_get_out_of_my_way=1
+  Verified: false
+- Id: "31047"
+  Title: Ensure Sealed System Volume (SSV) Is Enabled.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: 'c:csrutil authenticated-root status -> r:^Authenticated Root status:
+      enabled'
+    Env:
+      cmd: csrutil authenticated-root status
+      re: '^Authenticated Root status: enabled'
+  Verified: false
+- Id: "31048"
+  Title: Ensure Password Account Lockout Threshold Is Configured.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: int(int=CmdOut(cmd=cmd, re=re).g1 || 0)
+    WhereExpression: Value  < 6
+    OriginalTest: c:pwpolicy -n /Local/Default -getglobalpolicy -> n:maxFailedLoginAttempts=(\d+)
+      compare < 6
+    Env:
+      cmd: pwpolicy -n /Local/Default -getglobalpolicy
+      re: maxFailedLoginAttempts=(\d+)
+  Verified: false
+- Id: "31049"
+  Title: Ensure Password Minimum Length Is Configured.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: int(int=CmdOut(cmd=cmd, re=re).g1 || 0)
+    WhereExpression: Value  > 14
+    OriginalTest: c:pwpolicy -n /Local/Default -getglobalpolicy -> n:minChars=(\d+)
+      compare > 14
+    Env:
+      cmd: pwpolicy -n /Local/Default -getglobalpolicy
+      re: minChars=(\d+)
+  Verified: false
+- Id: "31050"
+  Title: Ensure Complex Password Must Contain Alphabetic Characters Is Configured.
+  Condition: any
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:pwpolicy -getaccountpolicies -> r:Contain at least one number
+      and one alphabetic character.
+    Env:
+      cmd: pwpolicy -getaccountpolicies
+      re: Contain at least one number and one alphabetic character.
+  - Name: Value
+    ColumnExpression: int(int=CmdOut(cmd=cmd, re=re).g1 || 0)
+    WhereExpression: Value  >= 1
+    OriginalTest: c:sh  -c "pwpolicy -getaccountpolicies | grep -A1 minimumLetters
+      " -> n:>(\d+)< compare >= 1
+    Env:
+      cmd: sh  -c "pwpolicy -getaccountpolicies | grep -A1 minimumLetters "
+      re: '>(\d+)<'
+  Verified: false
+- Id: "31051"
+  Title: Ensure Complex Password Must Contain Numeric Character Is Configured.
+  Condition: any
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:pwpolicy -getaccountpolicies -> r:Contain at least one number
+      and one alphabetic character.
+    Env:
+      cmd: pwpolicy -getaccountpolicies
+      re: Contain at least one number and one alphabetic character.
+  - Name: Value
+    ColumnExpression: int(int=CmdOut(cmd=cmd, re=re).g1 || 0)
+    WhereExpression: Value  >= 1
+    OriginalTest: c:sh  -c "pwpolicy -getaccountpolicies | grep -A1 minimumNumericCharacters
+      " -> n:>(\d+)< compare >= 1
+    Env:
+      cmd: sh  -c "pwpolicy -getaccountpolicies | grep -A1 minimumNumericCharacters
+        "
+      re: '>(\d+)<'
+  Verified: false
+- Id: "31052"
+  Title: Ensure Complex Password Must Contain Uppercase and Lowercase Characters Is
+    Configured.
+  Condition: any
+  Rules:
+  - Name: Value
+    ColumnExpression: int(int=CmdOut(cmd=cmd, re=re).g1 || 0)
+    WhereExpression: Value  >= 1
+    OriginalTest: c:sh  -c "pwpolicy -getaccountpolicies | grep -A1 minimumMixedCaseCharacters
+      " -> n:>(\d+)< compare >= 1
+    Env:
+      cmd: sh  -c "pwpolicy -getaccountpolicies | grep -A1 minimumMixedCaseCharacters
+        "
+      re: '>(\d+)<'
+  Verified: false
+- Id: "31053"
+  Title: Ensure Password Age Is Configured.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: int(int=CmdOut(cmd=cmd, re=re).g1 || 0)
+    WhereExpression: Value  < 525601
+    OriginalTest: c:pwpolicy -n /Local/Default -getglobalpolicy -> n:maxMinutesUntilChangePassword=(\d+)
+      compare < 525601
+    Env:
+      cmd: pwpolicy -n /Local/Default -getglobalpolicy
+      re: maxMinutesUntilChangePassword=(\d+)
+  Verified: false
+- Id: "31054"
+  Title: Ensure Password History Is Configured.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: int(int=CmdOut(cmd=cmd, re=re).g1 || 0)
+    WhereExpression: Value  > 14
+    OriginalTest: c:pwpolicy -n /Local/Default -getglobalpolicy -> n:usingHistory=(\d+)
+      compare > 14
+    Env:
+      cmd: pwpolicy -n /Local/Default -getglobalpolicy
+      re: usingHistory=(\d+)
+  Verified: false
+- Id: "31055"
+  Title: Ensure the Sudo Timeout Period Is Set to Zero.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: 'c:sudo -V -> r:Authentication timestamp timeout: 0.0 minutes'
+    Env:
+      cmd: sudo -V
+      re: 'Authentication timestamp timeout: 0.0 minutes'
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:stat /etc/sudoers.d -> r:root wheel
+    Env:
+      cmd: stat /etc/sudoers.d
+      re: root wheel
+  Verified: false
+- Id: "31056"
+  Title: Ensure a Separate Timestamp Is Enabled for Each User/tty Combo.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: 'c:sudo -V -> r:Type of authentication timestamp record: tty'
+    Env:
+      cmd: sudo -V
+      re: 'Type of authentication timestamp record: tty'
+  Verified: false
+- Id: "31057"
+  Title: Ensure the "root" Account Is Disabled.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: 'c:dscl . -read /Users/root AuthenticationAuthority -> r:^No such
+      key: AuthenticationAuthority'
+    Env:
+      cmd: dscl . -read /Users/root AuthenticationAuthority
+      re: '^No such key: AuthenticationAuthority'
+  Verified: false
+- Id: "31058"
+  Title: Ensure an Administrator Account Cannot Login to Another User's Active and
+    Locked Session.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:security authorizationdb read system.login.screensaver -> r:use-login-window-ui
+    Env:
+      cmd: security authorizationdb read system.login.screensaver
+      re: use-login-window-ui
+  Verified: false
+- Id: "31059"
+  Title: Ensure a Login Window Banner Exists.
+  Condition: all
+  Rules:
+  - OriginalTest: d:/Library/Security -> r:^PolicyBanner
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:stat -f %A /Library/Security/PolicyBanner.* -> r:\d\d4
+    Env:
+      cmd: stat -f %A /Library/Security/PolicyBanner.*
+      re: \d\d4
+  Verified: false
+- Id: "31060"
+  Title: Ensure the Guest Home Folder Does Not Exist.
+  Condition: all
+  Rules:
+  - WhereExpression: 'NOT '
+    OriginalTest: not d:/Users/Guest
+  Verified: false

@@ -1,0 +1,5899 @@
+Source: cis_debian11.yml
+ArtifactName: Linux.Audit.CISDebian11
+Precondition: |
+  SELECT * FROM info() WHERE OS =~ "linux"
+Description: |
+  This artifact was generated from the Wahzu SCA project.
+
+  Using the file cis_debian11.yml.
+Type: SCA
+Checks:
+- Id: "29500"
+  Title: Ensure /tmp is a separate partition.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:findmnt --kernel /tmp -> r:^/tmp\s+
+    Env:
+      cmd: findmnt --kernel /tmp
+      re: ^/tmp\s+
+    Context: CmdContext(cmd=cmd, re=re)
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:systemctl is-enabled tmp.mount -> r:enabled|generated
+    Env:
+      cmd: systemctl is-enabled tmp.mount
+      re: enabled|generated
+    Context: CmdContext(cmd=cmd, re=re)
+  Verified: true
+- Id: "29501"
+  Title: Ensure nodev option set on /tmp partition.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:findmnt --kernel /tmp -> r:^/tmp\s+ && r:nodev
+    Env:
+      cmd: findmnt --kernel /tmp
+      re: ^/tmp\s+
+    Context: CmdContext(cmd=cmd, re=re)
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:findmnt --kernel /tmp -> r:^/tmp\s+ && r:nodev
+    Env:
+      cmd: findmnt --kernel /tmp
+      re: nodev
+    Context: CmdContext(cmd=cmd, re=re)
+  Verified: true
+- Id: "29502"
+  Title: Ensure noexec option set on /tmp partition.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:findmnt --kernel /tmp -> r:^/tmp\s+ && r:noexec
+    Env:
+      cmd: findmnt --kernel /tmp
+      re: ^/tmp\s+
+    Context: CmdContext(cmd=cmd, re=re)
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:findmnt --kernel /tmp -> r:^/tmp\s+ && r:noexec
+    Env:
+      cmd: findmnt --kernel /tmp
+      re: noexec
+    Context: CmdContext(cmd=cmd, re=re)
+  Verified: true
+- Id: "29503"
+  Title: Ensure nosuid option set on /tmp partition.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:findmnt --kernel /tmp -> r:^/tmp\s+ && r:nosuid
+    Env:
+      cmd: findmnt --kernel /tmp
+      re: ^/tmp\s+
+    Context: CmdContext(cmd=cmd, re=re)
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:findmnt --kernel /tmp -> r:^/tmp\s+ && r:nosuid
+    Env:
+      cmd: findmnt --kernel /tmp
+      re: nosuid
+    Context: CmdContext(cmd=cmd, re=re)
+  Verified: true
+- Id: "29504"
+  Title: Ensure separate partition exists for /var.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:findmnt --kernel /var -> r:^/var\s+
+    Env:
+      cmd: findmnt --kernel /var
+      re: ^/var\s+
+    Context: CmdContext(cmd=cmd, re=re)
+  Verified: true
+- Id: "29505"
+  Title: Ensure nodev option set on /var partition.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:findmnt --kernel /var -> r:^/var\s+ && r:nodev
+    Env:
+      cmd: findmnt --kernel /var
+      re: ^/var\s+
+    Context: CmdContext(cmd=cmd, re=re)
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:findmnt --kernel /var -> r:^/var\s+ && r:nodev
+    Env:
+      cmd: findmnt --kernel /var
+      re: nodev
+    Context: CmdContext(cmd=cmd, re=re)
+  Verified: true
+- Id: "29506"
+  Title: Ensure nosuid option set on /var partition.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:findmnt --kernel /var -> r:^/var\s+ && r:nosuid
+    Env:
+      cmd: findmnt --kernel /var
+      re: ^/var\s+
+    Context: CmdContext(cmd=cmd, re=re)
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:findmnt --kernel /var -> r:^/var\s+ && r:nosuid
+    Env:
+      cmd: findmnt --kernel /var
+      re: nosuid
+    Context: CmdContext(cmd=cmd, re=re)
+  Verified: true
+- Id: "29507"
+  Title: Ensure separate partition exists for /var/tmp.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:findmnt --kernel /var/tmp -> r:^/var/tmp\s+
+    Env:
+      cmd: findmnt --kernel /var/tmp
+      re: ^/var/tmp\s+
+    Context: CmdContext(cmd=cmd, re=re)
+  Verified: true
+- Id: "29508"
+  Title: Ensure noexec option set on /var/tmp partition.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:findmnt --kernel /var/tmp -> r:^/var/tmp\s+ && r:noexec
+    Env:
+      cmd: findmnt --kernel /var/tmp
+      re: ^/var/tmp\s+
+    Context: CmdContext(cmd=cmd, re=re)
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:findmnt --kernel /var/tmp -> r:^/var/tmp\s+ && r:noexec
+    Env:
+      cmd: findmnt --kernel /var/tmp
+      re: noexec
+    Context: CmdContext(cmd=cmd, re=re)
+  Verified: true
+- Id: "29509"
+  Title: Ensure nosuid option set on /var/tmp partition.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:findmnt --kernel /var/tmp -> r:^/var/tmp\s+ && r:nosuid
+    Env:
+      cmd: findmnt --kernel /var/tmp
+      re: ^/var/tmp\s+
+    Context: CmdContext(cmd=cmd, re=re)
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:findmnt --kernel /var/tmp -> r:^/var/tmp\s+ && r:nosuid
+    Env:
+      cmd: findmnt --kernel /var/tmp
+      re: nosuid
+    Context: CmdContext(cmd=cmd, re=re)
+  Verified: true
+- Id: "29510"
+  Title: Ensure nodev option set on /var/tmp partition.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:findmnt --kernel /var/tmp -> r:^/var/tmp\s+ && r:nodev
+    Env:
+      cmd: findmnt --kernel /var/tmp
+      re: ^/var/tmp\s+
+    Context: CmdContext(cmd=cmd, re=re)
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:findmnt --kernel /var/tmp -> r:^/var/tmp\s+ && r:nodev
+    Env:
+      cmd: findmnt --kernel /var/tmp
+      re: nodev
+    Context: CmdContext(cmd=cmd, re=re)
+  Verified: true
+- Id: "29511"
+  Title: Ensure separate partition exists for /var/log.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:findmnt --kernel /var/log -> r:^/var/log\s+
+    Env:
+      cmd: findmnt --kernel /var/log
+      re: ^/var/log\s+
+    Context: CmdContext(cmd=cmd, re=re)
+  Verified: true
+- Id: "29512"
+  Title: Ensure nodev option set on /var/log partition.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:findmnt --kernel /var/log -> r:^/var/log\s+ && r:nodev
+    Env:
+      cmd: findmnt --kernel /var/log
+      re: ^/var/log\s+
+    Context: CmdContext(cmd=cmd, re=re)
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:findmnt --kernel /var/log -> r:^/var/log\s+ && r:nodev
+    Env:
+      cmd: findmnt --kernel /var/log
+      re: nodev
+    Context: CmdContext(cmd=cmd, re=re)
+  Verified: true
+- Id: "29513"
+  Title: Ensure noexec option set on /var/log partition.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:findmnt --kernel /var/log -> r:^/var/log\s+ && r:noexec
+    Env:
+      cmd: findmnt --kernel /var/log
+      re: ^/var/log\s+
+    Context: CmdContext(cmd=cmd, re=re)
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:findmnt --kernel /var/log -> r:^/var/log\s+ && r:noexec
+    Env:
+      cmd: findmnt --kernel /var/log
+      re: noexec
+    Context: CmdContext(cmd=cmd, re=re)
+  Verified: true
+- Id: "29514"
+  Title: Ensure nosuid option set on /var/log partition.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:findmnt --kernel /var/log -> r:^/var/log\s+ && r:nosuid
+    Env:
+      cmd: findmnt --kernel /var/log
+      re: ^/var/log\s+
+    Context: CmdContext(cmd=cmd, re=re)
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:findmnt --kernel /var/log -> r:^/var/log\s+ && r:nosuid
+    Env:
+      cmd: findmnt --kernel /var/log
+      re: nosuid
+    Context: CmdContext(cmd=cmd, re=re)
+  Verified: true
+- Id: "29515"
+  Title: Ensure separate partition exists for /var/log/audit.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:findmnt --kernel /var/log/audit -> r:^/var/log/audit\s+
+    Env:
+      cmd: findmnt --kernel /var/log/audit
+      re: ^/var/log/audit\s+
+    Context: CmdContext(cmd=cmd, re=re)
+  Verified: true
+- Id: "29516"
+  Title: Ensure noexec option set on /var/log/audit partition.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:findmnt --kernel /var/log/audit -> r:^/var/log/audit && r:noexec
+    Env:
+      cmd: findmnt --kernel /var/log/audit
+      re: ^/var/log/audit
+    Context: CmdContext(cmd=cmd, re=re)
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:findmnt --kernel /var/log/audit -> r:^/var/log/audit && r:noexec
+    Env:
+      cmd: findmnt --kernel /var/log/audit
+      re: noexec
+    Context: CmdContext(cmd=cmd, re=re)
+  Verified: true
+- Id: "29517"
+  Title: Ensure nodev option set on /var/log/audit partition.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:findmnt --kernel /var/log/audit -> r:^/var/log/audit && r:nodev
+    Env:
+      cmd: findmnt --kernel /var/log/audit
+      re: ^/var/log/audit
+    Context: CmdContext(cmd=cmd, re=re)
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:findmnt --kernel /var/log/audit -> r:^/var/log/audit && r:nodev
+    Env:
+      cmd: findmnt --kernel /var/log/audit
+      re: nodev
+    Context: CmdContext(cmd=cmd, re=re)
+  Verified: true
+- Id: "29518"
+  Title: Ensure nosuid option set on /var/log/audit partition.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:findmnt --kernel /var/log/audit -> r:^/var/log/audit && r:nosuid
+    Env:
+      cmd: findmnt --kernel /var/log/audit
+      re: ^/var/log/audit
+    Context: CmdContext(cmd=cmd, re=re)
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:findmnt --kernel /var/log/audit -> r:^/var/log/audit && r:nosuid
+    Env:
+      cmd: findmnt --kernel /var/log/audit
+      re: nosuid
+    Context: CmdContext(cmd=cmd, re=re)
+  Verified: true
+- Id: "29519"
+  Title: Ensure separate partition exists for /home.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:findmnt --kernel /home -> r:^/home\s+
+    Env:
+      cmd: findmnt --kernel /home
+      re: ^/home\s+
+    Context: CmdContext(cmd=cmd, re=re)
+  Verified: true
+- Id: "29520"
+  Title: Ensure nodev option set on /home partition.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:findmnt --kernel /home -> r:^/home\s+ && r:nodev
+    Env:
+      cmd: findmnt --kernel /home
+      re: ^/home\s+
+    Context: CmdContext(cmd=cmd, re=re)
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:findmnt --kernel /home -> r:^/home\s+ && r:nodev
+    Env:
+      cmd: findmnt --kernel /home
+      re: nodev
+    Context: CmdContext(cmd=cmd, re=re)
+  Verified: true
+- Id: "29521"
+  Title: Ensure nosuid option set on /home partition.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:findmnt --kernel /home -> r:^/home\s+ && r:nosuid
+    Env:
+      cmd: findmnt --kernel /home
+      re: ^/home\s+
+    Context: CmdContext(cmd=cmd, re=re)
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:findmnt --kernel /home -> r:^/home\s+ && r:nosuid
+    Env:
+      cmd: findmnt --kernel /home
+      re: nosuid
+    Context: CmdContext(cmd=cmd, re=re)
+  Verified: true
+- Id: "29522"
+  Title: Ensure nodev option set on /dev/shm partition.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:findmnt --kernel /dev/shm -> r:^/dev/shm\s+ && r:nodev
+    Env:
+      cmd: findmnt --kernel /dev/shm
+      re: ^/dev/shm\s+
+    Context: CmdContext(cmd=cmd, re=re)
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:findmnt --kernel /dev/shm -> r:^/dev/shm\s+ && r:nodev
+    Env:
+      cmd: findmnt --kernel /dev/shm
+      re: nodev
+    Context: CmdContext(cmd=cmd, re=re)
+  Verified: true
+- Id: "29523"
+  Title: Ensure noexec option set on /dev/shm partition.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:findmnt --kernel /dev/shm -> r:^/dev/shm && r:noexec
+    Env:
+      cmd: findmnt --kernel /dev/shm
+      re: ^/dev/shm
+    Context: CmdContext(cmd=cmd, re=re)
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:findmnt --kernel /dev/shm -> r:^/dev/shm && r:noexec
+    Env:
+      cmd: findmnt --kernel /dev/shm
+      re: noexec
+    Context: CmdContext(cmd=cmd, re=re)
+  Verified: true
+- Id: "29524"
+  Title: Ensure nosuid option set on /dev/shm partition.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:findmnt --kernel /dev/shm -> r:^/dev/shm && r:nosuid
+    Env:
+      cmd: findmnt --kernel /dev/shm
+      re: ^/dev/shm
+    Context: CmdContext(cmd=cmd, re=re)
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:findmnt --kernel /dev/shm -> r:^/dev/shm && r:nosuid
+    Env:
+      cmd: findmnt --kernel /dev/shm
+      re: nosuid
+    Context: CmdContext(cmd=cmd, re=re)
+  Verified: true
+- Id: "29525"
+  Title: Disable Automounting.
+  Condition: any
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: 'c:systemctl is-enabled autofs -> r:Failed to get unit file state
+      for autofs.service: No such file or directory'
+    Env:
+      cmd: systemctl is-enabled autofs
+      re: 'Failed to get unit file state for autofs.service: No such file or directory'
+    Context: CmdContext(cmd=cmd, re=re)
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:systemctl is-enabled autofs -> r:disabled
+    Env:
+      cmd: systemctl is-enabled autofs
+      re: disabled
+    Context: CmdContext(cmd=cmd, re=re)
+  Verified: true
+- Id: "29526"
+  Title: Ensure AIDE is installed.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+      aide -> r:install ok installed
+    Env:
+      cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+        aide
+      re: install ok installed
+    Context: CmdContext(cmd=cmd, re=re)
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+      aide-common -> r:install ok installed
+    Env:
+      cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+        aide-common
+      re: install ok installed
+    Context: CmdContext(cmd=cmd, re=re)
+  Verified: true
+- Id: "29527"
+  Title: Ensure filesystem integrity is regularly checked.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:systemctl is-enabled aidecheck.service -> r:enabled
+    Env:
+      cmd: systemctl is-enabled aidecheck.service
+      re: enabled
+    Context: CmdContext(cmd=cmd, re=re)
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:systemctl is-enabled aidecheck.timer -> r:enabled
+    Env:
+      cmd: systemctl is-enabled aidecheck.timer
+      re: enabled
+    Context: CmdContext(cmd=cmd, re=re)
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:systemctl status aidecheck.timer -> r:active
+    Env:
+      cmd: systemctl status aidecheck.timer
+      re: active
+    Context: CmdContext(cmd=cmd, re=re)
+  Verified: true
+- Id: "29528"
+  Title: Ensure bootloader password is set.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/boot/grub/grub.cfg -> r:^\s*\t*set superusers
+    Env:
+      f: /boot/grub/grub.cfg
+      re: ^\s*\t*set superusers
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/boot/grub/grub.cfg -> r:^\s*\t*password
+    Env:
+      f: /boot/grub/grub.cfg
+      re: ^\s*\t*password
+  Verified: true
+- Id: "29529"
+  Title: Ensure permissions on bootloader config are configured.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:stat -L /boot/grub/grub.cfg -> r:Access:\s*\(0400/-r--------\)\s*Uid:\s*\(\s*\t*0/\s*\t*root\)\s*\t*Gid:\s*\(\s*\t*0/\s*\t*root\)
+    Env:
+      cmd: stat -L /boot/grub/grub.cfg
+      re: Access:\s*\(0400/-r--------\)\s*Uid:\s*\(\s*\t*0/\s*\t*root\)\s*\t*Gid:\s*\(\s*\t*0/\s*\t*root\)
+    Context: CmdContext(cmd=cmd, re=re)
+  Verified: true
+- Id: "29530"
+  Title: Ensure authentication required for single user mode.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/shadow -> r:^root:\$\w
+    Env:
+      f: /etc/shadow
+      re: ^root:\$\w
+  Verified: true
+- Id: "29531"
+  Title: Ensure prelink is not installed.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: 'c:dpkg-query -W -f=''${binary:Package}\t${Status}\t${db:Status-Status}\n''
+      prelink -> r:dpkg-query: no packages found matching prelink'
+    Env:
+      cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+        prelink
+      re: 'dpkg-query: no packages found matching prelink'
+    Context: CmdContext(cmd=cmd, re=re)
+  Verified: true
+- Id: "29532"
+  Title: Ensure Automatic Error Reporting is not enabled.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:systemctl is-active apport.service -> r:inactive
+    Env:
+      cmd: systemctl is-active apport.service
+      re: inactive
+    Context: CmdContext(cmd=cmd, re=re)
+  Verified: true
+- Id: "29533"
+  Title: Ensure core dumps are restricted.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:sysctl fs.suid_dumpable -> r:^fs.suid_dumpable = 0
+    Env:
+      cmd: sysctl fs.suid_dumpable
+      re: ^fs.suid_dumpable = 0
+    Context: CmdContext(cmd=cmd, re=re)
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:grep -Rh fs\.suid_dumpable /etc/sysctl.conf /etc/sysctl.d -> r:^fs.suid_dumpable
+      = 0
+    Env:
+      cmd: grep -Rh fs\.suid_dumpable /etc/sysctl.conf /etc/sysctl.d
+      re: ^fs.suid_dumpable = 0
+    Context: CmdContext(cmd=cmd, re=re)
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:grep -Rh ^*[[:space:]]*hard[[:space:]][[:space:]]*core[[:space:]][[:space:]]*
+      /etc/security/limits.conf /etc/security/limits.d -> r:^* hard core 0
+    Env:
+      cmd: grep -Rh ^*[[:space:]]*hard[[:space:]][[:space:]]*core[[:space:]][[:space:]]*
+        /etc/security/limits.conf /etc/security/limits.d
+      re: ^* hard core 0
+    Context: CmdContext(cmd=cmd, re=re)
+  Verified: true
+- Id: "29534"
+  Title: Ensure AppArmor is installed.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+      apparmor -> r:install ok installed
+    Env:
+      cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+        apparmor
+      re: install ok installed
+    Context: CmdContext(cmd=cmd, re=re)
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+      apparmor-utils -> r:install ok installed
+    Env:
+      cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+        apparmor-utils
+      re: install ok installed
+    Context: CmdContext(cmd=cmd, re=re)
+  Verified: true
+- Id: "29535"
+  Title: Ensure AppArmor is enabled in the bootloader configuration.
+  Condition: none
+  Rules:
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/boot/grub/grub.cfg -> r:^\s*\t*linux && !r:apparmor=1
+    Env:
+      f: /boot/grub/grub.cfg
+      re: ^\s*\t*linux && !r:apparmor=1
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/boot/grub/grub.cfg -> r:^\s*\t*linux && !r:security=apparmor
+    Env:
+      f: /boot/grub/grub.cfg
+      re: ^\s*\t*linux && !r:security=apparmor
+  Verified: false
+- Id: "29536"
+  Title: Ensure all AppArmor Profiles are in enforce or complain mode.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:apparmor_status -> r:^0\s*processes are unconfined
+    Env:
+      cmd: apparmor_status
+      re: ^0\s*processes are unconfined
+    Context: CmdContext(cmd=cmd, re=re)
+  Verified: true
+- Id: "29537"
+  Title: Ensure all AppArmor Profiles are enforcing.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: int(int=CmdOut(cmd=cmd, re=re).g1 || 0)
+    WhereExpression: Value  > 0
+    OriginalTest: c:apparmor_status -> n:^(\d+)\s*profiles are loaded compare > 0
+    Env:
+      cmd: apparmor_status
+      re: ^(\d+)\s*profiles are loaded
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:apparmor_status -> r:^0\s*profiles are in complain mode
+    Env:
+      cmd: apparmor_status
+      re: ^0\s*profiles are in complain mode
+    Context: CmdContext(cmd=cmd, re=re)
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:apparmor_status -> r:^0\s*processes are unconfined
+    Env:
+      cmd: apparmor_status
+      re: ^0\s*processes are unconfined
+    Context: CmdContext(cmd=cmd, re=re)
+  Verified: true
+- Id: "29538"
+  Title: Ensure message of the day is configured properly.
+  Condition: any
+  Rules:
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not f:/etc/motd
+    Env:
+      f: /etc/motd
+      re: ..
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not f:/etc/motd -> r:\\v|\\r|\\m|\\s|Debian|Ubuntu
+    Env:
+      f: /etc/motd
+      re: \\v|\\r|\\m|\\s|Debian|Ubuntu
+  Verified: false
+- Id: "29539"
+  Title: Ensure local login warning banner is configured properly.
+  Condition: none
+  Rules:
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/issue -> r:\\v|\\r|\\m|\\s|Debian|Ubuntu
+    Env:
+      f: /etc/issue
+      re: \\v|\\r|\\m|\\s|Debian|Ubuntu
+  Verified: false
+- Id: "29540"
+  Title: Ensure remote login warning banner is configured properly.
+  Condition: none
+  Rules:
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/issue.net -> r:\\v|\\r|\\m|\\s|Debian|Ubuntu
+    Env:
+      f: /etc/issue.net
+      re: \\v|\\r|\\m|\\s|Debian|Ubuntu
+  Verified: false
+- Id: "29541"
+  Title: Ensure permissions on /etc/motd are configured.
+  Condition: any
+  Rules:
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not f:/etc/motd
+    Env:
+      f: /etc/motd
+      re: ..
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:stat -L /etc/motd -> r:Access:\s*\(0644/-rw-r--r--\)\s*Uid:\s*\(\s*\t*0/\s*\t*root\)\s*\t*Gid:\s*\(\s*\t*0/\s*\t*root\)
+    Env:
+      cmd: stat -L /etc/motd
+      re: Access:\s*\(0644/-rw-r--r--\)\s*Uid:\s*\(\s*\t*0/\s*\t*root\)\s*\t*Gid:\s*\(\s*\t*0/\s*\t*root\)
+  Verified: false
+- Id: "29542"
+  Title: Ensure permissions on /etc/issue are configured.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:stat -L /etc/issue -> r:Access:\s*\(0644/-rw-r--r--\)\s*Uid:\s*\(\s*\t*0/\s*\t*root\)\s*\t*Gid:\s*\(\s*\t*0/\s*\t*root\)
+    Env:
+      cmd: stat -L /etc/issue
+      re: Access:\s*\(0644/-rw-r--r--\)\s*Uid:\s*\(\s*\t*0/\s*\t*root\)\s*\t*Gid:\s*\(\s*\t*0/\s*\t*root\)
+  Verified: false
+- Id: "29543"
+  Title: Ensure permissions on /etc/issue.net are configured.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:stat -L /etc/issue.net -> r:Access:\s*\(0644/-rw-r--r--\)\s*Uid:\s*\(\s*\t*0/\s*\t*root\)\s*\t*Gid:\s*\(\s*\t*0/\s*\t*root\)
+    Env:
+      cmd: stat -L /etc/issue.net
+      re: Access:\s*\(0644/-rw-r--r--\)\s*Uid:\s*\(\s*\t*0/\s*\t*root\)\s*\t*Gid:\s*\(\s*\t*0/\s*\t*root\)
+  Verified: false
+- Id: "29544"
+  Title: Ensure GNOME Display Manager is removed.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: 'c:dpkg-query -W -f=''${binary:Package}\t${Status}\t${db:Status-Status}\n''
+      gdm3 -> r:unknown ok not-installed|dpkg-query: no packages found matching gdm3'
+    Env:
+      cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+        gdm3
+      re: 'unknown ok not-installed|dpkg-query: no packages found matching gdm3'
+  Verified: false
+- Id: "29545"
+  Title: Ensure XDCMP is not enabled.
+  Condition: any
+  Rules:
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not f:/etc/gdm3/custom.conf
+    Env:
+      f: /etc/gdm3/custom.conf
+      re: ..
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not f:/etc/gdm3/custom.conf -> r:^\s*Enable\s*=\s*true
+    Env:
+      f: /etc/gdm3/custom.conf
+      re: ^\s*Enable\s*=\s*true
+  Verified: false
+- Id: "29546"
+  Title: Ensure updates, patches, and additional security software are installed.
+  Condition: none
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:apt -s upgrade -> r:^The following packages will be upgraded
+    Env:
+      cmd: apt -s upgrade
+      re: ^The following packages will be upgraded
+  Verified: false
+- Id: "29547"
+  Title: Ensure chrony is running as user _chrony.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:sh -c "ps -ef | grep chronyd | grep -v grep " -> r:chronyd\s
+    Env:
+      cmd: sh -c "ps -ef | grep chronyd | grep -v grep "
+      re: chronyd\s
+  - WhereExpression: 'NOT '
+    OriginalTest: not c:sh -c "ps -ef |grep chronyd | grep -v grep " -> !r:^_chrony
+      && r:chronyd\s
+  Verified: false
+- Id: "29548"
+  Title: Ensure chrony is enabled and running.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:systemctl is-enabled chrony.service -> r:^enabled
+    Env:
+      cmd: systemctl is-enabled chrony.service
+      re: ^enabled
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:systemctl is-active chrony.service -> r:^active
+    Env:
+      cmd: systemctl is-active chrony.service
+      re: ^active
+  Verified: false
+- Id: "29549"
+  Title: Ensure systemd-timesyncd configured with authorized timeserver.
+  Condition: all
+  Rules:
+  - OriginalTest: d:/etc/systemd
+  - OriginalTest: d:/etc/systemd -> r:\.+.conf$
+  - OriginalTest: d:/etc/systemd -> r:\.+.conf$ -> r:^\s*\t*NTP=\w|^\s*\t*FallbackNTP=\w
+  Verified: false
+- Id: "29550"
+  Title: Ensure systemd-timesyncd is enabled and running.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:systemctl is-enabled systemd-timesyncd.service -> r:^enabled
+    Env:
+      cmd: systemctl is-enabled systemd-timesyncd.service
+      re: ^enabled
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:systemctl is-active systemd-timesyncd.service -> r:^active
+    Env:
+      cmd: systemctl is-active systemd-timesyncd.service
+      re: ^active
+  Verified: false
+- Id: "29551"
+  Title: Ensure ntp access control is configured.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/ntp.conf
+    Env:
+      f: /etc/ntp.conf
+      re: ..
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/ntp.conf -> r:^restrict\s+-4\s+default|^restrict\s+default
+      && r:\s+kod && r:\s+nomodify && r:\s+notrap && r:\s+nopeer && r:\s+noquery
+    Env:
+      f: /etc/ntp.conf
+      re: ^restrict\s+-4\s+default|^restrict\s+default && r:\s+kod && r:\s+nomodify
+        && r:\s+notrap && r:\s+nopeer && r:\s+noquery
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/ntp.conf -> r:^restrict\s+-6\s+default && r:\s+kod && r:\s+nomodify
+      && r:\s+notrap && r:\s+nopeer && r:\s+noquery
+    Env:
+      f: /etc/ntp.conf
+      re: ^restrict\s+-6\s+default && r:\s+kod && r:\s+nomodify && r:\s+notrap &&
+        r:\s+nopeer && r:\s+noquery
+  Verified: false
+- Id: "29552"
+  Title: Ensure ntp is configured with authorized timeserver.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/ntp.conf
+    Env:
+      f: /etc/ntp.conf
+      re: ..
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/ntp.conf -> r:^\s*\t*pool
+    Env:
+      f: /etc/ntp.conf
+      re: ^\s*\t*pool
+  Verified: false
+- Id: "29553"
+  Title: Ensure ntp is running as user ntp.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/init.d/ntp -> r:^\s*\t*RUNASUSER\s*\t*=\s*\t*ntp$
+    Env:
+      f: /etc/init.d/ntp
+      re: ^\s*\t*RUNASUSER\s*\t*=\s*\t*ntp$
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:sh -c "ps -ef | grep ntpd | grep -v grep " -> r:ntpd\s
+    Env:
+      cmd: sh -c "ps -ef | grep ntpd | grep -v grep "
+      re: ntpd\s
+  - WhereExpression: 'NOT '
+    OriginalTest: not c:sh -c "ps -ef |grep ntpd | grep -v grep " -> !r:^ntp && r:ntpd\s
+  Verified: false
+- Id: "29554"
+  Title: Ensure ntp is enabled and running.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:systemctl is-enabled ntp.service -> r:^enabled
+    Env:
+      cmd: systemctl is-enabled ntp.service
+      re: ^enabled
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:systemctl is-active ntp.service -> r:^active
+    Env:
+      cmd: systemctl is-active ntp.service
+      re: ^active
+  Verified: false
+- Id: "29555"
+  Title: Ensure X Window System is not installed.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: 'c:dpkg-query -W -f=''${binary:Package}\t${Status}\t${db:Status-Status}\n''
+      xserver-xorg -> r:unknown ok not-installed|dpkg-query: no packages found matching
+      xserver-xorg'
+    Env:
+      cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+        xserver-xorg
+      re: 'unknown ok not-installed|dpkg-query: no packages found matching xserver-xorg'
+  Verified: false
+- Id: "29556"
+  Title: Ensure Avahi Server is not installed.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: 'c:dpkg-query -W -f=''${binary:Package}\t${Status}\t${db:Status-Status}\n''
+      avahi-daemon -> r:unknown ok not-installed|dpkg-query: no packages found matching
+      avahi-daemon'
+    Env:
+      cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+        avahi-daemon
+      re: 'unknown ok not-installed|dpkg-query: no packages found matching avahi-daemon'
+  Verified: false
+- Id: "29557"
+  Title: Ensure CUPS is not installed.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: 'c:dpkg-query -W -f=''${binary:Package}\t${Status}\t${db:Status-Status}\n''
+      cups -> r:unknown ok not-installed|dpkg-query: no packages found matching cups'
+    Env:
+      cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+        cups
+      re: 'unknown ok not-installed|dpkg-query: no packages found matching cups'
+  Verified: false
+- Id: "29558"
+  Title: Ensure DHCP Server is not installed.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: 'c:dpkg-query -W -f=''${binary:Package}\t${Status}\t${db:Status-Status}\n''
+      isc-dhcp-server -> r:unknown ok not-installed|dpkg-query: no packages found
+      matching isc-dhcp-server'
+    Env:
+      cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+        isc-dhcp-server
+      re: 'unknown ok not-installed|dpkg-query: no packages found matching isc-dhcp-server'
+  Verified: false
+- Id: "29559"
+  Title: Ensure LDAP server is not installed.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: 'c:dpkg-query -W -f=''${binary:Package}\t${Status}\t${db:Status-Status}\n''
+      slapd -> r:unknown ok not-installed|dpkg-query: no packages found matching slapd'
+    Env:
+      cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+        slapd
+      re: 'unknown ok not-installed|dpkg-query: no packages found matching slapd'
+  Verified: false
+- Id: "29560"
+  Title: Ensure NFS is not installed.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: 'c:dpkg-query -W -f=''${binary:Package}\t${Status}\t${db:Status-Status}\n''
+      nfs-kernel-server -> r:unknown ok not-installed|dpkg-query: no packages found
+      matching nfs-kernel-server'
+    Env:
+      cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+        nfs-kernel-server
+      re: 'unknown ok not-installed|dpkg-query: no packages found matching nfs-kernel-server'
+  Verified: false
+- Id: "29561"
+  Title: Ensure DNS Server is not installed.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: 'c:dpkg-query -W -f=''${binary:Package}\t${Status}\t${db:Status-Status}\n''
+      bind9 -> r:unknown ok not-installed|dpkg-query: no packages found matching bind9'
+    Env:
+      cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+        bind9
+      re: 'unknown ok not-installed|dpkg-query: no packages found matching bind9'
+  Verified: false
+- Id: "29562"
+  Title: Ensure FTP Server is not installed.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: 'c:dpkg-query -W -f=''${binary:Package}\t${Status}\t${db:Status-Status}\n''
+      vsftpd -> r:unknown ok not-installed|dpkg-query: no packages found matching
+      vsftpd'
+    Env:
+      cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+        vsftpd
+      re: 'unknown ok not-installed|dpkg-query: no packages found matching vsftpd'
+  Verified: false
+- Id: "29563"
+  Title: Ensure HTTP server is not installed.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: 'c:dpkg-query -W -f=''${binary:Package}\t${Status}\t${db:Status-Status}\n''
+      apache2 -> r:unknown ok not-installed|dpkg-query: no packages found matching
+      apache2'
+    Env:
+      cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+        apache2
+      re: 'unknown ok not-installed|dpkg-query: no packages found matching apache2'
+  Verified: false
+- Id: "29564"
+  Title: Ensure IMAP and POP3 server are not installed.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: 'c:dpkg-query -W -f=''${binary:Package}\t${Status}\t${db:Status-Status}\n''
+      dovecot-imapd -> r:unknown ok not-installed|dpkg-query: no packages found matching
+      dovecot-imapd'
+    Env:
+      cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+        dovecot-imapd
+      re: 'unknown ok not-installed|dpkg-query: no packages found matching dovecot-imapd'
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: 'c:dpkg-query -W -f=''${binary:Package}\t${Status}\t${db:Status-Status}\n''
+      dovecot-pop3d -> r:unknown ok not-installed|dpkg-query: no packages found matching
+      dovecot-pop3d'
+    Env:
+      cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+        dovecot-pop3d
+      re: 'unknown ok not-installed|dpkg-query: no packages found matching dovecot-pop3d'
+  Verified: false
+- Id: "29565"
+  Title: Ensure Samba is not installed.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: 'c:dpkg-query -W -f=''${binary:Package}\t${Status}\t${db:Status-Status}\n''
+      samba -> r:unknown ok not-installed|dpkg-query: no packages found matching samba'
+    Env:
+      cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+        samba
+      re: 'unknown ok not-installed|dpkg-query: no packages found matching samba'
+  Verified: false
+- Id: "29566"
+  Title: Ensure HTTP Proxy Server is not installed.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: 'c:dpkg-query -W -f=''${binary:Package}\t${Status}\t${db:Status-Status}\n''
+      squid -> r:unknown ok not-installed|dpkg-query: no packages found matching squid'
+    Env:
+      cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+        squid
+      re: 'unknown ok not-installed|dpkg-query: no packages found matching squid'
+  Verified: false
+- Id: "29567"
+  Title: Ensure SNMP Server is not installed.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: 'c:dpkg-query -W -f=''${binary:Package}\t${Status}\t${db:Status-Status}\n''
+      snmp -> r:unknown ok not-installed|dpkg-query: no packages found matching snmp'
+    Env:
+      cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+        snmp
+      re: 'unknown ok not-installed|dpkg-query: no packages found matching snmp'
+  Verified: false
+- Id: "29568"
+  Title: Ensure NIS Server is not installed.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: 'c:dpkg-query -W -f=''${binary:Package}\t${Status}\t${db:Status-Status}\n''
+      nis -> r:unknown ok not-installed|dpkg-query: no packages found matching nis'
+    Env:
+      cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+        nis
+      re: 'unknown ok not-installed|dpkg-query: no packages found matching nis'
+  Verified: false
+- Id: "29569"
+  Title: Ensure mail transfer agent is configured for local-only mode.
+  Condition: none
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:ss -lntu -> r:\.*:25 && r:\.*LISTEN && !r:127.0.0.1:25|[::1]:25
+    Env:
+      cmd: ss -lntu
+      re: \.*:25
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: ss -lntu
+      re: \.*LISTEN
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: ss -lntu
+      re: '!r:127.0.0.1:25|[::1]:25'
+  Verified: false
+- Id: "29570"
+  Title: Ensure rsync service is either not installed or masked.
+  Condition: any
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: 'c:dpkg-query -W -f=''${binary:Package}\t${Status}\t${db:Status-Status}\n''
+      rsync -> r:unknown ok not-installed|dpkg-query: no packages found matching rsync'
+    Env:
+      cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+        rsync
+      re: 'unknown ok not-installed|dpkg-query: no packages found matching rsync'
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:systemctl is-active rsync -> r:^inactive
+    Env:
+      cmd: systemctl is-active rsync
+      re: ^inactive
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:systemctl is-enabled rsync -> r:^masked
+    Env:
+      cmd: systemctl is-enabled rsync
+      re: ^masked
+  Verified: false
+- Id: "29571"
+  Title: Ensure NIS Client is not installed.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: 'c:dpkg-query -W -f=''${binary:Package}\t${Status}\t${db:Status-Status}\n''
+      nis -> r:unknown ok not-installed|dpkg-query: no packages found matching nis'
+    Env:
+      cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+        nis
+      re: 'unknown ok not-installed|dpkg-query: no packages found matching nis'
+  Verified: false
+- Id: "29572"
+  Title: Ensure rsh client is not installed.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: 'c:dpkg-query -W -f=''${binary:Package}\t${Status}\t${db:Status-Status}\n''
+      rsh-client -> r:unknown ok not-installed|dpkg-query: no packages found matching
+      rsh-client'
+    Env:
+      cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+        rsh-client
+      re: 'unknown ok not-installed|dpkg-query: no packages found matching rsh-client'
+  Verified: false
+- Id: "29573"
+  Title: Ensure talk client is not installed.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: 'not c:dpkg-query -W -f=''${binary:Package}\t${Status}\t${db:Status-Status}\n''
+      talk -> r:install ok installed|dpkg-query: no packages found matching talk'
+    Env:
+      cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+        talk
+      re: 'install ok installed|dpkg-query: no packages found matching talk'
+  Verified: false
+- Id: "29574"
+  Title: Ensure telnet client is not installed.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: 'c:dpkg-query -W -f=''${binary:Package}\t${Status}\t${db:Status-Status}\n''
+      telnet -> r:unknown ok not-installed|dpkg-query: no packages found matching
+      telnet'
+    Env:
+      cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+        telnet
+      re: 'unknown ok not-installed|dpkg-query: no packages found matching telnet'
+  Verified: false
+- Id: "29575"
+  Title: Ensure LDAP client is not installed.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: 'c:dpkg-query -W -f=''${binary:Package}\t${Status}\t${db:Status-Status}\n''
+      ldap-utils -> r:unknown ok not-installed|dpkg-query: no packages found matching
+      ldap-utils'
+    Env:
+      cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+        ldap-utils
+      re: 'unknown ok not-installed|dpkg-query: no packages found matching ldap-utils'
+  Verified: false
+- Id: "29576"
+  Title: Ensure RPC is not installed.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: 'c:dpkg-query -W -f=''${binary:Package}\t${Status}\t${db:Status-Status}\n''
+      rpcbind -> r:unknown ok not-installed|dpkg-query: no packages found matching
+      rpcbind'
+    Env:
+      cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+        rpcbind
+      re: 'unknown ok not-installed|dpkg-query: no packages found matching rpcbind'
+  Verified: false
+- Id: "29577"
+  Title: Ensure ufw is installed.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+      ufw -> r:install ok installed
+    Env:
+      cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+        ufw
+      re: install ok installed
+  Verified: false
+- Id: "29578"
+  Title: Ensure iptables-persistent is not installed with ufw.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+      ufw -> r:install ok installed
+    Env:
+      cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+        ufw
+      re: install ok installed
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: 'c:dpkg-query -W -f=''${binary:Package}\t${Status}\t${db:Status-Status}\n''
+      iptables-persistent -> r:unknown ok not-installed|dpkg-query: no packages found
+      matching iptables-persistent'
+    Env:
+      cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+        iptables-persistent
+      re: 'unknown ok not-installed|dpkg-query: no packages found matching iptables-persistent'
+  Verified: false
+- Id: "29579"
+  Title: Ensure ufw service is enabled.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:systemctl is-enabled ufw.service -> r:^enabled
+    Env:
+      cmd: systemctl is-enabled ufw.service
+      re: ^enabled
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:systemctl is-active ufw -> r:^active
+    Env:
+      cmd: systemctl is-active ufw
+      re: ^active
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:ufw status -> r:\sactive
+    Env:
+      cmd: ufw status
+      re: \sactive
+  Verified: false
+- Id: "29580"
+  Title: Ensure ufw loopback traffic is configured.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:ufw status verbose -> r:Anywhere on lo\s*\t*ALLOW IN\s*\t*Anywhere
+    Env:
+      cmd: ufw status verbose
+      re: Anywhere on lo\s*\t*ALLOW IN\s*\t*Anywhere
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:ufw status verbose -> r:Anywhere\s*\t*DENY IN\s*\t*127.0.0.0/8
+    Env:
+      cmd: ufw status verbose
+      re: Anywhere\s*\t*DENY IN\s*\t*127.0.0.0/8
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:ufw status verbose -> r:Anywhere \(v6\) on lo\s*\t*ALLOW IN\s*\t*Anywhere
+      \(v6\)
+    Env:
+      cmd: ufw status verbose
+      re: Anywhere \(v6\) on lo\s*\t*ALLOW IN\s*\t*Anywhere \(v6\)
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:ufw status verbose -> r:Anywhere \(v6\)\s*\t*DENY IN\s*\t*::1
+    Env:
+      cmd: ufw status verbose
+      re: Anywhere \(v6\)\s*\t*DENY IN\s*\t*::1
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:ufw status verbose -> r:Anywhere\s*\t*ALLOW OUT\s*\t*Anywhere
+      on lo
+    Env:
+      cmd: ufw status verbose
+      re: Anywhere\s*\t*ALLOW OUT\s*\t*Anywhere on lo
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:ufw status verbose -> r:Anywhere \(v6\)\s*\t*ALLOW OUT\s*\t*Anywhere
+      \(v6\) on lo
+    Env:
+      cmd: ufw status verbose
+      re: Anywhere \(v6\)\s*\t*ALLOW OUT\s*\t*Anywhere \(v6\) on lo
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:systemctl is-enabled ufw.service -> r:^enabled
+    Env:
+      cmd: systemctl is-enabled ufw.service
+      re: ^enabled
+  Verified: false
+- Id: "29581"
+  Title: Ensure ufw default deny firewall policy.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:ufw status verbose -> r:^Default && r:deny\s+\(incoming\)|reject\s+\(incoming\)|disabled\s+\(incoming\)
+      && r:deny\s+\(outgoing\)|reject\s+\(outgoing\)|disabled\s+\(outgoing\) && r:deny\s+\(routed\)|reject\s+\(routed\)|disabled\s+\(routed\)
+    Env:
+      cmd: ufw status verbose
+      re: ^Default
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:systemctl is-enabled ufw.service -> r:^enabled
+    Env:
+      cmd: systemctl is-enabled ufw.service
+      re: ^enabled
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:ufw status -> r:\sactive
+    Env:
+      cmd: ufw status
+      re: \sactive
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: ufw status verbose
+      re: deny\s+\(incoming\)|reject\s+\(incoming\)|disabled\s+\(incoming\)
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: ufw status verbose
+      re: deny\s+\(outgoing\)|reject\s+\(outgoing\)|disabled\s+\(outgoing\)
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: ufw status verbose
+      re: deny\s+\(routed\)|reject\s+\(routed\)|disabled\s+\(routed\)
+  Verified: false
+- Id: "29582"
+  Title: Ensure nftables is installed.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+      nftables -> r:install ok installed
+    Env:
+      cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+        nftables
+      re: install ok installed
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: 'c:dpkg-query -W -f=''${binary:Package}\t${Status}\t${db:Status-Status}\n''
+      ufw -> r:unknown ok not-installed|dpkg-query: no packages found matching ufw|deinstall
+      ok config-files'
+    Env:
+      cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+        ufw
+      re: 'unknown ok not-installed|dpkg-query: no packages found matching ufw|deinstall
+        ok config-files'
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: 'c:dpkg-query -W -f=''${binary:Package}\t${Status}\t${db:Status-Status}\n''
+      iptables -> r:unknown ok not-installed|dpkg-query: no packages found matching
+      iptables|deinstall ok config-files'
+    Env:
+      cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+        iptables
+      re: 'unknown ok not-installed|dpkg-query: no packages found matching iptables|deinstall
+        ok config-files'
+  Verified: false
+- Id: "29583"
+  Title: Ensure ufw is uninstalled or disabled with nftables.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+      nftables -> r:install ok installed
+    Env:
+      cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+        nftables
+      re: install ok installed
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: 'c:dpkg-query -W -f=''${binary:Package}\t${Status}\t${db:Status-Status}\n''
+      ufw -> r:unknown ok not-installed|dpkg-query: no packages found matching ufw|deinstall
+      ok config-files'
+    Env:
+      cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+        ufw
+      re: 'unknown ok not-installed|dpkg-query: no packages found matching ufw|deinstall
+        ok config-files'
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: 'c:dpkg-query -W -f=''${binary:Package}\t${Status}\t${db:Status-Status}\n''
+      iptables -> r:unknown ok not-installed|dpkg-query: no packages found matching
+      iptables|deinstall ok config-files'
+    Env:
+      cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+        iptables
+      re: 'unknown ok not-installed|dpkg-query: no packages found matching iptables|deinstall
+        ok config-files'
+  Verified: false
+- Id: "29584"
+  Title: Ensure iptables are flushed with nftables.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+      nftables -> r:install ok installed
+    Env:
+      cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+        nftables
+      re: install ok installed
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not c:sh -c "iptables -L | grep -Evi '^chain|^target'" -> r:^\w+
+    Env:
+      cmd: sh -c "iptables -L | grep -Evi '^chain|^target'"
+      re: ^\w+
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not c:sh -c "ip6tables -L | grep -Evi '^chain|^target'" -> r:^\w+
+    Env:
+      cmd: sh -c "ip6tables -L | grep -Evi '^chain|^target'"
+      re: ^\w+
+  Verified: false
+- Id: "29585"
+  Title: Ensure a nftables table exists.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:nft list tables -> r:^table\s
+    Env:
+      cmd: nft list tables
+      re: ^table\s
+  Verified: false
+- Id: "29586"
+  Title: Ensure nftables base chains exist.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:nft list ruleset -> r:hook input
+    Env:
+      cmd: nft list ruleset
+      re: hook input
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:nft list ruleset -> r:hook forward
+    Env:
+      cmd: nft list ruleset
+      re: hook forward
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:nft list ruleset -> r:hook output
+    Env:
+      cmd: nft list ruleset
+      re: hook output
+  Verified: false
+- Id: "29587"
+  Title: Ensure nftables loopback traffic is configured.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:sh -c "nft list ruleset | awk '/hook input/,/}/'" -> r:iif "lo"
+      accept
+    Env:
+      cmd: sh -c "nft list ruleset | awk '/hook input/,/}/'"
+      re: iif "lo" accept
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:sh -c "nft list ruleset | awk '/hook input/,/}/'" -> r:ip saddr
+      127.0.0.0/8
+    Env:
+      cmd: sh -c "nft list ruleset | awk '/hook input/,/}/'"
+      re: ip saddr 127.0.0.0/8
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:sh -c "nft list ruleset | awk '/hook input/,/}/'" -> r:ip6 saddr
+      ::1
+    Env:
+      cmd: sh -c "nft list ruleset | awk '/hook input/,/}/'"
+      re: ip6 saddr ::1
+  Verified: false
+- Id: "29588"
+  Title: Ensure nftables default deny firewall policy.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not c:nft list ruleset -> r:hook input && !r:policy drop
+    Env:
+      cmd: nft list ruleset
+      re: hook input && !r:policy drop
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not c:nft list ruleset -> r:hook forward && !r:policy drop
+    Env:
+      cmd: nft list ruleset
+      re: hook forward && !r:policy drop
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not c:nft list ruleset -> r:hook output && !r:policy drop
+    Env:
+      cmd: nft list ruleset
+      re: hook output && !r:policy drop
+  Verified: false
+- Id: "29589"
+  Title: Ensure nftables service is enabled.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:systemctl is-enabled nftables -> r:enabled
+    Env:
+      cmd: systemctl is-enabled nftables
+      re: enabled
+  Verified: false
+- Id: "29590"
+  Title: Ensure iptables packages are installed.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:apt list iptables -> r:installed
+    Env:
+      cmd: apt list iptables
+      re: installed
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:apt list iptables-persistent -> r:installed
+    Env:
+      cmd: apt list iptables-persistent
+      re: installed
+  Verified: false
+- Id: "29591"
+  Title: Ensure nftables is not installed with iptables.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:apt list iptables -> r:installed
+    Env:
+      cmd: apt list iptables
+      re: installed
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:apt list iptables-persistent -> r:installed
+    Env:
+      cmd: apt list iptables-persistent
+      re: installed
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: 'c:dpkg-query -W -f=''${binary:Package}\t${Status}\t${db:Status-Status}\n''
+      nftables -> r:unknown ok not-installed|dpkg-query: no packages found matching
+      nftables|deinstall ok config-files'
+    Env:
+      cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+        nftables
+      re: 'unknown ok not-installed|dpkg-query: no packages found matching nftables|deinstall
+        ok config-files'
+  Verified: false
+- Id: "29592"
+  Title: Ensure ufw is uninstalled or disabled with iptables.
+  Condition: any
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: 'c:dpkg-query -W -f=''${binary:Package}\t${Status}\t${db:Status-Status}\n''
+      ufw -> r:unknown ok not-installed|dpkg-query: no packages found matching ufw|deinstall
+      ok config-files'
+    Env:
+      cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+        ufw
+      re: 'unknown ok not-installed|dpkg-query: no packages found matching ufw|deinstall
+        ok config-files'
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:ufw status -> r:inactive
+    Env:
+      cmd: ufw status
+      re: inactive
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:systemctl is-enabled ufw -> r:masked
+    Env:
+      cmd: systemctl is-enabled ufw
+      re: masked
+  Verified: false
+- Id: "29593"
+  Title: Ensure iptables default deny firewall policy.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:iptables -L -> r:Chain INPUT \(policy DROP\)|Chain INPUT \(policy
+      REJECT\)
+    Env:
+      cmd: iptables -L
+      re: Chain INPUT \(policy DROP\)|Chain INPUT \(policy REJECT\)
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:iptables -L -> r:Chain FORWARD \(policy DROP\)|Chain FORWARD \(policy
+      REJECT\)
+    Env:
+      cmd: iptables -L
+      re: Chain FORWARD \(policy DROP\)|Chain FORWARD \(policy REJECT\)
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:iptables -L -> r:Chain OUTPUT \(policy DROP\)|Chain OUTPUT \(policy
+      REJECT\)
+    Env:
+      cmd: iptables -L
+      re: Chain OUTPUT \(policy DROP\)|Chain OUTPUT \(policy REJECT\)
+  Verified: false
+- Id: "29594"
+  Title: Ensure iptables loopback traffic is configured.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:iptables -L INPUT -v -n -> r:\.*ACCEPT\.*all\.*lo\.**\.*0.0.0.0/0\.*0.0.0.0/0
+    Env:
+      cmd: iptables -L INPUT -v -n
+      re: \.*ACCEPT\.*all\.*lo\.**\.*0.0.0.0/0\.*0.0.0.0/0
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:iptables -L INPUT -v -n -> r:\.*DROP\.*all\.**\.**\.*127.0.0.0/8\.*0.0.0.0/0
+    Env:
+      cmd: iptables -L INPUT -v -n
+      re: \.*DROP\.*all\.**\.**\.*127.0.0.0/8\.*0.0.0.0/0
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:iptables -L OUTPUT -v -n -> r:\.*ACCEPT\.*all\.**\.*lo\.*0.0.0.0/0\.*0.0.0.0/0
+    Env:
+      cmd: iptables -L OUTPUT -v -n
+      re: \.*ACCEPT\.*all\.**\.*lo\.*0.0.0.0/0\.*0.0.0.0/0
+  Verified: false
+- Id: "29595"
+  Title: Ensure ip6tables default deny firewall policy.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:ip6tables -L -> r:^Chain INPUT && r:policy DROP
+    Env:
+      cmd: ip6tables -L
+      re: ^Chain INPUT
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:ip6tables -L -> r:^Chain FORWARD && r:policy DROP
+    Env:
+      cmd: ip6tables -L
+      re: ^Chain FORWARD
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:ip6tables -L -> r:^Chain OUTPUT && r:policy DROP
+    Env:
+      cmd: ip6tables -L
+      re: ^Chain OUTPUT
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: ip6tables -L
+      re: policy DROP
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: ip6tables -L
+      re: policy DROP
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: ip6tables -L
+      re: policy DROP
+  Verified: false
+- Id: "29596"
+  Title: Ensure ip6tables loopback traffic is configured.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:ip6tables -L INPUT -v -n -> r:\.*ACCEPT\.*all\.*lo\.**\.*::/0\.*::/0
+    Env:
+      cmd: ip6tables -L INPUT -v -n
+      re: \.*ACCEPT\.*all\.*lo\.**\.*::/0\.*::/0
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:ip6tables -L INPUT -v -n -> r:\.*DROP\.*all\.**\.**\.*::1\.*::/0
+    Env:
+      cmd: ip6tables -L INPUT -v -n
+      re: \.*DROP\.*all\.**\.**\.*::1\.*::/0
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:ip6tables -L OUTPUT -v -n -> r:\.*ACCEPT\.*all\.**\.*lo\.*::/0\.*::/0
+    Env:
+      cmd: ip6tables -L OUTPUT -v -n
+      re: \.*ACCEPT\.*all\.**\.*lo\.*::/0\.*::/0
+  Verified: false
+- Id: "29597"
+  Title: Ensure auditd is installed.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+      auditd -> r:install ok installed
+    Env:
+      cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+        auditd
+      re: install ok installed
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+      audispd-plugins -> r:install ok installed
+    Env:
+      cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+        audispd-plugins
+      re: install ok installed
+  Verified: false
+- Id: "29598"
+  Title: Ensure auditd service is enabled and active.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:systemctl is-enabled auditd -> r:^enabled
+    Env:
+      cmd: systemctl is-enabled auditd
+      re: ^enabled
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:systemctl is-active auditd -> r:^active
+    Env:
+      cmd: systemctl is-active auditd
+      re: ^active
+  Verified: false
+- Id: "29599"
+  Title: Ensure auditing for processes that start prior to auditd is enabled.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not f:/boot/grub/grub.cfg -> r:^\s*\t*linux && !n:audit=(\d+) compare
+      == 1
+    Env:
+      f: /boot/grub/grub.cfg
+      re: ^\s*\t*linux && !n:audit=(\d+) compare == 1
+  Verified: false
+- Id: "29600"
+  Title: Ensure audit_backlog_limit is sufficient.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not f:/boot/grub/grub.cfg -> r:^\s*\t*linux && !n:audit_backlog_limit=(\d+)
+      compare >= 8192
+    Env:
+      f: /boot/grub/grub.cfg
+      re: ^\s*\t*linux && !n:audit_backlog_limit=(\d+) compare >= 8192
+  Verified: false
+- Id: "29601"
+  Title: Ensure audit log storage size is configured.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/audit/auditd.conf -> r:^\s*\t*max_log_file\s*\t*=\s*\t*\d+
+    Env:
+      f: /etc/audit/auditd.conf
+      re: ^\s*\t*max_log_file\s*\t*=\s*\t*\d+
+  Verified: false
+- Id: "29602"
+  Title: Ensure audit logs are not automatically deleted.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/audit/auditd.conf -> r:^\s*\t*max_log_file_action\s*\t*=\s*\t*keep_logs
+    Env:
+      f: /etc/audit/auditd.conf
+      re: ^\s*\t*max_log_file_action\s*\t*=\s*\t*keep_logs
+  Verified: false
+- Id: "29603"
+  Title: Ensure system is disabled when audit logs are full.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/audit/auditd.conf -> r:^\s*\t*action_mail_acct\s*\t*=\s*\t*root
+    Env:
+      f: /etc/audit/auditd.conf
+      re: ^\s*\t*action_mail_acct\s*\t*=\s*\t*root
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/audit/auditd.conf -> r:^\s*\t*space_left_action\s*\t*=\s*\t*email
+    Env:
+      f: /etc/audit/auditd.conf
+      re: ^\s*\t*space_left_action\s*\t*=\s*\t*email
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/audit/auditd.conf -> r:^\s*\t*admin_space_left_action\s*\t*=\s*\t*halt|^\s*\t*admin_space_left_action\s*\t*=\s*\t*single
+    Env:
+      f: /etc/audit/auditd.conf
+      re: ^\s*\t*admin_space_left_action\s*\t*=\s*\t*halt|^\s*\t*admin_space_left_action\s*\t*=\s*\t*single
+  Verified: false
+- Id: "29604"
+  Title: Ensure changes to system administration scope (sudoers) is collected.
+  Condition: all
+  Rules:
+  - OriginalTest: d:/etc/audit/rules.d -> r:\.+.rules$ -> r:^-w && r:/etc/sudoers
+      && r:-p wa && r:-k scope|key=scope
+  - OriginalTest: d:/etc/audit/rules.d -> r:\.+.rules$ -> r:^-w && r:/etc/sudoers.d
+      && r:-p wa && r:-k scope|key=scope
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:auditctl -l -> r:^-w && r:/etc/sudoers && r:-p wa && r:-k scope|key=scope
+    Env:
+      cmd: auditctl -l
+      re: ^-w
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:auditctl -l -> r:^-w && r:/etc/sudoers.d && r:-p wa && r:-k scope|key=scope
+    Env:
+      cmd: auditctl -l
+      re: ^-w
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: /etc/sudoers
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -p wa
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -k scope|key=scope
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: /etc/sudoers.d
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -p wa
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -k scope|key=scope
+  Verified: false
+- Id: "29605"
+  Title: Ensure actions as another user are always logged.
+  Condition: all
+  Rules:
+  - OriginalTest: d:/etc/audit/rules.d -> r:\.+.rules$ -> r:^-a && r:exit,always|always,exit
+      && r:-F arch=b64 && r:-C euid!=uid|-C uid!=euid  && r:-F auid!=unset|-F auid!=-1|-F
+      auid!=4294967295 && r:-S execve && r:-k user_emulation|key=user_emulation
+  - OriginalTest: d:/etc/audit/rules.d -> r:\.+.rules$ -> r:^-a && r:exit,always|always,exit
+      && r:-F arch=b32 && r:-C euid!=uid|-C uid!=euid  && r:-F auid!=unset|-F auid!=-1|-F
+      auid!=4294967295 && r:-S execve && r:-k user_emulation|key=user_emulation
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:auditctl -l -> r:^-a && r:exit,always|always,exit && r:-F arch=b64
+      && r:-C euid!=uid|-C uid!=euid && r:-F auid!=unset|-F auid!=-1|-F auid!=4294967295
+      && r:-S execve && r:-k user_emulation|key=user_emulation
+    Env:
+      cmd: auditctl -l
+      re: ^-a
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:auditctl -l -> r:^-a && r:exit,always|always,exit && r:-F arch=b32
+      && r:-C euid!=uid|-C uid!=euid && r:-F auid!=unset|-F auid!=-1|-F auid!=4294967295
+      && r:-S execve && r:-k user_emulation|key=user_emulation
+    Env:
+      cmd: auditctl -l
+      re: ^-a
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: exit,always|always,exit
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F arch=b64
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -C euid!=uid|-C uid!=euid
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F auid!=unset|-F auid!=-1|-F auid!=4294967295
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -S execve
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -k user_emulation|key=user_emulation
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: exit,always|always,exit
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F arch=b32
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -C euid!=uid|-C uid!=euid
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F auid!=unset|-F auid!=-1|-F auid!=4294967295
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -S execve
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -k user_emulation|key=user_emulation
+  Verified: false
+- Id: "29606"
+  Title: Ensure events that modify date and time information are collected.
+  Condition: all
+  Rules:
+  - OriginalTest: d:/etc/audit/rules.d -> r:\.+.rules$ -> r:^-a && r:always,exit|exit,always
+      && r:-F arch=b64 && r:-S && r:adjtimex && r:settimeofday && r:clock_settime
+      && r:-k time-change|key=time-change
+  - OriginalTest: d:/etc/audit/rules.d -> r:\.+.rules$ -> r:^-a && r:always,exit|exit,always
+      && r:-F arch=b32 && r:-S && r:adjtimex && r:settimeofday && r:clock_settime
+      && r:-k time-change|key=time-change
+  - OriginalTest: d:/etc/audit/rules.d -> r:\.+.rules$ -> r:^-w && r:/etc/localtime
+      && r:-p wa && r:-k time-change|key=time-change
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:auditctl -l -> r:^-a && r:always,exit|exit,always && r:-F arch=b64
+      && r:-S && r:adjtimex && r:settimeofday && r:clock_settime && r:-k time-change|key=time-change
+    Env:
+      cmd: auditctl -l
+      re: ^-a
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:auditctl -l -> r:^-a && r:always,exit|exit,always && r:-F arch=b32
+      && r:-S && r:adjtimex && r:settimeofday && r:clock_settime && r:-k time-change|key=time-change
+    Env:
+      cmd: auditctl -l
+      re: ^-a
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:auditctl -l -> r:^-w && r:/etc/localtime && r:-p wa && r:-k time-change|key=time-change
+    Env:
+      cmd: auditctl -l
+      re: ^-w
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: always,exit|exit,always
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F arch=b64
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -S
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: adjtimex
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: settimeofday
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: clock_settime
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -k time-change|key=time-change
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: always,exit|exit,always
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F arch=b32
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -S
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: adjtimex
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: settimeofday
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: clock_settime
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -k time-change|key=time-change
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: /etc/localtime
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -p wa
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -k time-change|key=time-change
+  Verified: false
+- Id: "29607"
+  Title: Ensure events that modify the system's network environment are collected.
+  Condition: all
+  Rules:
+  - OriginalTest: d:/etc/audit/rules.d -> r:\.+.rules$ -> r:^-a && r:exit,always|always,exit
+      && r:-F arch=b32 && r:-S && r:sethostname && r:setdomainname && r:-k system-locale|key=system-locale
+  - OriginalTest: d:/etc/audit/rules.d -> r:\.+.rules$ -> r:^-a && r:exit,always|always,exit
+      && r:-F arch=b64 && r:-S && r:sethostname && r:setdomainname && r:-k system-locale|key=system-locale
+  - OriginalTest: d:/etc/audit/rules.d -> r:\.+.rules$ -> r:^-w && r:/etc/issue &&
+      r:-p wa && r:-k system-locale|key=system-locale
+  - OriginalTest: d:/etc/audit/rules.d -> r:\.+.rules$ -> r:^-w && r:/etc/issue.net
+      && r:-p wa && r:-k system-locale|key=system-locale
+  - OriginalTest: d:/etc/audit/rules.d -> r:\.+.rules$ -> r:^-w && r:/etc/hosts &&
+      r:-p wa && r:-k system-locale|key=system-locale
+  - OriginalTest: d:/etc/audit/rules.d -> r:\.+.rules$ -> r:^-w && r:/etc/networks
+      && r:-p wa && r:-k system-locale|key=system-locale
+  - OriginalTest: d:/etc/audit/rules.d -> r:\.+.rules$ -> r:^-w && r:/etc/network/|/etc/network/\s
+      && r:-p wa && r:-k system-locale|key=system-locale
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:auditctl -l -> r:^-a && r:exit,always|always,exit && r:-F arch=b64
+      && r:-S && r:sethostname && r:setdomainname && r:-k system-locale|key=system-locale
+    Env:
+      cmd: auditctl -l
+      re: ^-a
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:auditctl -l -> r:^-a && r:exit,always|always,exit && r:-F arch=b32
+      && r:-S && r:sethostname && r:setdomainname && r:-k system-locale|key=system-locale
+    Env:
+      cmd: auditctl -l
+      re: ^-a
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:auditctl -l -> r:^-w && r:/etc/issue && r:-p wa && r:-k system-locale|key=system-locale
+    Env:
+      cmd: auditctl -l
+      re: ^-w
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:auditctl -l -> r:^-w && r:/etc/issue.net && r:-p wa && r:-k system-locale|key=system-locale
+    Env:
+      cmd: auditctl -l
+      re: ^-w
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:auditctl -l -> r:^-w && r:/etc/hosts && r:-p wa && r:-k system-locale|key=system-locale
+    Env:
+      cmd: auditctl -l
+      re: ^-w
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:auditctl -l -> r:^-w && r:/etc/networks && r:-p wa && r:-k system-locale|key=system-locale
+    Env:
+      cmd: auditctl -l
+      re: ^-w
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:auditctl -l -> r:^-w && r:/etc/network/|/etc/network/\s && r:-p
+      wa && r:-k system-locale|key=system-locale
+    Env:
+      cmd: auditctl -l
+      re: ^-w
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: exit,always|always,exit
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F arch=b64
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -S
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: sethostname
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: setdomainname
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -k system-locale|key=system-locale
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: exit,always|always,exit
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F arch=b32
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -S
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: sethostname
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: setdomainname
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -k system-locale|key=system-locale
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: /etc/issue
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -p wa
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -k system-locale|key=system-locale
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: /etc/issue.net
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -p wa
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -k system-locale|key=system-locale
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: /etc/hosts
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -p wa
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -k system-locale|key=system-locale
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: /etc/networks
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -p wa
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -k system-locale|key=system-locale
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: /etc/network/|/etc/network/\s
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -p wa
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -k system-locale|key=system-locale
+  Verified: false
+- Id: "29608"
+  Title: Ensure unsuccessful file access attempts are collected.
+  Condition: all
+  Rules:
+  - OriginalTest: d:/etc/audit/rules.d -> r:\.+.rules$ -> r:^-a && r:always,exit|exit,always
+      && r:-F arch=b32 && r:-S && r:creat && r:open && r:openat && r:truncate && r:ftruncate
+      && r:-F exit=-EACCES && r:-F auid>=\d+ && r:-F auid!=-1|-F auid!=4294967295|-F
+      auid!=unset && r:-k access|key=access
+  - OriginalTest: d:/etc/audit/rules.d -> r:\.+.rules$ -> r:^-a && r:always,exit|exit,always
+      && r:-F arch=b64 && r:-S && r:creat && r:open && r:openat && r:truncate && r:ftruncate
+      && r:-F exit=-EACCES && r:-F auid>=\d+ && r:-F auid!=-1|-F auid!=4294967295|-F
+      auid!=unset && r:-k access|key=access
+  - OriginalTest: d:/etc/audit/rules.d -> r:\.+.rules$ -> r:^-a && r:always,exit|exit,always
+      && r:-F arch=b32 && r:-S && r:creat && r:open && r:openat && r:truncate && r:ftruncate
+      && r:-F exit=-EPERM && r:-F auid>=\d+ && r:-F auid!=-1|-F auid!=4294967295|-F
+      auid!=unset && r:-k access|key=access
+  - OriginalTest: d:/etc/audit/rules.d -> r:\.+.rules$ -> r:^-a && r:always,exit|exit,always
+      && r:-F arch=b64 && r:-S && r:creat && r:open && r:openat && r:truncate && r:ftruncate
+      && r:-F exit=-EPERM && r:-F auid>=\d+ && r:-F auid!=-1|-F auid!=4294967295|-F
+      auid!=unset && r:-k access|key=access
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:auditctl -l -> r:^-a && r:always,exit|exit,always && r:-F arch=b32
+      && r:-S && r:creat && r:open && r:openat && r:truncate && r:ftruncate && r:-F
+      exit=-EACCES && r:-F auid>=\d+ && r:-F auid!=-1|-F auid!=4294967295|-F auid!=unset
+      && r:-k access|key=access
+    Env:
+      cmd: auditctl -l
+      re: ^-a
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:auditctl -l -> r:^-a && r:always,exit|exit,always && r:-F arch=b64
+      && r:-S && r:creat && r:open && r:openat && r:truncate && r:ftruncate && r:-F
+      exit=-EACCES && r:-F auid>=\d+ && r:-F auid!=-1|-F auid!=4294967295|-F auid!=unset
+      && r:-k access|key=access
+    Env:
+      cmd: auditctl -l
+      re: ^-a
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:auditctl -l -> r:^-a && r:always,exit|exit,always && r:-F arch=b32
+      && r:-S && r:creat && r:open && r:openat && r:truncate && r:ftruncate && r:-F
+      exit=-EPERM && r:-F auid>=\d+ && r:-F auid!=-1|-F auid!=4294967295|-F auid!=unset
+      && r:-k access|key=access
+    Env:
+      cmd: auditctl -l
+      re: ^-a
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:auditctl -l -> r:^-a && r:always,exit|exit,always && r:-F arch=b64
+      && r:-S && r:creat && r:open && r:openat && r:truncate && r:ftruncate && r:-F
+      exit=-EPERM && r:-F auid>=\d+ && r:-F auid!=-1|-F auid!=4294967295|-F auid!=unset
+      && r:-k access|key=access
+    Env:
+      cmd: auditctl -l
+      re: ^-a
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: always,exit|exit,always
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F arch=b32
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -S
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: creat
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: open
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: openat
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: truncate
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: ftruncate
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F exit=-EACCES
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F auid>=\d+
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F auid!=-1|-F auid!=4294967295|-F auid!=unset
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -k access|key=access
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: always,exit|exit,always
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F arch=b64
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -S
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: creat
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: open
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: openat
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: truncate
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: ftruncate
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F exit=-EACCES
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F auid>=\d+
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F auid!=-1|-F auid!=4294967295|-F auid!=unset
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -k access|key=access
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: always,exit|exit,always
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F arch=b32
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -S
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: creat
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: open
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: openat
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: truncate
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: ftruncate
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F exit=-EPERM
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F auid>=\d+
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F auid!=-1|-F auid!=4294967295|-F auid!=unset
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -k access|key=access
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: always,exit|exit,always
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F arch=b64
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -S
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: creat
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: open
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: openat
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: truncate
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: ftruncate
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F exit=-EPERM
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F auid>=\d+
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F auid!=-1|-F auid!=4294967295|-F auid!=unset
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -k access|key=access
+  Verified: false
+- Id: "29609"
+  Title: Ensure events that modify user/group information are collected.
+  Condition: all
+  Rules:
+  - OriginalTest: d:/etc/audit/rules.d -> r:\.+.rules$ -> r:^-w && r:/etc/group &&
+      r:-p wa && r:-k identity|key=identity
+  - OriginalTest: d:/etc/audit/rules.d -> r:\.+.rules$ -> r:^-w && r:/etc/passwd &&
+      r:-p wa && r:-k identity|key=identity
+  - OriginalTest: d:/etc/audit/rules.d -> r:\.+.rules$ -> r:^-w && r:/etc/gshadow
+      && r:-p wa && r:-k identity|key=identity
+  - OriginalTest: d:/etc/audit/rules.d -> r:\.+.rules$ -> r:^-w && r:/etc/shadow &&
+      r:-p wa && r:-k identity|key=identity
+  - OriginalTest: d:/etc/audit/rules.d -> r:\.+.rules$ -> r:^-w && r:/etc/security/opasswd
+      && r:-p wa && r:-k identity|key=identity
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:auditctl -l -> r:^-w && r:/etc/group && r:-p wa && r:-k identity|key=identity
+    Env:
+      cmd: auditctl -l
+      re: ^-w
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:auditctl -l -> r:^-w && r:/etc/passwd && r:-p wa && r:-k identity|key=identity
+    Env:
+      cmd: auditctl -l
+      re: ^-w
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:auditctl -l -> r:^-w && r:/etc/gshadow && r:-p wa && r:-k identity|key=identity
+    Env:
+      cmd: auditctl -l
+      re: ^-w
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:auditctl -l -> r:^-w && r:/etc/shadow && r:-p wa && r:-k identity|key=identity
+    Env:
+      cmd: auditctl -l
+      re: ^-w
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:auditctl -l -> r:^-w && r:/etc/security/opasswd && r:-p wa &&
+      r:-k identity|key=identity
+    Env:
+      cmd: auditctl -l
+      re: ^-w
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: /etc/group
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -p wa
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -k identity|key=identity
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: /etc/passwd
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -p wa
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -k identity|key=identity
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: /etc/gshadow
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -p wa
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -k identity|key=identity
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: /etc/shadow
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -p wa
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -k identity|key=identity
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: /etc/security/opasswd
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -p wa
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -k identity|key=identity
+  Verified: false
+- Id: "29610"
+  Title: Ensure discretionary access control permission modification events are collected.
+  Condition: all
+  Rules:
+  - OriginalTest: d:/etc/audit/rules.d -> r:\.+.rules$ -> r:^-a always,exit && r:-F
+      arch=b64 && r:-S && r:chmod && r:fchmod && r:fchmodat && r:-F auid>=\d+ && r:-F
+      auid!=-1|-F auid!=4294967295|-F auid!=unset && r:-k perm_mod|key=perm_mod
+  - OriginalTest: d:/etc/audit/rules.d -> r:\.+.rules$ -> r:^-a always,exit && r:-F
+      arch=b64 && r:-S && r:chown && r:fchown && r:lchown && r:fchownat && r:-F auid>=\d+
+      && r:-F auid!=-1|-F auid!=4294967295|-F auid!=unset && r:-k perm_mod|key=perm_mod
+  - OriginalTest: d:/etc/audit/rules.d -> r:\.+.rules$ -> r:^-a always,exit && r:-F
+      arch=b32 && r:-S && r:chmod && r:fchmod && r:fchmodat && r:-F auid>=\d+ && r:-F
+      auid!=-1|-F auid!=4294967295|-F auid!=unset && r:-k perm_mod|key=perm_mod
+  - OriginalTest: d:/etc/audit/rules.d -> r:\.+.rules$ -> r:^-a always,exit && r:-F
+      arch=b32 && r:-S && r:chown && r:fchown && r:lchown && r:fchownat && r:-F auid>=\d+
+      && r:-F auid!=-1|-F auid!=4294967295|-F auid!=unset  && r:-k perm_mod|key=perm_mod
+  - OriginalTest: d:/etc/audit/rules.d -> r:\.+.rules$ -> r:^-a always,exit && r:-F
+      arch=b64 && r:-S && r:setxattr && r:lsetxattr && r:fsetxattr && r:removexattr
+      && r:lremovexattr && r:fremovexattr && r:-F auid>=\d+ && r:-F auid!=-1|-F auid!=4294967295|-F
+      auid!=unset  && r:-k perm_mod|key=perm_mod
+  - OriginalTest: d:/etc/audit/rules.d -> r:\.+.rules$ -> r:^-a always,exit && r:-F
+      arch=b32 && r:-S && r:setxattr && r:lsetxattr && r:fsetxattr && r:removexattr
+      && r:lremovexattr && r:fremovexattr && r:-F auid>=\d+ && r:-F auid!=-1|-F auid!=4294967295|-F
+      auid!=unset  && r:-k perm_mod|key=perm_mod
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:auditctl -l -> r:^-a always,exit && r:-F arch=b64 && r:-S && r:chmod
+      && r:fchmod && r:fchmodat && r:-F auid>=\d+ && r:-F auid!=-1|-F auid!=4294967295|-F
+      auid!=unset && r:-k perm_mod|key=perm_mod
+    Env:
+      cmd: auditctl -l
+      re: ^-a always,exit
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:auditctl -l -> r:^-a always,exit && r:-F arch=b64 && r:-S && r:chown
+      && r:fchown && r:lchown && r:fchownat && r:-F auid>=\d+ && r:-F auid!=-1|-F
+      auid!=4294967295|-F auid!=unset && r:-k perm_mod|key=perm_mod
+    Env:
+      cmd: auditctl -l
+      re: ^-a always,exit
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:auditctl -l -> r:^-a always,exit && r:-F arch=b32 && r:-S && r:chmod
+      && r:fchmod && r:fchmodat && r:-F auid>=\d+ && r:-F auid!=-1|-F auid!=4294967295|-F
+      auid!=unset && r:-k perm_mod|key=perm_mod
+    Env:
+      cmd: auditctl -l
+      re: ^-a always,exit
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:auditctl -l -> r:^-a always,exit && r:-F arch=b32 && r:-S && r:chown
+      && r:fchown && r:lchown && r:fchownat && r:-F auid>=\d+ && r:-F auid!=-1|-F
+      auid!=4294967295|-F auid!=unset  && r:-k perm_mod|key=perm_mod
+    Env:
+      cmd: auditctl -l
+      re: ^-a always,exit
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:auditctl -l -> r:^-a always,exit && r:-F arch=b64 && r:-S && r:setxattr
+      && r:lsetxattr && r:fsetxattr && r:removexattr && r:lremovexattr && r:fremovexattr
+      && r:-F auid>=\d+ && r:-F auid!=-1|-F auid!=4294967295|-F auid!=unset  && r:-k
+      perm_mod|key=perm_mod
+    Env:
+      cmd: auditctl -l
+      re: ^-a always,exit
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:auditctl -l -> r:^-a always,exit && r:-F arch=b32 && r:-S && r:setxattr
+      && r:lsetxattr && r:fsetxattr && r:removexattr && r:lremovexattr && r:fremovexattr
+      && r:-F auid>=\d+ && r:-F auid!=-1|-F auid!=4294967295|-F auid!=unset  && r:-k
+      perm_mod|key=perm_mod
+    Env:
+      cmd: auditctl -l
+      re: ^-a always,exit
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F arch=b64
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -S
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: chmod
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: fchmod
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: fchmodat
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F auid>=\d+
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F auid!=-1|-F auid!=4294967295|-F auid!=unset
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -k perm_mod|key=perm_mod
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F arch=b64
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -S
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: chown
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: fchown
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: lchown
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: fchownat
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F auid>=\d+
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F auid!=-1|-F auid!=4294967295|-F auid!=unset
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -k perm_mod|key=perm_mod
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F arch=b32
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -S
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: chmod
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: fchmod
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: fchmodat
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F auid>=\d+
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F auid!=-1|-F auid!=4294967295|-F auid!=unset
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -k perm_mod|key=perm_mod
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F arch=b32
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -S
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: chown
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: fchown
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: lchown
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: fchownat
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F auid>=\d+
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: '-F auid!=-1|-F auid!=4294967295|-F auid!=unset '
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -k perm_mod|key=perm_mod
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F arch=b64
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -S
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: setxattr
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: lsetxattr
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: fsetxattr
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: removexattr
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: lremovexattr
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: fremovexattr
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F auid>=\d+
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: '-F auid!=-1|-F auid!=4294967295|-F auid!=unset '
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -k perm_mod|key=perm_mod
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F arch=b32
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -S
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: setxattr
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: lsetxattr
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: fsetxattr
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: removexattr
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: lremovexattr
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: fremovexattr
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F auid>=\d+
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: '-F auid!=-1|-F auid!=4294967295|-F auid!=unset '
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -k perm_mod|key=perm_mod
+  Verified: false
+- Id: "29611"
+  Title: Ensure successful file system mounts are collected.
+  Condition: all
+  Rules:
+  - OriginalTest: d:/etc/audit/rules.d -> r:\.+.rules$ -> r:^-a && r:always,exit|exit,always
+      && r:-F arch=b32 && r:-S mount && r:-F auid>=\d+ && r:-F auid!=-1|-F auid!=4294967295|-F
+      auid!=unset && r:-k mounts|key=mounts
+  - OriginalTest: d:/etc/audit/rules.d -> r:\.+.rules$ -> r:^-a && r:always,exit|exit,always
+      && r:-F arch=b64 && r:-S mount && r:-F auid>=\d+ && r:-F auid!=-1|-F auid!=4294967295|-F
+      auid!=unset && r:-k mounts|key=mounts
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:auditctl -l -> r:^-a && r:always,exit|exit,always && r:-F arch=b64
+      && r:-S mount && r:-F auid>=\d+ && r:-F auid!=-1|-F auid!=4294967295|-F auid!=unset
+      && r:-k mounts|key=mounts
+    Env:
+      cmd: auditctl -l
+      re: ^-a
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:auditctl -l -> r:^-a && r:always,exit|exit,always && r:-F arch=b32
+      && r:-S mount && r:-F auid>=\d+ && r:-F auid!=-1|-F auid!=4294967295|-F auid!=unset
+      && r:-k mounts|key=mounts
+    Env:
+      cmd: auditctl -l
+      re: ^-a
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: always,exit|exit,always
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F arch=b64
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -S mount
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F auid>=\d+
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F auid!=-1|-F auid!=4294967295|-F auid!=unset
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -k mounts|key=mounts
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: always,exit|exit,always
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F arch=b32
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -S mount
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F auid>=\d+
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F auid!=-1|-F auid!=4294967295|-F auid!=unset
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -k mounts|key=mounts
+  Verified: false
+- Id: "29612"
+  Title: Ensure session initiation information is collected.
+  Condition: all
+  Rules:
+  - OriginalTest: d:/etc/audit/rules.d -> r:\.+.rules$ -> r:^-w && r:/var/run/utmp
+      && r:-p wa && r:-k session|key=session
+  - OriginalTest: d:/etc/audit/rules.d -> r:\.+.rules$ -> r:^-w && r:/var/log/wtmp
+      && r:-p wa && r:-k session|key=session
+  - OriginalTest: d:/etc/audit/rules.d -> r:\.+.rules$ -> r:^-w && r:/var/log/btmp
+      && r:-p wa && r:-k session|key=session
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:auditctl -l -> r:^-w && r:/var/run/utmp && r:-p wa && r:-k session|key=session
+    Env:
+      cmd: auditctl -l
+      re: ^-w
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:auditctl -l -> r:^-w && r:/var/log/wtmp && r:-p wa && r:-k session|key=session
+    Env:
+      cmd: auditctl -l
+      re: ^-w
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:auditctl -l -> r:^-w && r:/var/log/btmp && r:-p wa && r:-k session|key=session
+    Env:
+      cmd: auditctl -l
+      re: ^-w
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: /var/run/utmp
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -p wa
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -k session|key=session
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: /var/log/wtmp
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -p wa
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -k session|key=session
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: /var/log/btmp
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -p wa
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -k session|key=session
+  Verified: false
+- Id: "29613"
+  Title: Ensure login and logout events are collected.
+  Condition: all
+  Rules:
+  - OriginalTest: d:/etc/audit/rules.d -> r:\.+.rules$ -> r:^-w && r:/var/log/lastlog
+      && r:-p wa && r:-k logins|key=logins
+  - OriginalTest: d:/etc/audit/rules.d -> r:\.+.rules$ -> r:^-w && r:/var/run/faillock
+      && r:-p wa && r:-k logins|key=logins
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:auditctl -l -> r:^-w && r:/var/log/lastlog && r:-p wa && r:-k
+      logins|key=logins
+    Env:
+      cmd: auditctl -l
+      re: ^-w
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:auditctl -l -> r:^-w && r:/var/run/faillock && r:-p wa && r:-k
+      logins|key=logins
+    Env:
+      cmd: auditctl -l
+      re: ^-w
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: /var/log/lastlog
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -p wa
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -k logins|key=logins
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: /var/run/faillock
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -p wa
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -k logins|key=logins
+  Verified: false
+- Id: "29614"
+  Title: Ensure file deletion events by users are collected.
+  Condition: all
+  Rules:
+  - OriginalTest: d:/etc/audit/rules.d -> r:\.+.rules$ -> r:^-a && r:always,exit|exit,always
+      && r:-F arch=b64 && r:-S && r:unlink && r:unlinkat && r:rename && r:renameat
+      && r:-F auid>=\d+ && r:-F auid!=-1|-F auid!=4294967295|-F auid!=unset && r:-k
+      delete|key=delete
+  - OriginalTest: d:/etc/audit/rules.d -> r:\.+.rules$ -> r:^-a && r:always,exit|exit,always
+      && r:-F arch=b32 && r:-S && r:unlink && r:unlinkat && r:rename && r:renameat
+      && r:-F auid>=\d+ && r:-F auid!=-1|-F auid!=4294967295|-F auid!=unset && r:-k
+      delete|key=delete
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:auditctl -l -> r:^-a && r:always,exit|exit,always && r:-F arch=b64
+      && r:-S && r:unlink && r:unlinkat && r:rename && r:renameat && r:-F auid>=\d+
+      && r:-F auid!=-1|-F auid!=4294967295|-F auid!=unset && r:-k delete|key=delete
+    Env:
+      cmd: auditctl -l
+      re: ^-a
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:auditctl -l -> r:^-a && r:always,exit|exit,always && r:-F arch=b32
+      && r:-S && r:unlink && r:unlinkat && r:rename && r:renameat && r:-F auid>=\d+
+      && r:-F auid!=-1|-F auid!=4294967295|-F auid!=unset && r:-k delete|key=delete
+    Env:
+      cmd: auditctl -l
+      re: ^-a
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: always,exit|exit,always
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F arch=b64
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -S
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: unlink
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: unlinkat
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: rename
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: renameat
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F auid>=\d+
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F auid!=-1|-F auid!=4294967295|-F auid!=unset
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -k delete|key=delete
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: always,exit|exit,always
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F arch=b32
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -S
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: unlink
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: unlinkat
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: rename
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: renameat
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F auid>=\d+
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F auid!=-1|-F auid!=4294967295|-F auid!=unset
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -k delete|key=delete
+  Verified: false
+- Id: "29615"
+  Title: Ensure events that modify the system's Mandatory Access Controls are collected.
+  Condition: all
+  Rules:
+  - OriginalTest: d:/etc/audit/rules.d -> r:\.+.rules$ -> r:^-w && r:/etc/apparmor/|/etc/apparmor\s+
+      && r:-p wa && r:-k MAC-policy|key=MAC-policy
+  - OriginalTest: d:/etc/audit/rules.d -> r:\.+.rules$ -> r:^-w && r:/etc/apparmor.d/|/etc/apparmor.d\s+
+      && r:-p wa && r:-k MAC-policy|key=MAC-policy
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:auditctl -l -> r:^-w && r:/etc/apparmor/|/etc/apparmor\\s+ &&
+      r:-p wa && r:-k MAC-policy|key=MAC-policy
+    Env:
+      cmd: auditctl -l
+      re: ^-w
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:auditctl -l -> r:^-w && r:/etc/apparmor.d/|/etc/apparmor.d\\s+
+      && r:-p wa && r:-k MAC-policy|key=MAC-policy
+    Env:
+      cmd: auditctl -l
+      re: ^-w
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: /etc/apparmor/|/etc/apparmor\\s+
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -p wa
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -k MAC-policy|key=MAC-policy
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: /etc/apparmor.d/|/etc/apparmor.d\\s+
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -p wa
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -k MAC-policy|key=MAC-policy
+  Verified: false
+- Id: "29616"
+  Title: Ensure successful and unsuccessful attempts to use the chcon command are
+    recorded.
+  Condition: all
+  Rules:
+  - OriginalTest: d:/etc/audit/rules.d -> r:\.+.rules$ -> r:^-a && r:always,exit|exit,always
+      && r:-F path=/usr/bin/chcon && r:-F perm=x && r:-F auid>=\d+ && r:-F auid!=-1|-F
+      auid!=4294967295|-F auid!=unset && r:-k perm_chng|key=perm_chng
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:auditctl -l -> r:^-a && r:always,exit|exit,always && r:-F path=/usr/bin/chcon
+      && r:-F perm=x && r:-F auid>=\d+ && r:-F auid!=-1|-F auid!=4294967295|-F auid!=unset
+      && r:-k perm_chng|key=perm_chng
+    Env:
+      cmd: auditctl -l
+      re: ^-a
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: always,exit|exit,always
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F path=/usr/bin/chcon
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F perm=x
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F auid>=\d+
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F auid!=-1|-F auid!=4294967295|-F auid!=unset
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -k perm_chng|key=perm_chng
+  Verified: false
+- Id: "29617"
+  Title: Ensure successful and unsuccessful attempts to use the setfacl command are
+    recorded.
+  Condition: all
+  Rules:
+  - OriginalTest: d:/etc/audit/rules.d -> r:\.+.rules$ -> r:^-a && r:always,exit|exit,always
+      && r:-F path=/usr/bin/setfacl && r:-F perm=x && r:-F auid>=\d+ && r:-F auid!=-1|-F
+      auid!=4294967295|-F auid!=unset && r:-k perm_chng|-F key=perm_chng
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:auditctl -l -> r:^-a && r:always,exit|exit,always && r:-F path=/usr/bin/setfacl
+      && r:-F perm=x && r:-F auid>=\d+ && r:-F auid!=-1|-F auid!=4294967295|-F auid!=unset
+      && r:-k perm_chng|key=perm_chng
+    Env:
+      cmd: auditctl -l
+      re: ^-a
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: always,exit|exit,always
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F path=/usr/bin/setfacl
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F perm=x
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F auid>=\d+
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F auid!=-1|-F auid!=4294967295|-F auid!=unset
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -k perm_chng|key=perm_chng
+  Verified: false
+- Id: "29618"
+  Title: Ensure successful and unsuccessful attempts to use the chacl command are
+    recorded.
+  Condition: all
+  Rules:
+  - OriginalTest: d:/etc/audit/rules.d -> r:\.+.rules$ -> r:^-a && r:always,exit|exit,always
+      && r:-F path=/usr/bin/chacl && r:-F perm=x && r:-F auid>=\d+ && r:-F auid!=-1|-F
+      auid!=4294967295|-F auid!=unset && r:-k priv_cmd|-F key=priv_cmd
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:auditctl -l -> r:^-a && r:always,exit|exit,always && r:-F path=/usr/bin/chacl
+      && r:-F perm=x && r:-F auid>=\d+ && r:-F auid!=-1|-F auid!=4294967295|-F auid!=unset
+      && r:-k priv_cmd|-F key=priv_cmd
+    Env:
+      cmd: auditctl -l
+      re: ^-a
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: always,exit|exit,always
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F path=/usr/bin/chacl
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F perm=x
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F auid>=\d+
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F auid!=-1|-F auid!=4294967295|-F auid!=unset
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -k priv_cmd|-F key=priv_cmd
+  Verified: false
+- Id: "29619"
+  Title: Ensure successful and unsuccessful attempts to use the usermod command are
+    recorded.
+  Condition: all
+  Rules:
+  - OriginalTest: d:/etc/audit/rules.d -> r:\.+.rules$ -> r:^-a && r:always,exit|exit,always
+      && r:-F path=/usr/sbin/usermod && r:-F perm=x && r:-F auid>=\d+ && r:-F auid!=-1|-F
+      auid!=4294967295|-F auid!=unset && r:-k usermod|-F key=usermod
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:auditctl -l -> r:^-a && r:always,exit|exit,always && r:-F path=/usr/sbin/usermod
+      && r:-F perm=x && r:-F auid>=\d+ && r:-F auid!=-1|-F auid!=4294967295|-F auid!=unset
+      && r:-k usermod|-F key=usermod
+    Env:
+      cmd: auditctl -l
+      re: ^-a
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: always,exit|exit,always
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F path=/usr/sbin/usermod
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F perm=x
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F auid>=\d+
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F auid!=-1|-F auid!=4294967295|-F auid!=unset
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -k usermod|-F key=usermod
+  Verified: false
+- Id: "29620"
+  Title: Ensure kernel module loading unloading and modification is collected.
+  Condition: all
+  Rules:
+  - OriginalTest: d:/etc/audit/rules.d -> r:\.+.rules$ -> r:^-a && r:always,exit|exit,always
+      && r:-F arch=b64|-F arch=b32 && r:-S && r:init_module && r:finit_module && r:delete_module
+      && r:create_module && r:query_module && r:-F auid>=\d+ && r:-F auid!=-1|-F auid!=4294967295|-F
+      auid!=unset && r:-k kernel_modules|-F key=kernel_modules
+  - OriginalTest: d:/etc/audit/rules.d -> r:\.+.rules$ -> r:^-a && r:always,exit|exit,always
+      && r:-F path=/usr/bin/kmod && r:-F perm=x && r:-F auid>=\d+ && r:-F auid!=-1|-F
+      auid!=4294967295|-F auid!=unset && r:-k kernel_modules|-F key=kernel_modules
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:auditctl -l -> r:^-a && r:always,exit|exit,always && r:-F arch=b64|-F
+      arch=b32 && r:-S && r:init_module && r:finit_module && r:delete_module && r:create_module
+      && r:query_module && r:-F auid>=\d+ && r:-F auid!=-1|-F auid!=4294967295|-F
+      auid!=unset && r:-k kernel_modules|-F key=kernel_modules
+    Env:
+      cmd: auditctl -l
+      re: ^-a
+  - OriginalTest: c:auditctl -l-> r:^-a && r:always,exit|exit,always && r:-F path=/usr/bin/kmod
+      && r:-F perm=x && r:-F auid>=\d+ && r:-F auid!=-1|-F auid!=4294967295|-F auid!=unset
+      && r:-k kernel_modules|-F key=kernel_modules
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:ls -l /usr/sbin/lsmod -> r:/bin/kmod
+    Env:
+      cmd: ls -l /usr/sbin/lsmod
+      re: /bin/kmod
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:ls -l /usr/sbin/rmmod -> r:/bin/kmod
+    Env:
+      cmd: ls -l /usr/sbin/rmmod
+      re: /bin/kmod
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:ls -l /usr/sbin/insmod -> r:/bin/kmod
+    Env:
+      cmd: ls -l /usr/sbin/insmod
+      re: /bin/kmod
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:ls -l /usr/sbin/modinfo -> r:/bin/kmod
+    Env:
+      cmd: ls -l /usr/sbin/modinfo
+      re: /bin/kmod
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:ls -l /usr/sbin/modprobe -> r:/bin/kmod
+    Env:
+      cmd: ls -l /usr/sbin/modprobe
+      re: /bin/kmod
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:ls -l /usr/sbin/depmod -> r:/bin/kmod
+    Env:
+      cmd: ls -l /usr/sbin/depmod
+      re: /bin/kmod
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: always,exit|exit,always
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F arch=b64|-F arch=b32
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -S
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: init_module
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: finit_module
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: delete_module
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: create_module
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: query_module
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F auid>=\d+
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -F auid!=-1|-F auid!=4294967295|-F auid!=unset
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: auditctl -l
+      re: -k kernel_modules|-F key=kernel_modules
+  Verified: false
+- Id: "29621"
+  Title: Ensure the audit configuration is immutable.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:sh -c "grep -iEh '^\s*\t*-e 2\s*$' /etc/audit/rules.d/*.rules
+      | tail -1" -> r:^\s*\t*-e 2\s*$
+    Env:
+      cmd: sh -c "grep -iEh '^\s*\t*-e 2\s*$' /etc/audit/rules.d/*.rules | tail -1"
+      re: ^\s*\t*-e 2\s*$
+  Verified: false
+- Id: "29622"
+  Title: Ensure the running and on disk configuration is the same.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:augenrules --check -> r:/usr/sbin/augenrules && r:No change
+    Env:
+      cmd: augenrules --check
+      re: /usr/sbin/augenrules
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: augenrules --check
+      re: No change
+  Verified: false
+- Id: "29623"
+  Title: Ensure only authorized groups are assigned ownership of audit log files.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/audit/auditd.conf -> r:^\s*\t*log_group\s*\t*=\s*\t*adm|^\s*\t*log_group\s*\t*=\s*\t*root
+    Env:
+      f: /etc/audit/auditd.conf
+      re: ^\s*\t*log_group\s*\t*=\s*\t*adm|^\s*\t*log_group\s*\t*=\s*\t*root
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:sh -c "DIR_NAME=$(awk -F\"=\" '/^\s*\t*log_file\s*\t*/ {print
+      $2}' /etc/audit/auditd.conf); stat -c \"%G\" $DIR_NAME" -> r:adm|root
+    Env:
+      cmd: sh -c "DIR_NAME=$(awk -F\"=\" '/^\s*\t*log_file\s*\t*/ {print $2}' /etc/audit/auditd.conf);
+        stat -c \"%G\" $DIR_NAME"
+      re: adm|root
+  Verified: false
+- Id: "29624"
+  Title: Ensure audit configuration files are 640 or more restrictive.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not c:sh -c "stat -Lc \"%n %#a\" /etc/audit/*.rules" -> r:^/etc/audit
+      && !r:640|600|400
+    Env:
+      cmd: sh -c "stat -Lc \"%n %#a\" /etc/audit/*.rules"
+      re: ^/etc/audit && !r:640|600|400
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not c:sh -c "stat -Lc \"%n %#a\" /etc/audit/*.conf" -> r:^/etc/audit
+      && !r:640|600|400
+    Env:
+      cmd: sh -c "stat -Lc \"%n %#a\" /etc/audit/*.conf"
+      re: ^/etc/audit && !r:640|600|400
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not c:sh -c "stat -Lc \"%n %u %U %g %G\" /etc/audit/*.rules" ->
+      r:^/etc/audit && !r:\s*0 root 0 root
+    Env:
+      cmd: sh -c "stat -Lc \"%n %u %U %g %G\" /etc/audit/*.rules"
+      re: ^/etc/audit && !r:\s*0 root 0 root
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not c:sh -c "stat -Lc \"%n %u %U %g %G\" /etc/audit/*.conf" -> r:^/etc/audit
+      && !r:\s*0 root 0 root
+    Env:
+      cmd: sh -c "stat -Lc \"%n %u %U %g %G\" /etc/audit/*.conf"
+      re: ^/etc/audit && !r:\s*0 root 0 root
+  Verified: false
+- Id: "29625"
+  Title: Ensure audit configuration files are owned by root.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not c:sh -c "stat -Lc \"%n %U\" /etc/audit/*.rules" -> r:^/etc/audit
+      && !r:root
+    Env:
+      cmd: sh -c "stat -Lc \"%n %U\" /etc/audit/*.rules"
+      re: ^/etc/audit && !r:root
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not c:sh -c "stat -Lc \"%n %U\" /etc/audit/*.conf" -> r:^/etc/audit
+      && !r:root
+    Env:
+      cmd: sh -c "stat -Lc \"%n %U\" /etc/audit/*.conf"
+      re: ^/etc/audit && !r:root
+  Verified: false
+- Id: "29626"
+  Title: Ensure audit configuration files belong to group root.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not c:sh -c "stat -Lc \"%n %G\" /etc/audit/*.rules" -> r:^/etc/audit
+      && !r:root
+    Env:
+      cmd: sh -c "stat -Lc \"%n %G\" /etc/audit/*.rules"
+      re: ^/etc/audit && !r:root
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not c:sh -c "stat -Lc \"%n %G\" /etc/audit/*.conf" -> r:^/etc/audit
+      && !r:root
+    Env:
+      cmd: sh -c "stat -Lc \"%n %G\" /etc/audit/*.conf"
+      re: ^/etc/audit && !r:root
+  Verified: false
+- Id: "29627"
+  Title: Ensure audit tools are 755 or more restrictive.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not c:stat -c "%n %a %U %G" /sbin/auditctl /sbin/aureport /sbin/ausearch
+      /sbin/autrace /sbin/auditd /sbin/augenrules -> r:^/sbin && !r:000|010|040|050|001|011|041|051|004|014|044|054|005|015|045|055|700|710|740|750|701|711|741|751|704|714|744|754|705|715|745|755
+    Env:
+      cmd: stat -c "%n %a %U %G" /sbin/auditctl /sbin/aureport /sbin/ausearch /sbin/autrace
+        /sbin/auditd /sbin/augenrules
+      re: ^/sbin && !r:000|010|040|050|001|011|041|051|004|014|044|054|005|015|045|055|700|710|740|750|701|711|741|751|704|714|744|754|705|715|745|755
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not c:stat -c "%n %u %U %g %G" /sbin/auditctl /sbin/aureport /sbin/ausearch
+      /sbin/autrace /sbin/auditd /sbin/augenrules -> r:^/sbin && !r:0 root 0 root
+    Env:
+      cmd: stat -c "%n %u %U %g %G" /sbin/auditctl /sbin/aureport /sbin/ausearch /sbin/autrace
+        /sbin/auditd /sbin/augenrules
+      re: ^/sbin && !r:0 root 0 root
+  Verified: false
+- Id: "29628"
+  Title: Ensure audit tools are owned by root.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not c:stat -c "%n %a %U %G" /sbin/auditctl /sbin/aureport /sbin/ausearch
+      /sbin/autrace /sbin/auditd /sbin/augenrules -> r:^/sbin && !r:000|010|040|050|001|011|041|051|004|014|044|054|005|015|045|055|700|710|740|750|701|711|741|751|704|714|744|754|705|715|745|755
+    Env:
+      cmd: stat -c "%n %a %U %G" /sbin/auditctl /sbin/aureport /sbin/ausearch /sbin/autrace
+        /sbin/auditd /sbin/augenrules
+      re: ^/sbin && !r:000|010|040|050|001|011|041|051|004|014|044|054|005|015|045|055|700|710|740|750|701|711|741|751|704|714|744|754|705|715|745|755
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not c:stat -c "%n %u %U %g %G" /sbin/auditctl /sbin/aureport /sbin/ausearch
+      /sbin/autrace /sbin/auditd /sbin/augenrules -> r:^/sbin && !r:0 root 0 root
+    Env:
+      cmd: stat -c "%n %u %U %g %G" /sbin/auditctl /sbin/aureport /sbin/ausearch /sbin/autrace
+        /sbin/auditd /sbin/augenrules
+      re: ^/sbin && !r:0 root 0 root
+  Verified: false
+- Id: "29629"
+  Title: Ensure audit tools belong to group root.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not c:stat -c "%n %a %U %G" /sbin/auditctl /sbin/aureport /sbin/ausearch
+      /sbin/autrace /sbin/auditd /sbin/augenrules -> r:^/sbin && !r:000|010|040|050|001|011|041|051|004|014|044|054|005|015|045|055|700|710|740|750|701|711|741|751|704|714|744|754|705|715|745|755
+    Env:
+      cmd: stat -c "%n %a %U %G" /sbin/auditctl /sbin/aureport /sbin/ausearch /sbin/autrace
+        /sbin/auditd /sbin/augenrules
+      re: ^/sbin && !r:000|010|040|050|001|011|041|051|004|014|044|054|005|015|045|055|700|710|740|750|701|711|741|751|704|714|744|754|705|715|745|755
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not c:stat -c "%n %u %U %g %G" /sbin/auditctl /sbin/aureport /sbin/ausearch
+      /sbin/autrace /sbin/auditd /sbin/augenrules -> r:^/sbin && !r:0 root 0 root
+    Env:
+      cmd: stat -c "%n %u %U %g %G" /sbin/auditctl /sbin/aureport /sbin/ausearch /sbin/autrace
+        /sbin/auditd /sbin/augenrules
+      re: ^/sbin && !r:0 root 0 root
+  Verified: false
+- Id: "29630"
+  Title: Ensure systemd-journal-remote is installed.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+      systemd-journal-remote -> r:install ok installed
+    Env:
+      cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+        systemd-journal-remote
+      re: install ok installed
+  Verified: false
+- Id: "29631"
+  Title: Ensure systemd-journal-remote is enabled.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:systemctl is-enabled systemd-journal-upload.service -> r:^\s*\t*enabled$
+    Env:
+      cmd: systemctl is-enabled systemd-journal-upload.service
+      re: ^\s*\t*enabled$
+  Verified: false
+- Id: "29632"
+  Title: Ensure journald is not configured to recieve logs from a remote client.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:systemctl is-enabled systemd-journal-remote.socket -> r:disabled
+    Env:
+      cmd: systemctl is-enabled systemd-journal-remote.socket
+      re: disabled
+  Verified: false
+- Id: "29633"
+  Title: Ensure journald service is enabled.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:systemctl is-enabled systemd-journald.service -> r:static
+    Env:
+      cmd: systemctl is-enabled systemd-journald.service
+      re: static
+  Verified: false
+- Id: "29634"
+  Title: Ensure journald is configured to compress large log files.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/systemd/journald.conf -> r:^\s*\t*Compress\s*\t*=\s*\t*yes
+    Env:
+      f: /etc/systemd/journald.conf
+      re: ^\s*\t*Compress\s*\t*=\s*\t*yes
+  Verified: false
+- Id: "29635"
+  Title: Ensure journald is configured to write logfiles to persistent disk.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/systemd/journald.conf -> r:^\s*\t*Storage\s*\t*=\s*\t*persistent
+    Env:
+      f: /etc/systemd/journald.conf
+      re: ^\s*\t*Storage\s*\t*=\s*\t*persistent
+  Verified: false
+- Id: "29636"
+  Title: Ensure journald is not configured to send logs to rsyslog.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not f:/etc/systemd/journald.conf -> r:^\s*\t*ForwardToSyslog\s*\t*=\s*\t*yes
+    Env:
+      f: /etc/systemd/journald.conf
+      re: ^\s*\t*ForwardToSyslog\s*\t*=\s*\t*yes
+  Verified: false
+- Id: "29637"
+  Title: Ensure rsyslog is installed.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+      rsyslog -> r:install ok installed
+    Env:
+      cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
+        rsyslog
+      re: install ok installed
+  Verified: false
+- Id: "29638"
+  Title: Ensure rsyslog service is enabled.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:systemctl is-enabled rsyslog -> r:enabled
+    Env:
+      cmd: systemctl is-enabled rsyslog
+      re: enabled
+  Verified: false
+- Id: "29639"
+  Title: Ensure journald is configured to send logs to rsyslog.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/systemd/journald.conf -> r:^\s*\t*ForwardToSyslog\s*\t*=\s*\t*yes
+    Env:
+      f: /etc/systemd/journald.conf
+      re: ^\s*\t*ForwardToSyslog\s*\t*=\s*\t*yes
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not f:/etc/systemd/journald.conf -> r:^\s*\t*ForwardToSyslog\s*\t*=\s*\t*no
+    Env:
+      f: /etc/systemd/journald.conf
+      re: ^\s*\t*ForwardToSyslog\s*\t*=\s*\t*no
+  Verified: false
+- Id: "29640"
+  Title: Ensure rsyslog default file permissions are configured.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not f:/etc/rsyslog.conf -> r:^\s*\t*\$FileCreateMode && !r:0640|0600|0400
+    Env:
+      f: /etc/rsyslog.conf
+      re: ^\s*\t*\$FileCreateMode && !r:0640|0600|0400
+  - WhereExpression: 'NOT '
+    OriginalTest: not d:/etc/rsyslog.d/ -> r:\.+.conf -> r:^\s*\t*\$FileCreateMode
+      && !r:0640|0600|0400
+  Verified: false
+- Id: "29641"
+  Title: Ensure rsyslog is not configured to receive logs from a remote client.
+  Condition: all
+  Rules:
+  - WhereExpression: 'NOT '
+    OriginalTest: not d:/etc/rsyslog.d -> r:\.+.conf$ -> r:^\s*\t*\$ModLoad imtcp|^\s*\t*module\(load="imtcp"\)|^\s*\t*input\(type="imtcp"
+      port="514"\)|^\s*\t*\$InputTCPServerRun
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not f:/etc/rsyslog.conf -> r:^\s*\t*\$ModLoad imtcp|^\s*\t*module\(load="imtcp"\)|^\s*\t*input\(type="imtcp"
+      port="514"\)|^\s*\t*\$InputTCPServerRun
+    Env:
+      f: /etc/rsyslog.conf
+      re: ^\s*\t*\$ModLoad imtcp|^\s*\t*module\(load="imtcp"\)|^\s*\t*input\(type="imtcp"
+        port="514"\)|^\s*\t*\$InputTCPServerRun
+  Verified: false
+- Id: "29642"
+  Title: Ensure cron daemon is enabled and running.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:systemctl is-enabled cron -> r:enabled
+    Env:
+      cmd: systemctl is-enabled cron
+      re: enabled
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: 'c:systemctl status cron -> r:Active: active \(running\)'
+    Env:
+      cmd: systemctl status cron
+      re: 'Active: active \(running\)'
+  Verified: false
+- Id: "29643"
+  Title: Ensure permissions on /etc/crontab are configured.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: 'c:stat -L /etc/crontab -> r:^Access: \(0600/-rw-------\)\s*Uid:\s*\(\s*0/\s*root\)\s*Gid:\s*\(\s*0/\s*root\)$'
+    Env:
+      cmd: stat -L /etc/crontab
+      re: '^Access: \(0600/-rw-------\)\s*Uid:\s*\(\s*0/\s*root\)\s*Gid:\s*\(\s*0/\s*root\)$'
+  Verified: false
+- Id: "29644"
+  Title: Ensure permissions on /etc/cron.hourly are configured.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: 'c:stat -L /etc/cron.hourly -> r:^Access: \(0700/drwx------\)\s*Uid:
+      \(\s*0/\s*root\)\s*Gid: \(\s*0/\s*root\)$'
+    Env:
+      cmd: stat -L /etc/cron.hourly
+      re: '^Access: \(0700/drwx------\)\s*Uid: \(\s*0/\s*root\)\s*Gid: \(\s*0/\s*root\)$'
+  Verified: false
+- Id: "29645"
+  Title: Ensure permissions on /etc/cron.daily are configured.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: 'c:stat -L /etc/cron.daily -> r:^Access: \(0700/drwx------\)\s*Uid:
+      \(\s*0/\s*root\)\s*Gid: \(\s*0/\s*root\)$'
+    Env:
+      cmd: stat -L /etc/cron.daily
+      re: '^Access: \(0700/drwx------\)\s*Uid: \(\s*0/\s*root\)\s*Gid: \(\s*0/\s*root\)$'
+  Verified: false
+- Id: "29646"
+  Title: Ensure permissions on /etc/cron.weekly are configured.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: 'c:stat -L /etc/cron.weekly -> r:^Access: \(0700/drwx------\)\s*Uid:
+      \(\s*0/\s*root\)\s*Gid: \(\s*0/\s*root\)$'
+    Env:
+      cmd: stat -L /etc/cron.weekly
+      re: '^Access: \(0700/drwx------\)\s*Uid: \(\s*0/\s*root\)\s*Gid: \(\s*0/\s*root\)$'
+  Verified: false
+- Id: "29647"
+  Title: Ensure permissions on /etc/cron.monthly are configured.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: 'c:stat -L /etc/cron.monthly -> r:^Access: \(0700/drwx------\)\s*Uid:
+      \(\s*0/\s*root\)\s*Gid: \(\s*0/\s*root\)$'
+    Env:
+      cmd: stat -L /etc/cron.monthly
+      re: '^Access: \(0700/drwx------\)\s*Uid: \(\s*0/\s*root\)\s*Gid: \(\s*0/\s*root\)$'
+  Verified: false
+- Id: "29648"
+  Title: Ensure permissions on /etc/cron.d are configured.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: 'c:stat -L /etc/cron.d -> r:^Access: \(0700/drwx------\)\s*Uid:
+      \(\s*0/\s*root\)\s*Gid: \(\s*0/\s*root\)$'
+    Env:
+      cmd: stat -L /etc/cron.d
+      re: '^Access: \(0700/drwx------\)\s*Uid: \(\s*0/\s*root\)\s*Gid: \(\s*0/\s*root\)$'
+  Verified: false
+- Id: "29649"
+  Title: Ensure cron is restricted to authorized users.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/cron.allow
+    Env:
+      f: /etc/cron.allow
+      re: ..
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not f:/etc/cron.deny
+    Env:
+      f: /etc/cron.deny
+      re: ..
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:stat -Lc "%n %#a %u %U %g %G" /etc/cron.allow -> r:/etc/cron.allow
+      0640 0 root 0 root
+    Env:
+      cmd: stat -Lc "%n %#a %u %U %g %G" /etc/cron.allow
+      re: /etc/cron.allow 0640 0 root 0 root
+  Verified: false
+- Id: "29650"
+  Title: Ensure at is restricted to authorized users.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/at.allow
+    Env:
+      f: /etc/at.allow
+      re: ..
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not f:/etc/at.deny
+    Env:
+      f: /etc/at.deny
+      re: ..
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:stat -Lc "%n %#a %u %U %g %G" /etc/at.allow -> r:/etc/at.allow
+      0640 0 root 0 root
+    Env:
+      cmd: stat -Lc "%n %#a %u %U %g %G" /etc/at.allow
+      re: /etc/at.allow 0640 0 root 0 root
+  Verified: false
+- Id: "29651"
+  Title: Ensure permissions on /etc/ssh/sshd_config are configured.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: 'c:stat -L /etc/ssh/sshd_config -> r:^Access: \(0600/-rw-------\)\s*Uid:
+      \(\s*0/\s*root\)\s*Gid: \(\s*0/\s*root\)$'
+    Env:
+      cmd: stat -L /etc/ssh/sshd_config
+      re: '^Access: \(0600/-rw-------\)\s*Uid: \(\s*0/\s*root\)\s*Gid: \(\s*0/\s*root\)$'
+  Verified: false
+- Id: "29652"
+  Title: Ensure SSH access is limited.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:sshd -T -> r:^AllowUsers\s+\w+|^AllowGroups\s+\w+|^DenyUsers\s+\w+|^DenyGroups\s+\w+
+    Env:
+      cmd: sshd -T
+      re: ^AllowUsers\s+\w+|^AllowGroups\s+\w+|^DenyUsers\s+\w+|^DenyGroups\s+\w+
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/ssh/sshd_config -> r:^\s*\t*AllowUsers\s+\w+|^\s*\t*AllowGroups\s+\w+|^\s*\t*DenyUsers\s+\w+|^\s*\t*DenyGroups\s+\w+
+    Env:
+      f: /etc/ssh/sshd_config
+      re: ^\s*\t*AllowUsers\s+\w+|^\s*\t*AllowGroups\s+\w+|^\s*\t*DenyUsers\s+\w+|^\s*\t*DenyGroups\s+\w+
+  Verified: false
+- Id: "29653"
+  Title: Ensure SSH LogLevel is appropriate.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:sshd -T -> r:^LogLevel\s+INFO|^LogLevel\s+VERBOSE
+    Env:
+      cmd: sshd -T
+      re: ^LogLevel\s+INFO|^LogLevel\s+VERBOSE
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not f:/etc/ssh/sshd_config -> r:^\s*\t*LogLevel\s*\t* && !r:INFO|VERBOSE
+    Env:
+      f: /etc/ssh/sshd_config
+      re: ^\s*\t*LogLevel\s*\t* && !r:INFO|VERBOSE
+  Verified: false
+- Id: "29654"
+  Title: Ensure SSH PAM is enabled.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:sshd -T -> r:^usepam\s+yes
+    Env:
+      cmd: sshd -T
+      re: ^usepam\s+yes
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not f:/etc/ssh/sshd_config -> r:^\s*\t*usepam\s*\t*no
+    Env:
+      f: /etc/ssh/sshd_config
+      re: ^\s*\t*usepam\s*\t*no
+  Verified: false
+- Id: "29655"
+  Title: Ensure SSH root login is disabled.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:sshd -T -> r:^PermitRootLogin\s+no
+    Env:
+      cmd: sshd -T
+      re: ^PermitRootLogin\s+no
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not f:/etc/ssh/sshd_config -> r:^\s*\t*PermitRootLogin\s*\t*yes
+    Env:
+      f: /etc/ssh/sshd_config
+      re: ^\s*\t*PermitRootLogin\s*\t*yes
+  Verified: false
+- Id: "29656"
+  Title: Ensure SSH HostbasedAuthentication is disabled.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:sshd -T -> r:^HostbasedAuthentication\s+no
+    Env:
+      cmd: sshd -T
+      re: ^HostbasedAuthentication\s+no
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not f:/etc/ssh/sshd_config -> r:^\s*\t*HostbasedAuthentication\s*\t*yes
+    Env:
+      f: /etc/ssh/sshd_config
+      re: ^\s*\t*HostbasedAuthentication\s*\t*yes
+  Verified: false
+- Id: "29657"
+  Title: Ensure SSH PermitEmptyPasswords is disabled.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:sshd -T -> r:^PermitEmptyPasswords\s+no
+    Env:
+      cmd: sshd -T
+      re: ^PermitEmptyPasswords\s+no
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not f:/etc/ssh/sshd_config -> r:^\s*\t*PermitEmptyPasswords\s*\t*yes
+    Env:
+      f: /etc/ssh/sshd_config
+      re: ^\s*\t*PermitEmptyPasswords\s*\t*yes
+  Verified: false
+- Id: "29658"
+  Title: Ensure SSH PermitUserEnvironment is disabled.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:sshd -T -> r:^PermitUserEnvironment\s+no
+    Env:
+      cmd: sshd -T
+      re: ^PermitUserEnvironment\s+no
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not f:/etc/ssh/sshd_config -> r:^\s*\t*PermitUserEnvironment\s*\t*yes
+    Env:
+      f: /etc/ssh/sshd_config
+      re: ^\s*\t*PermitUserEnvironment\s*\t*yes
+  Verified: false
+- Id: "29659"
+  Title: Ensure SSH IgnoreRhosts is enabled.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:sshd -T -> r:^IgnoreRhosts\s+yes
+    Env:
+      cmd: sshd -T
+      re: ^IgnoreRhosts\s+yes
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not f:/etc/ssh/sshd_config -> r:^\s*\t*IgnoreRhosts\s*\t*no
+    Env:
+      f: /etc/ssh/sshd_config
+      re: ^\s*\t*IgnoreRhosts\s*\t*no
+  Verified: false
+- Id: "29660"
+  Title: Ensure SSH X11 forwarding is disabled.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:sshd -T -> r:^X11Forwarding\s+no
+    Env:
+      cmd: sshd -T
+      re: ^X11Forwarding\s+no
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not f:/etc/ssh/sshd_config -> r:^\s*\t*X11Forwarding\s*\t*yes
+    Env:
+      f: /etc/ssh/sshd_config
+      re: ^\s*\t*X11Forwarding\s*\t*yes
+  Verified: false
+- Id: "29661"
+  Title: Ensure only strong Ciphers are used.
+  Condition: none
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:sshd -T -> r:^ciphers && r:3des-cbc|aes128-cbc|aes192-cbc|aes256-cbc
+    Env:
+      cmd: sshd -T
+      re: ^ciphers
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: sshd -T
+      re: 3des-cbc|aes128-cbc|aes192-cbc|aes256-cbc
+  Verified: false
+- Id: "29662"
+  Title: Ensure only strong MAC algorithms are used.
+  Condition: none
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:sshd -T -> r:^MACs && r:hmac-md5|hmac-md5-96|hmac-ripemd160|hmac-sha1|hmac-sha1-96|umac-64@openssh.com|umac-128@openssh.com|hmac-md5-etm@openssh.com|hmac-md5-96-etm@openssh.com|hmac-ripemd160-etm@openssh.com|hmac-sha1-etm@openssh.com|hmac-sha1-96-etm@openssh.com|umac-64-etm@openssh.com|umac-128-etm@openssh.com
+    Env:
+      cmd: sshd -T
+      re: ^MACs
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: sshd -T
+      re: hmac-md5|hmac-md5-96|hmac-ripemd160|hmac-sha1|hmac-sha1-96|umac-64@openssh.com|umac-128@openssh.com|hmac-md5-etm@openssh.com|hmac-md5-96-etm@openssh.com|hmac-ripemd160-etm@openssh.com|hmac-sha1-etm@openssh.com|hmac-sha1-96-etm@openssh.com|umac-64-etm@openssh.com|umac-128-etm@openssh.com
+  Verified: false
+- Id: "29663"
+  Title: Ensure only strong Key Exchange algorithms are used.
+  Condition: none
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:sshd -T -> r:^kexalgorithms && r:diffie-hellman-group1-sha1|diffie-hellman-group14-sha1|diffie-hellman-group-exchange-sha1
+    Env:
+      cmd: sshd -T
+      re: ^kexalgorithms
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: sshd -T
+      re: diffie-hellman-group1-sha1|diffie-hellman-group14-sha1|diffie-hellman-group-exchange-sha1
+  Verified: false
+- Id: "29664"
+  Title: Ensure SSH AllowTcpForwarding is disabled.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:sshd -T -> r:^AllowTcpForwarding\s+no
+    Env:
+      cmd: sshd -T
+      re: ^AllowTcpForwarding\s+no
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not f:/etc/ssh/sshd_config -> r:^\s*\t*AllowTcpForwarding\s*\t*yes
+    Env:
+      f: /etc/ssh/sshd_config
+      re: ^\s*\t*AllowTcpForwarding\s*\t*yes
+  Verified: false
+- Id: "29665"
+  Title: Ensure SSH warning banner is configured.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:sshd -T -> r:^banner\s/
+    Env:
+      cmd: sshd -T
+      re: ^banner\s/
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/ssh/sshd_config -> r:^\s*\t*banner\s*\t*/
+    Env:
+      f: /etc/ssh/sshd_config
+      re: ^\s*\t*banner\s*\t*/
+  Verified: false
+- Id: "29666"
+  Title: Ensure SSH MaxAuthTries is set to 4 or less.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: int(int=CmdOut(cmd=cmd, re=re).g1 || 0)
+    WhereExpression: Value  <= 4
+    OriginalTest: c:sshd -T -> n:^MaxAuthTries\s(\d+) compare <= 4
+    Env:
+      cmd: sshd -T
+      re: ^MaxAuthTries\s(\d+)
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/ssh/sshd_config -> n:^\s*\t*MaxAuthTries\s*\t*(\d+) compare
+      <= 4
+    Env:
+      f: /etc/ssh/sshd_config -> n:^\s*\t*MaxAuthTries\s*\t*(\d+) compare <= 4
+      re: ..
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not f:/etc/ssh/sshd_config -> n:^\s*\t*MaxAuthTries\s*\t*(\d+) compare
+      > 4
+    Env:
+      f: /etc/ssh/sshd_config -> n:^\s*\t*MaxAuthTries\s*\t*(\d+) compare > 4
+      re: ..
+  Verified: false
+- Id: "29667"
+  Title: Ensure SSH MaxStartups is configured.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: int(int=CmdOut(cmd=cmd, re=re).g1 || 0)
+    WhereExpression: Value  <= 10
+    OriginalTest: c:sshd -T -> n:^maxstartups\s+(\d+):\d+:\d+ compare <= 10
+    Env:
+      cmd: sshd -T
+      re: ^maxstartups\s+(\d+):\d+:\d+
+  - Name: Value
+    ColumnExpression: int(int=CmdOut(cmd=cmd, re=re).g1 || 0)
+    WhereExpression: Value  <= 30
+    OriginalTest: c:sshd -T -> n:^maxstartups\s+\d+:(\d+):\d+ compare <= 30
+    Env:
+      cmd: sshd -T
+      re: ^maxstartups\s+\d+:(\d+):\d+
+  - Name: Value
+    ColumnExpression: int(int=CmdOut(cmd=cmd, re=re).g1 || 0)
+    WhereExpression: Value  <= 60
+    OriginalTest: c:sshd -T -> n:^maxstartups\s+\d+:\d+:(\d+) compare <= 60
+    Env:
+      cmd: sshd -T
+      re: ^maxstartups\s+\d+:\d+:(\d+)
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not f:/etc/ssh/sshd_config -> n:^\s*\t*maxstartups\s*\t*(\d+):\d+:\d+
+      compare > 10
+    Env:
+      f: /etc/ssh/sshd_config -> n:^\s*\t*maxstartups\s*\t*(\d+):\d+:\d+ compare >
+        10
+      re: ..
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not f:/etc/ssh/sshd_config -> n:^\s*\t*maxstartups\s*\t*\d+:(\d+):\d+
+      compare > 30
+    Env:
+      f: /etc/ssh/sshd_config -> n:^\s*\t*maxstartups\s*\t*\d+:(\d+):\d+ compare >
+        30
+      re: ..
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not f:/etc/ssh/sshd_config -> n:^\s*\t*maxstartups\s*\t*\d+:\d+:(\d+)
+      compare > 60
+    Env:
+      f: /etc/ssh/sshd_config -> n:^\s*\t*maxstartups\s*\t*\d+:\d+:(\d+) compare >
+        60
+      re: ..
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/ssh/sshd_config -> n:^\s*\t*maxstartups\s*\t*(\d+):\d+:\d+
+      compare <= 10
+    Env:
+      f: /etc/ssh/sshd_config -> n:^\s*\t*maxstartups\s*\t*(\d+):\d+:\d+ compare <=
+        10
+      re: ..
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/ssh/sshd_config -> n:^\s*\t*maxstartups\s*\t*\d+:(\d+):\d+
+      compare <= 30
+    Env:
+      f: /etc/ssh/sshd_config -> n:^\s*\t*maxstartups\s*\t*\d+:(\d+):\d+ compare <=
+        30
+      re: ..
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/ssh/sshd_config -> n:^\s*\t*maxstartups\s*\t*\d+:\d+:(\d+)
+      compare <= 60
+    Env:
+      f: /etc/ssh/sshd_config -> n:^\s*\t*maxstartups\s*\t*\d+:\d+:(\d+) compare <=
+        60
+      re: ..
+  Verified: false
+- Id: "29668"
+  Title: Ensure SSH MaxSessions is set to 10 or less.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: int(int=CmdOut(cmd=cmd, re=re).g1 || 0)
+    WhereExpression: Value  <= 10
+    OriginalTest: c:sshd -T -> n:^maxsessions\s+(\d+) compare <= 10
+    Env:
+      cmd: sshd -T
+      re: ^maxsessions\s+(\d+)
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not f:/etc/ssh/sshd_config ->  n:^\s*\t*maxsessions\s*\t*(\d+) compare
+      > 10
+    Env:
+      f: /etc/ssh/sshd_config ->  n:^\s*\t*maxsessions\s*\t*(\d+) compare > 10
+      re: ..
+  Verified: false
+- Id: "29669"
+  Title: Ensure SSH LoginGraceTime is set to one minute or less.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: int(int=CmdOut(cmd=cmd, re=re).g1 || 0)
+    WhereExpression: Value  != 0
+    OriginalTest: c:sshd -T -> n:^logingracetime\s(\d+) compare <= 60 && n:LoginGraceTime\s(\d+)
+      compare != 0
+    Env:
+      cmd: sshd -T
+      re: ^logingracetime\s(\d+) compare <= 60 && n:LoginGraceTime\s(\d+)
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/ssh/sshd_config -> n:^\s*\t*logingracetime\s*\t*(\d+) compare
+      <= 60 && n:^\s*\t*LoginGraceTime\s*\t*(\d+) compare != 0
+    Env:
+      f: /etc/ssh/sshd_config -> n:^\s*\t*logingracetime\s*\t*(\d+) compare <= 60
+        && n:^\s*\t*LoginGraceTime\s*\t*(\d+) compare != 0
+      re: ..
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not f:/etc/ssh/sshd_config -> n:^\s*\t*logingracetime\s*\t*(\d+)
+      compare > 60
+    Env:
+      f: /etc/ssh/sshd_config -> n:^\s*\t*logingracetime\s*\t*(\d+) compare > 60
+      re: ..
+  Verified: false
+- Id: "29670"
+  Title: Ensure SSH Idle Timeout Interval is configured.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: int(int=CmdOut(cmd=cmd, re=re).g1 || 0)
+    WhereExpression: Value  > 0
+    OriginalTest: c:sshd -T -> n:^clientaliveinterval\s*\t*(\d+) compare > 0
+    Env:
+      cmd: sshd -T
+      re: ^clientaliveinterval\s*\t*(\d+)
+  - Name: Value
+    ColumnExpression: int(int=CmdOut(cmd=cmd, re=re).g1 || 0)
+    WhereExpression: Value  > 0
+    OriginalTest: c:sshd -T -> n:^clientalivecountmax\s*\t*(\d+) compare > 0
+    Env:
+      cmd: sshd -T
+      re: ^clientalivecountmax\s*\t*(\d+)
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/ssh/sshd_config -> n:^\s*\t*clientaliveinterval\s*\t*(\d+)
+      compare > 0
+    Env:
+      f: /etc/ssh/sshd_config -> n:^\s*\t*clientaliveinterval\s*\t*(\d+) compare >
+        0
+      re: ..
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/ssh/sshd_config -> n:^\s*\t*clientalivecountmax\s*\t*(\d+)
+      compare > 0
+    Env:
+      f: /etc/ssh/sshd_config -> n:^\s*\t*clientalivecountmax\s*\t*(\d+) compare >
+        0
+      re: ..
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not f:/etc/ssh/sshd_config -> n:^\s*\t*clientaliveinterval\s*\t*(\d+)
+      compare == 0
+    Env:
+      f: /etc/ssh/sshd_config -> n:^\s*\t*clientaliveinterval\s*\t*(\d+) compare ==
+        0
+      re: ..
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not f:/etc/ssh/sshd_config -> n:^\s*\t*clientalivecountmax\s*\t*(\d+)
+      compare == 0
+    Env:
+      f: /etc/ssh/sshd_config -> n:^\s*\t*clientalivecountmax\s*\t*(\d+) compare ==
+        0
+      re: ..
+  Verified: false
+- Id: "29671"
+  Title: Ensure sudo is installed.
+  Condition: any
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: 'c: dpkg-query -W -f=''${binary:Package}\t${Status}\t${db:Status-Status}\n''
+      sudo -> r:install ok installed'
+    Env:
+      cmd: ' dpkg-query -W -f=''${binary:Package}\t${Status}\t${db:Status-Status}\n''
+        sudo'
+      re: install ok installed
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: 'c: dpkg-query -W -f=''${binary:Package}\t${Status}\t${db:Status-Status}\n''
+      sudo-ldap -> r:install ok installed'
+    Env:
+      cmd: ' dpkg-query -W -f=''${binary:Package}\t${Status}\t${db:Status-Status}\n''
+        sudo-ldap'
+      re: install ok installed
+  Verified: false
+- Id: "29672"
+  Title: Ensure sudo commands use pty.
+  Condition: any
+  Rules:
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/sudoers -> r:^\s*\t*Defaults\s*\t*use_pty
+    Env:
+      f: /etc/sudoers
+      re: ^\s*\t*Defaults\s*\t*use_pty
+  - OriginalTest: d:/etc/sudoers.d -> r:\.* -> r:^\s*\t*Defaults\s*\t*use_pty
+  Verified: false
+- Id: "29673"
+  Title: Ensure sudo log file exists.
+  Condition: any
+  Rules:
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/sudoers -> r:^\s*\t*Defaults\s*\t*logfile=
+    Env:
+      f: /etc/sudoers
+      re: ^\s*\t*Defaults\s*\t*logfile=
+  - OriginalTest: d:/etc/sudoers.d -> r:\.* -> r:^\s*\t*Defaults\s*\t*logfile=
+  Verified: false
+- Id: "29674"
+  Title: Ensure users must provide password for privilege escalation.
+  Condition: none
+  Rules:
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/sudoers -> !r:^\s*\t*# && r:NOPASSWD
+    Env:
+      f: /etc/sudoers -> !r:^\s*\t*# && r:NOPASSWD
+      re: ..
+  - OriginalTest: d:/etc/sudoers.d -> r:\.* -> !r:^\s*\t*# && r:NOPASSWD
+  Verified: false
+- Id: "29675"
+  Title: Ensure re-authentication for privilege escalation is not disabled globally.
+  Condition: none
+  Rules:
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/sudoers -> !r:^\s*\t*# && r:!authenticate
+    Env:
+      f: /etc/sudoers -> !r:^\s*\t*# && r:!authenticate
+      re: ..
+  - OriginalTest: d:/etc/sudoers.d -> r:\.* -> !r:^\s*\t*# && r:!authenticate
+  Verified: false
+- Id: "29676"
+  Title: Ensure sudo authentication timeout is configured correctly.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not f:/etc/sudoers -> !r:^\s*\t*# && r:timestamp_timeout\s*\t*=\s*\t*-1
+    Env:
+      f: /etc/sudoers -> !r:^\s*\t*# && r:timestamp_timeout\s*\t*=\s*\t*-1
+      re: ..
+  - WhereExpression: 'NOT '
+    OriginalTest: not d:/etc/sudoers.d -> r:\.+ -> !r:^\s*\t*# && r:timestamp_timeout\s*\t*=\s*\t*-1
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not f:/etc/sudoers -> !r:^\s*\t*# && n:timestamp_timeout\s*\t*=\s*\t*(\d+)
+      compare > 15
+    Env:
+      f: /etc/sudoers -> !r:^\s*\t*# && n:timestamp_timeout\s*\t*=\s*\t*(\d+) compare
+        > 15
+      re: ..
+  - WhereExpression: 'NOT '
+    OriginalTest: not d:/etc/sudoers.d -> r:\.+ -> !r:^\s*\t*# && n:timestamp_timeout\s*\t*=\s*\t*(\d+)
+      compare > 15
+  Verified: false
+- Id: "29677"
+  Title: Ensure access to the su command is restricted.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/pam.d/su -> !r:^\s*\t*# && r:auth\s*\t*required\s*\t*pam_wheel.so
+      && r:use_uid && r:group=\w+
+    Env:
+      f: /etc/pam.d/su -> !r:^\s*\t*# && r:auth\s*\t*required\s*\t*pam_wheel.so &&
+        r:use_uid && r:group=\w+
+      re: ..
+  Verified: false
+- Id: "29678"
+  Title: Ensure password creation requirements are configured.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/security/pwquality.conf -> !r:^\s*\t*# && n:\s*\t*minlen\s*\t*=\s*\t*(\d+)
+      compare >= 14
+    Env:
+      f: /etc/security/pwquality.conf -> !r:^\s*\t*# && n:\s*\t*minlen\s*\t*=\s*\t*(\d+)
+        compare >= 14
+      re: ..
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/security/pwquality.conf -> !r:^\s*\t*# && n:\s*\t*minclass\s*\t*=\s*\t*(\d+)
+      compare >= 4
+    Env:
+      f: /etc/security/pwquality.conf -> !r:^\s*\t*# && n:\s*\t*minclass\s*\t*=\s*\t*(\d+)
+        compare >= 4
+      re: ..
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not f:/etc/security/pwquality.conf -> !r:^\s*\t*# && n:\s*\t*minlen\s*\t*=\s*\t*(\d+)
+      compare < 14
+    Env:
+      f: /etc/security/pwquality.conf -> !r:^\s*\t*# && n:\s*\t*minlen\s*\t*=\s*\t*(\d+)
+        compare < 14
+      re: ..
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not f:/etc/security/pwquality.conf -> !r:^\s*\t*# && n:\s*\t*minclass\s*\t*=\s*\t*(\d+)
+      compare < 4
+    Env:
+      f: /etc/security/pwquality.conf -> !r:^\s*\t*# && n:\s*\t*minclass\s*\t*=\s*\t*(\d+)
+        compare < 4
+      re: ..
+  Verified: false
+- Id: "29679"
+  Title: Ensure lockout for failed password attempts is configured.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/pam.d/common-auth -> !r:^\s*\t*# && r:auth\s*\t*required\s*\t*pam_faillock.so\s*\t*preauth
+    Env:
+      f: /etc/pam.d/common-auth -> !r:^\s*\t*# && r:auth\s*\t*required\s*\t*pam_faillock.so\s*\t*preauth
+      re: ..
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/pam.d/common-auth -> !r:^\s*\t*# && r:auth && r:default=die
+      && r:\s*\t*pam_faillock.so && r:\s*\t*authfail
+    Env:
+      f: /etc/pam.d/common-auth -> !r:^\s*\t*# && r:auth && r:default=die && r:\s*\t*pam_faillock.so
+        && r:\s*\t*authfail
+      re: ..
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/pam.d/common-auth -> !r:^\s*\t*# && r:auth\s*\t*sufficient\s*\t*pam_faillock.so\s*\t*authsucc
+    Env:
+      f: /etc/pam.d/common-auth -> !r:^\s*\t*# && r:auth\s*\t*sufficient\s*\t*pam_faillock.so\s*\t*authsucc
+      re: ..
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/pam.d/common-account -> !r:^\s*\t*# && r:account\s*\t*required\s*\t*pam_faillock.so
+    Env:
+      f: /etc/pam.d/common-account -> !r:^\s*\t*# && r:account\s*\t*required\s*\t*pam_faillock.so
+      re: ..
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/security/faillock.conf -> !r:^\s*\t*# && n:deny\s*\t*=\s*\t*(\d+)
+      compare <= 4
+    Env:
+      f: /etc/security/faillock.conf -> !r:^\s*\t*# && n:deny\s*\t*=\s*\t*(\d+) compare
+        <= 4
+      re: ..
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/security/faillock.conf -> !r:^\s*\t*# && n:fail_interval\s*\t*=\s*\t*(\d+)
+      compare <= 900
+    Env:
+      f: /etc/security/faillock.conf -> !r:^\s*\t*# && n:fail_interval\s*\t*=\s*\t*(\d+)
+        compare <= 900
+      re: ..
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not f:/etc/security/faillock.conf -> !r:^\s*\t*# && n:unlock_time\s*\t*=\s*\t*(\d+)
+      compare > 0 && n:unlock_time\s*\t*=\s*\t*(\d+) compare < 600
+    Env:
+      f: /etc/security/faillock.conf -> !r:^\s*\t*# && n:unlock_time\s*\t*=\s*\t*(\d+)
+        compare > 0 && n:unlock_time\s*\t*=\s*\t*(\d+) compare < 600
+      re: ..
+  Verified: false
+- Id: "29680"
+  Title: Ensure password reuse is limited.
+  Condition: none
+  Rules:
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/pam.d/common-password -> !r:^\s*\t*# && r:\s*\t*password\s*\t*required\s*\t*pam_pwhistory.so
+      && n:remember\s*\t*=\s*\t*(\d+) compare < 5
+    Env:
+      f: /etc/pam.d/common-password -> !r:^\s*\t*# && r:\s*\t*password\s*\t*required\s*\t*pam_pwhistory.so
+        && n:remember\s*\t*=\s*\t*(\d+) compare < 5
+      re: ..
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/pam.d/common-password -> !r:^\s*\t*# && r:password\s*\t*required\s*\t*pam_pwhistory.so
+      && !r:remember
+    Env:
+      f: /etc/pam.d/common-password -> !r:^\s*\t*# && r:password\s*\t*required\s*\t*pam_pwhistory.so
+        && !r:remember
+      re: ..
+  Verified: false
+- Id: "29681"
+  Title: Ensure password hashing algorithm is up to date with the latest standards.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not f:/etc/pam.d/common-password -> !r:^\s*\t*# && r:yescrypt|md5|bigcrypt|sha256|sha512|blowfish
+    Env:
+      f: /etc/pam.d/common-password -> !r:^\s*\t*# && r:yescrypt|md5|bigcrypt|sha256|sha512|blowfish
+      re: ..
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/login.defs -> r:^\s*\t*ENCRYPT_METHOD\s*\t*yescrypt
+    Env:
+      f: /etc/login.defs
+      re: ^\s*\t*ENCRYPT_METHOD\s*\t*yescrypt
+  Verified: false
+- Id: "29682"
+  Title: Ensure minimum days between password changes is configured.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/login.defs -> n:^\s*\t*PASS_MIN_DAYS\s*\t*(\d+) compare >=
+      1
+    Env:
+      f: /etc/login.defs -> n:^\s*\t*PASS_MIN_DAYS\s*\t*(\d+) compare >= 1
+      re: ..
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: 'not f:/etc/shadow -> n:^\w+:\$\.*:\d+:(\d+): compare == 0'
+    Env:
+      f: '/etc/shadow -> n:^\w+:\$\.*:\d+:(\d+): compare == 0'
+      re: ..
+  Verified: false
+- Id: "29683"
+  Title: Ensure password expiration is 365 days or less.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/login.defs -> n:^\s*PASS_MAX_DAYS\s*\t*(\d+) compare <= 365
+    Env:
+      f: /etc/login.defs -> n:^\s*PASS_MAX_DAYS\s*\t*(\d+) compare <= 365
+      re: ..
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: 'not f:/etc/shadow -> !r:^\w+:!|^\w+:\p: && n:^\w+:\S*:\S*:\S*:(\d+):\S*:\S*:\S*:\S*
+      compare > 365'
+    Env:
+      f: '/etc/shadow -> !r:^\w+:!|^\w+:\p: && n:^\w+:\S*:\S*:\S*:(\d+):\S*:\S*:\S*:\S*
+        compare > 365'
+      re: ..
+  Verified: false
+- Id: "29684"
+  Title: Ensure password expiration warning days is 7 or more.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/login.defs -> n:^\s*PASS_WARN_AGE\s*\t*(\d+) compare >= 7
+    Env:
+      f: /etc/login.defs -> n:^\s*PASS_WARN_AGE\s*\t*(\d+) compare >= 7
+      re: ..
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/shadow -> n:^\w+:\S*:\S*:\S*:\S*:(\d+):\S*:\S*:\S* compare
+      >= 7
+    Env:
+      f: /etc/shadow -> n:^\w+:\S*:\S*:\S*:\S*:(\d+):\S*:\S*:\S* compare >= 7
+      re: ..
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not f:/etc/shadow -> r:^\w+:\S*:\S*:\S*:\S*::\S*:\S*:\S*
+    Env:
+      f: /etc/shadow
+      re: ^\w+:\S*:\S*:\S*:\S*::\S*:\S*:\S*
+  Verified: false
+- Id: "29685"
+  Title: Ensure inactive password lock is 30 days or less.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: int(int=CmdOut(cmd=cmd, re=re).g1 || 0)
+    WhereExpression: Value  <= 30
+    OriginalTest: c:useradd -D -> n:^INACTIVE=(\d+) compare <= 30
+    Env:
+      cmd: useradd -D
+      re: ^INACTIVE=(\d+)
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: not c:useradd -D -> r:^INACTIVE=-1
+    Env:
+      cmd: useradd -D
+      re: ^INACTIVE=-1
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: 'f:/etc/shadow -> !r:^\w+:!|^\w+:\p: && n:^\w+:\S*:\S*:\S*:\S*:\S*:(\d+):\S*:\S*
+      compare <= 30'
+    Env:
+      f: '/etc/shadow -> !r:^\w+:!|^\w+:\p: && n:^\w+:\S*:\S*:\S*:\S*:\S*:(\d+):\S*:\S*
+        compare <= 30'
+      re: ..
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: 'not f:/etc/shadow -> !r:^\w+:!|^\w+:\p: && r:^\w+:\S*:\S*:\S*:\S*:\S*::\S*:\S*'
+    Env:
+      f: '/etc/shadow -> !r:^\w+:!|^\w+:\p: && r:^\w+:\S*:\S*:\S*:\S*:\S*::\S*:\S*'
+      re: ..
+  Verified: false
+- Id: "29686"
+  Title: Ensure default group for the root account is GID 0.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: Value
+    OriginalTest: f:/etc/passwd -> r:^root:x:0:0
+    Env:
+      f: /etc/passwd
+      re: ^root:x:0:0
+  Verified: false
+- Id: "29687"
+  Title: Ensure permissions on /etc/passwd are configured.
+  Condition: any
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:stat -Lc "%n %a %u/%U %g/%G" /etc/passwd -> r:0/root 0/root &&
+      r:644|640|604|600
+    Env:
+      cmd: stat -Lc "%n %a %u/%U %g/%G" /etc/passwd
+      re: 0/root 0/root
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: stat -Lc "%n %a %u/%U %g/%G" /etc/passwd
+      re: 644|640|604|600
+  Verified: false
+- Id: "29688"
+  Title: Ensure permissions on /etc/passwd- are configured.
+  Condition: any
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:stat -Lc "%n %a %u/%U %g/%G" /etc/passwd- -> r:0/root 0/root &&
+      r:644|640|604|600
+    Env:
+      cmd: stat -Lc "%n %a %u/%U %g/%G" /etc/passwd-
+      re: 0/root 0/root
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: stat -Lc "%n %a %u/%U %g/%G" /etc/passwd-
+      re: 644|640|604|600
+  Verified: false
+- Id: "29689"
+  Title: Ensure permissions on /etc/group are configured.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:stat -Lc "%n %a %u/%U %g/%G" /etc/group -> r:0/root 0/root &&
+      r:644|640|604|600
+    Env:
+      cmd: stat -Lc "%n %a %u/%U %g/%G" /etc/group
+      re: 0/root 0/root
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: stat -Lc "%n %a %u/%U %g/%G" /etc/group
+      re: 644|640|604|600
+  Verified: false
+- Id: "29690"
+  Title: Ensure permissions on /etc/group- are configured.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:stat -Lc "%n %a %u/%U %g/%G" /etc/group- -> r:0/root 0/root &&
+      r:644|640|604|600
+    Env:
+      cmd: stat -Lc "%n %a %u/%U %g/%G" /etc/group-
+      re: 0/root 0/root
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: stat -Lc "%n %a %u/%U %g/%G" /etc/group-
+      re: 644|640|604|600
+  Verified: false
+- Id: "29691"
+  Title: Ensure permissions on /etc/shadow are configured.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:stat -Lc "%n %a %u %U %g %G" /etc/shadow -> r:\s0 root 0 root
+      && r:640|600|400|500
+    Env:
+      cmd: stat -Lc "%n %a %u %U %g %G" /etc/shadow
+      re: \s0 root 0 root
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: stat -Lc "%n %a %u %U %g %G" /etc/shadow
+      re: 640|600|400|500
+  Verified: false
+- Id: "29692"
+  Title: Ensure permissions on /etc/shadow- are configured.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:stat -Lc "%n %a %u %U %g %G" /etc/shadow- -> r:\s0 root 0 root
+      && r:640|600|400|500
+    Env:
+      cmd: stat -Lc "%n %a %u %U %g %G" /etc/shadow-
+      re: \s0 root 0 root
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: stat -Lc "%n %a %u %U %g %G" /etc/shadow-
+      re: 640|600|400|500
+  Verified: false
+- Id: "29693"
+  Title: Ensure permissions on /etc/gshadow are configured.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:stat -Lc "%n %a %u %U %g %G" /etc/gshadow  -> r:\s0 root 0 root
+      && r:640|600|400|500
+    Env:
+      cmd: 'stat -Lc "%n %a %u %U %g %G" /etc/gshadow '
+      re: \s0 root 0 root
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: 'stat -Lc "%n %a %u %U %g %G" /etc/gshadow '
+      re: 640|600|400|500
+  Verified: false
+- Id: "29694"
+  Title: Ensure permissions on /etc/gshadow- are configured.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    OriginalTest: c:stat -Lc "%n %a %u %U %g %G" /etc/gshadow-  -> r:\s0 root 0 root
+      && r:640|600|400|500
+    Env:
+      cmd: 'stat -Lc "%n %a %u %U %g %G" /etc/gshadow- '
+      re: \s0 root 0 root
+  - Name: Value
+    ColumnExpression: CmdMatch(cmd=cmd, re=re)
+    WhereExpression: Value
+    Env:
+      cmd: 'stat -Lc "%n %a %u %U %g %G" /etc/gshadow- '
+      re: 640|600|400|500
+  Verified: false
+- Id: "29695"
+  Title: Ensure accounts in /etc/passwd use shadowed passwords.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: 'not f:/etc/passwd -> r:^\w+:x:'
+    Env:
+      f: /etc/passwd
+      re: '^\w+:x:'
+  Verified: false
+- Id: "29696"
+  Title: Ensure /etc/shadow password fields are not empty.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: 'not f:/etc/shadow -> r:^\w+::'
+    Env:
+      f: /etc/shadow
+      re: '^\w+::'
+  Verified: false
+- Id: "29697"
+  Title: Ensure root is the only UID 0 account.
+  Condition: all
+  Rules:
+  - Name: Value
+    ColumnExpression: FMatch(f=f, re=re)
+    WhereExpression: NOT Value
+    OriginalTest: 'not f:/etc/passwd -> !r:^\s*\t*# && !r:^root: && r:^\w+:\w+:0:'
+    Env:
+      f: '/etc/passwd -> !r:^\s*\t*# && !r:^root: && r:^\w+:\w+:0:'
+      re: ..
+  Verified: false

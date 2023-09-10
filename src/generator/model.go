@@ -26,13 +26,27 @@ type Test struct {
 	Error            string `json:"Error,omitempty"`
 
 	Env *ordereddict.Dict `json:"Env,omitempty"`
+
+	// A VQL expression to provide context on the test (for example
+	// contents of reg value).
+	Context string `json:"Context,omitempty"`
 }
 
+// If changing this update the merge rules in merge.go
 type Rules struct {
-	Source string   `json:"Source,omitempty"`
-	Type   string   `json:"Type,omitempty"`
-	Checks []*Check `json:"Checks,omitempty"`
+	Source string `json:"Source,omitempty"`
+
+	// The exported artifact will have this name and precondition.
+	ArtifactName string `json:"ArtifactName,omitempty"`
+	Precondition string `json:"Precondition,omitempty"`
+	Description  string `json:"Description,omitempty"`
 
 	// Contains any VQL that should be added to the export section.
 	Export string `json:"Export,omitempty"`
+
+	// The TYPE of the artifact (e.g. SCA)
+	Type string `json:"Type,omitempty"`
+
+	// A list of checks
+	Checks []*Check `json:"Checks,omitempty"`
 }

@@ -2,6 +2,16 @@ package generator
 
 // Merge rules from the other into this model
 func (self *Rules) Merge(other *Rules) error {
+	if other == nil {
+		return nil
+	}
+
+	// Merge user settable
+	self.ArtifactName = other.ArtifactName
+	self.Precondition = other.Precondition
+	self.Description = other.Description
+	self.Export = other.Export
+
 	// First build an index for fast lookup
 	index := make(map[string]*Check)
 	for _, o := range other.Checks {
@@ -21,7 +31,18 @@ func (self *Rules) Merge(other *Rules) error {
 }
 
 func (self *Check) Merge(other *Check) error {
+	if other == nil {
+		return nil
+	}
+
 	self.Verified = other.Verified
+	self.Remediate = other.Remediate
+
+	// Do not mess with verified rules
+	if other.Verified {
+		self.Rules = other.Rules
+		return nil
+	}
 
 	index := make(map[string]*Test)
 	for _, t := range other.Rules {
