@@ -276,6 +276,10 @@ func parseSCARule(rule *generator.Test) []*generator.Test {
 		return nil
 	}
 
+	// Warn the user that we cant handle this kind of rule yet
+	fmt.Printf("SCA import: We currently do not know how to handle this rule: %v\n",
+		rule.OriginalTest)
+
 	return nil
 }
 

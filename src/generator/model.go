@@ -10,11 +10,6 @@ type Check struct {
 	Condition string  `json:"Condition,omitempty"`
 	Rules     []*Test `json:"Rules,omitempty"`
 
-	// Deprecated: This is now replaced by Disabled above.
-	// Once we manually verify the check this will be set
-	// true. Further SCA imports will use the existing rules.
-	Verified bool `json:"Verified,omitempty"`
-
 	// Any VQL that should be run to remediate this check (bring into
 	// compliance)
 	Remediate string `json:"Remediate,omitempty"`
