@@ -48,14 +48,14 @@ sources:
 - name: FailedChecks
   query: |
 %v
-    SELECT * FROM Failours
+    SELECT * FROM Failures
 
 - name: FailedTests
   query: |
     -- For failed checks show all tests
     SELECT Id, TestId, CheckDetails, Value, Context, pass
     FROM foreach(row={
-      SELECT Id AS FailedId FROM Failours
+      SELECT Id AS FailedId FROM Failures
     },
     query={
       SELECT *,
@@ -75,7 +75,7 @@ sources:
 
 - name: Stats
   query: |
-    LET TotalFailed <= SELECT count() AS Total FROM Failours GROUP BY 1
+    LET TotalFailed <= SELECT count() AS Total FROM Failures GROUP BY 1
     LET TotalChecks <= %d
 
     SELECT TotalFailed[0].Total AS TotalFailed, TotalChecks FROM scope()
@@ -180,7 +180,7 @@ LET FContext(f, re) = format(format="match '%%v' on file '%%v': %%v", args=[re,
 	}
 
 	postscript := fmt.Sprintf(`
-LET Failours <= SELECT * FROM chain(%v)
+LET Failures <= SELECT * FROM chain(%v)
 WHERE NOT OK
 
 LET AllTests <= SELECT * FROM chain(%v)
