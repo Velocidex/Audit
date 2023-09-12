@@ -1,0 +1,3977 @@
+
+name: Windows.Audit.CISWin10Enterprise
+description: |
+   This artifact was generated from the Wazuh SCA project.
+   
+parameters:
+- name: OverruleChecks
+  default: |
+    Id,Title,Reason
+    0,RuleTitle,Reason For Overruling
+
+- name: Remediate
+  type: bool
+  description: If enabled we remediate the configuration if possible.
+
+- name: ContextLength
+  type: int
+  description: Length of context to return
+  default: 100
+
+sources:
+- name: FailedChecks
+  query: |
+    
+    LET JSONEnv = "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"
+    LET Env <= parse_json(data=gunzip(string=base64decode(string=JSONEnv)))
+    
+    LET C(E) = if(condition=E, then=1, else=0)
+    
+    LET OverruleChecks <= SELECT * FROM if(
+        condition=format(format="%T", args=OverruleChecks) =~ "string",
+        then={ SELECT * FROM parse_csv(filename=OverruleChecks, accessor='data')})
+    
+    LET O <= OverruleChecks.Id
+    
+    LET _Cmd(cmd) = SELECT Stdout
+      FROM execve(argv=commandline_split(command=cmd), length=1000000)
+    
+    LET CmdOut(cmd, re) = parse_string_with_regex(regex=re,
+        string=cache(func=_Cmd(cmd=cmd)[0].Stdout, key=cmd))
+    
+    LET M <= '(?m)'
+    
+    LET CmdMatch(cmd, re) = cache(func=_Cmd(cmd=cmd)[0].Stdout, key=cmd) =~ M+re
+    LET CmdContext(cmd, re) = format(format="match '%v' on '%v': %v", args=[re,
+           cmd, cache(func=_Cmd(cmd=cmd)[0].Stdout, key=cmd)[:ContextLength] ])
+    
+    LET _Reg(Path) = SELECT Data FROM stat(filename=Path, accessor="registry")
+    
+    LET Reg(k) = _Reg(Path=k)[0].Data
+    
+    LET FMatch(f, re) = read_file(filename=f) =~ M+re
+    LET FContext(f, re) = format(format="match '%v' on file '%v': %v", args=[re,
+         f, read_file(filename=f, length=ContextLength)])
+    
+    LET RunPowerShell(S) = SELECT * FROM execve(
+        argv=["Powershell", "-ExecutionPolicy",
+              "unrestricted", "-EncodedCommand",
+              base64encode(string=utf16_encode(string=S))])
+    
+    
+    
+    LET Check15500 <= SELECT * FROM chain(
+    t0={
+      SELECT 15500 AS Id, 0 AS TestId, Title,
+         C(E=Value  >= 24) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, int(int=CmdOut(cmd=cmd, re=re).g1 || 0) AS Value, '' AS Context
+        FROM foreach(row=Env.`15500`.`0`)
+      })
+    })
+    
+    LET Check15500Status <= SELECT Id, Title, sum(item=pass) = 1 OR Id IN O AS OK
+    FROM Check15500
+    GROUP BY 1
+    
+    
+    LET Check15501 <= SELECT * FROM chain(
+    t0={
+      SELECT 15501 AS Id, 0 AS TestId, Title,
+         C(E=Value  <= 365) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, int(int=CmdOut(cmd=cmd, re=re).g1 || 0) AS Value, '' AS Context
+        FROM foreach(row=Env.`15501`.`0`)
+      })
+    },
+    t1={
+      SELECT 15501 AS Id, 1 AS TestId, Title,
+         C(E=Value  > 0) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, int(int=CmdOut(cmd=cmd, re=re).g1 || 0) AS Value, '' AS Context
+        FROM foreach(row=Env.`15501`.`1`)
+      })
+    })
+    
+    LET Check15501Status <= SELECT Id, Title, sum(item=pass) = 2 OR Id IN O AS OK
+    FROM Check15501
+    GROUP BY 1
+    
+    
+    LET Check15502 <= SELECT * FROM chain(
+    t0={
+      SELECT 15502 AS Id, 0 AS TestId, Title,
+         C(E=Value  >= 1) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, int(int=CmdOut(cmd=cmd, re=re).g1 || 0) AS Value, '' AS Context
+        FROM foreach(row=Env.`15502`.`0`)
+      })
+    })
+    
+    LET Check15502Status <= SELECT Id, Title, sum(item=pass) = 1 OR Id IN O AS OK
+    FROM Check15502
+    GROUP BY 1
+    
+    
+    LET Check15503 <= SELECT * FROM chain(
+    t0={
+      SELECT 15503 AS Id, 0 AS TestId, Title,
+         C(E=Value  >= 14) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, int(int=CmdOut(cmd=cmd, re=re).g1 || 0) AS Value, '' AS Context
+        FROM foreach(row=Env.`15503`.`0`)
+      })
+    })
+    
+    LET Check15503Status <= SELECT Id, Title, sum(item=pass) = 1 OR Id IN O AS OK
+    FROM Check15503
+    GROUP BY 1
+    
+    
+    LET Check15505 <= SELECT * FROM chain(
+    t0={
+      SELECT 15505 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15505`.`0`)
+      })
+    },
+    t1={
+      SELECT 15505 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15505`.`1`)
+      })
+    },
+    t2={
+      SELECT 15505 AS Id, 2 AS TestId, Title,
+         C(E=Value = 1) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15505`.`2`)
+      })
+    })
+    
+    LET Check15505Status <= SELECT Id, Title, sum(item=pass) = 3 OR Id IN O AS OK
+    FROM Check15505
+    GROUP BY 1
+    
+    
+    LET Check15506 <= SELECT * FROM chain(
+    t0={
+      SELECT 15506 AS Id, 0 AS TestId, Title,
+         C(E=Value  >= 15) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, int(int=CmdOut(cmd=cmd, re=re).g1 || 0) AS Value, '' AS Context
+        FROM foreach(row=Env.`15506`.`0`)
+      })
+    })
+    
+    LET Check15506Status <= SELECT Id, Title, sum(item=pass) = 1 OR Id IN O AS OK
+    FROM Check15506
+    GROUP BY 1
+    
+    
+    LET Check15507 <= SELECT * FROM chain(
+    t0={
+      SELECT 15507 AS Id, 0 AS TestId, Title,
+         C(E=Value  > 0) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, int(int=CmdOut(cmd=cmd, re=re).g1 || 0) AS Value, '' AS Context
+        FROM foreach(row=Env.`15507`.`0`)
+      })
+    },
+    t1={
+      SELECT 15507 AS Id, 1 AS TestId, Title,
+         C(E=Value  <= 5) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, int(int=CmdOut(cmd=cmd, re=re).g1 || 0) AS Value, '' AS Context
+        FROM foreach(row=Env.`15507`.`1`)
+      })
+    })
+    
+    LET Check15507Status <= SELECT Id, Title, sum(item=pass) = 2 OR Id IN O AS OK
+    FROM Check15507
+    GROUP BY 1
+    
+    
+    LET Check15508 <= SELECT * FROM chain(
+    t0={
+      SELECT 15508 AS Id, 0 AS TestId, Title,
+         C(E=Value  >= 15) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, int(int=CmdOut(cmd=cmd, re=re).g1 || 0) AS Value, '' AS Context
+        FROM foreach(row=Env.`15508`.`0`)
+      })
+    })
+    
+    LET Check15508Status <= SELECT Id, Title, sum(item=pass) = 1 OR Id IN O AS OK
+    FROM Check15508
+    GROUP BY 1
+    
+    
+    LET Check15509 <= SELECT * FROM chain(
+    t0={
+      SELECT 15509 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`15509`.`0`)
+      })
+    },
+    t1={
+      SELECT 15509 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`15509`.`1`)
+      })
+    })
+    
+    LET Check15509Status <= SELECT Id, Title, sum(item=pass) > 0 OR Id IN O AS OK
+    FROM Check15509
+    GROUP BY 1
+    
+    
+    LET Check15510 <= SELECT * FROM chain(
+    t0={
+      SELECT 15510 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15510`.`0`)
+      })
+    },
+    t1={
+      SELECT 15510 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15510`.`1`)
+      })
+    },
+    t2={
+      SELECT 15510 AS Id, 2 AS TestId, Title,
+         C(E=Value = 3) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15510`.`2`)
+      })
+    })
+    
+    LET Check15510Status <= SELECT Id, Title, sum(item=pass) = 3 OR Id IN O AS OK
+    FROM Check15510
+    GROUP BY 1
+    
+    
+    LET Check15511 <= SELECT * FROM chain(
+    t0={
+      SELECT 15511 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`15511`.`0`)
+      })
+    })
+    
+    LET Check15511Status <= SELECT Id, Title, sum(item=pass) = 1 OR Id IN O AS OK
+    FROM Check15511
+    GROUP BY 1
+    
+    
+    LET Check15512 <= SELECT * FROM chain(
+    t0={
+      SELECT 15512 AS Id, 0 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15512`.`0`)
+      })
+    },
+    t1={
+      SELECT 15512 AS Id, 1 AS TestId, Title,
+         C(E=Value = 1) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15512`.`1`)
+      })
+    })
+    
+    LET Check15512Status <= SELECT Id, Title, sum(item=pass) > 0 OR Id IN O AS OK
+    FROM Check15512
+    GROUP BY 1
+    
+    
+    LET Check15513 <= SELECT * FROM chain(
+    t0={
+      SELECT 15513 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`15513`.`0`)
+      })
+    })
+    
+    LET Check15513Status <= SELECT Id, Title, sum(item=pass) = 1 OR Id IN O AS OK
+    FROM Check15513
+    GROUP BY 1
+    
+    
+    LET Check15514 <= SELECT * FROM chain(
+    t0={
+      SELECT 15514 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`15514`.`0`)
+      })
+    })
+    
+    LET Check15514Status <= SELECT Id, Title, sum(item=pass) = 1 OR Id IN O AS OK
+    FROM Check15514
+    GROUP BY 1
+    
+    
+    LET Check15515 <= SELECT * FROM chain(
+    t0={
+      SELECT 15515 AS Id, 0 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15515`.`0`)
+      })
+    },
+    t1={
+      SELECT 15515 AS Id, 1 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15515`.`1`)
+      })
+    },
+    t2={
+      SELECT 15515 AS Id, 2 AS TestId, Title,
+         C(E=Value = 1) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15515`.`2`)
+      })
+    })
+    
+    LET Check15515Status <= SELECT Id, Title, sum(item=pass) > 0 OR Id IN O AS OK
+    FROM Check15515
+    GROUP BY 1
+    
+    
+    LET Check15516 <= SELECT * FROM chain(
+    t0={
+      SELECT 15516 AS Id, 0 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15516`.`0`)
+      })
+    },
+    t1={
+      SELECT 15516 AS Id, 1 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15516`.`1`)
+      })
+    },
+    t2={
+      SELECT 15516 AS Id, 2 AS TestId, Title,
+         C(E=Value = 0) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15516`.`2`)
+      })
+    })
+    
+    LET Check15516Status <= SELECT Id, Title, sum(item=pass) > 0 OR Id IN O AS OK
+    FROM Check15516
+    GROUP BY 1
+    
+    
+    LET Check15517 <= SELECT * FROM chain(
+    t0={
+      SELECT 15517 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15517`.`0`)
+      })
+    },
+    t1={
+      SELECT 15517 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15517`.`1`)
+      })
+    },
+    t2={
+      SELECT 15517 AS Id, 2 AS TestId, Title,
+         C(E=Value = 2) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15517`.`2`)
+      })
+    })
+    
+    LET Check15517Status <= SELECT Id, Title, sum(item=pass) = 3 OR Id IN O AS OK
+    FROM Check15517
+    GROUP BY 1
+    
+    
+    LET Check15518 <= SELECT * FROM chain(
+    t0={
+      SELECT 15518 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15518`.`0`)
+      })
+    },
+    t1={
+      SELECT 15518 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15518`.`1`)
+      })
+    },
+    t2={
+      SELECT 15518 AS Id, 2 AS TestId, Title,
+         C(E=Value = 1) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15518`.`2`)
+      })
+    })
+    
+    LET Check15518Status <= SELECT Id, Title, sum(item=pass) = 3 OR Id IN O AS OK
+    FROM Check15518
+    GROUP BY 1
+    
+    
+    LET Check15519 <= SELECT * FROM chain(
+    t0={
+      SELECT 15519 AS Id, 0 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15519`.`0`)
+      })
+    },
+    t1={
+      SELECT 15519 AS Id, 1 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15519`.`1`)
+      })
+    },
+    t2={
+      SELECT 15519 AS Id, 2 AS TestId, Title,
+         C(E=Value = 1) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15519`.`2`)
+      })
+    })
+    
+    LET Check15519Status <= SELECT Id, Title, sum(item=pass) > 0 OR Id IN O AS OK
+    FROM Check15519
+    GROUP BY 1
+    
+    
+    LET Check15520 <= SELECT * FROM chain(
+    t0={
+      SELECT 15520 AS Id, 0 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15520`.`0`)
+      })
+    },
+    t1={
+      SELECT 15520 AS Id, 1 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15520`.`1`)
+      })
+    },
+    t2={
+      SELECT 15520 AS Id, 2 AS TestId, Title,
+         C(E=Value = 1) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15520`.`2`)
+      })
+    })
+    
+    LET Check15520Status <= SELECT Id, Title, sum(item=pass) > 0 OR Id IN O AS OK
+    FROM Check15520
+    GROUP BY 1
+    
+    
+    LET Check15521 <= SELECT * FROM chain(
+    t0={
+      SELECT 15521 AS Id, 0 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15521`.`0`)
+      })
+    },
+    t1={
+      SELECT 15521 AS Id, 1 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15521`.`1`)
+      })
+    },
+    t2={
+      SELECT 15521 AS Id, 2 AS TestId, Title,
+         C(E=Value = 1) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15521`.`2`)
+      })
+    })
+    
+    LET Check15521Status <= SELECT Id, Title, sum(item=pass) > 0 OR Id IN O AS OK
+    FROM Check15521
+    GROUP BY 1
+    
+    
+    LET Check15522 <= SELECT * FROM chain(
+    t0={
+      SELECT 15522 AS Id, 0 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15522`.`0`)
+      })
+    },
+    t1={
+      SELECT 15522 AS Id, 1 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15522`.`1`)
+      })
+    },
+    t2={
+      SELECT 15522 AS Id, 2 AS TestId, Title,
+         C(E=Value = 0) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15522`.`2`)
+      })
+    })
+    
+    LET Check15522Status <= SELECT Id, Title, sum(item=pass) > 0 OR Id IN O AS OK
+    FROM Check15522
+    GROUP BY 1
+    
+    
+    LET Check15523 <= SELECT * FROM chain(
+    t0={
+      SELECT 15523 AS Id, 0 AS TestId, Title,
+         C(E=Value  <= 30) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, int(int=CmdOut(cmd=cmd, re=re).g1 || 0) AS Value, '' AS Context
+        FROM foreach(row=Env.`15523`.`0`)
+      })
+    },
+    t1={
+      SELECT 15523 AS Id, 1 AS TestId, Title,
+         C(E=Value  > 0) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, int(int=CmdOut(cmd=cmd, re=re).g1 || 0) AS Value, '' AS Context
+        FROM foreach(row=Env.`15523`.`1`)
+      })
+    })
+    
+    LET Check15523Status <= SELECT Id, Title, sum(item=pass) = 2 OR Id IN O AS OK
+    FROM Check15523
+    GROUP BY 1
+    
+    
+    LET Check15524 <= SELECT * FROM chain(
+    t0={
+      SELECT 15524 AS Id, 0 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15524`.`0`)
+      })
+    },
+    t1={
+      SELECT 15524 AS Id, 1 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15524`.`1`)
+      })
+    },
+    t2={
+      SELECT 15524 AS Id, 2 AS TestId, Title,
+         C(E=Value = 1) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15524`.`2`)
+      })
+    })
+    
+    LET Check15524Status <= SELECT Id, Title, sum(item=pass) > 0 OR Id IN O AS OK
+    FROM Check15524
+    GROUP BY 1
+    
+    
+    LET Check15525 <= SELECT * FROM chain(
+    t0={
+      SELECT 15525 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15525`.`0`)
+      })
+    },
+    t1={
+      SELECT 15525 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15525`.`1`)
+      })
+    },
+    t2={
+      SELECT 15525 AS Id, 2 AS TestId, Title,
+         C(E=Value = 0) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15525`.`2`)
+      })
+    })
+    
+    LET Check15525Status <= SELECT Id, Title, sum(item=pass) = 3 OR Id IN O AS OK
+    FROM Check15525
+    GROUP BY 1
+    
+    
+    LET Check15526 <= SELECT * FROM chain(
+    t0={
+      SELECT 15526 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15526`.`0`)
+      })
+    },
+    t1={
+      SELECT 15526 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15526`.`1`)
+      })
+    },
+    t2={
+      SELECT 15526 AS Id, 2 AS TestId, Title,
+         C(E=Value = 1) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15526`.`2`)
+      })
+    })
+    
+    LET Check15526Status <= SELECT Id, Title, sum(item=pass) = 3 OR Id IN O AS OK
+    FROM Check15526
+    GROUP BY 1
+    
+    
+    LET Check15527 <= SELECT * FROM chain(
+    t0={
+      SELECT 15527 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15527`.`0`)
+      })
+    },
+    t1={
+      SELECT 15527 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15527`.`1`)
+      })
+    },
+    t2={
+      SELECT 15527 AS Id, 2 AS TestId, Title,
+         C(E=NOT Value = 0) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15527`.`2`)
+      })
+    },
+    t3={
+      SELECT 15527 AS Id, 3 AS TestId, Title,
+         C(E=Value <=30) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, int(int=Reg(k=k + '/' + v).value) AS Value, '' AS Context
+        FROM foreach(row=Env.`15527`.`3`)
+      })
+    })
+    
+    LET Check15527Status <= SELECT Id, Title, sum(item=pass) = 4 OR Id IN O AS OK
+    FROM Check15527
+    GROUP BY 1
+    
+    
+    LET Check15528 <= SELECT * FROM chain(
+    t0={
+      SELECT 15528 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15528`.`0`)
+      })
+    },
+    t1={
+      SELECT 15528 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15528`.`1`)
+      })
+    },
+    t2={
+      SELECT 15528 AS Id, 2 AS TestId, Title,
+         C(E=NOT Value = 0) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15528`.`2`)
+      })
+    },
+    t3={
+      SELECT 15528 AS Id, 3 AS TestId, Title,
+         C(E=Value <= 900) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, int(int=Reg(k=k + '/' + v).value) AS Value, '' AS Context
+        FROM foreach(row=Env.`15528`.`3`)
+      })
+    })
+    
+    LET Check15528Status <= SELECT Id, Title, sum(item=pass) = 4 OR Id IN O AS OK
+    FROM Check15528
+    GROUP BY 1
+    
+    
+    LET Check15530 <= SELECT * FROM chain(
+    t0={
+      SELECT 15530 AS Id, 0 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`15530`.`0`)
+      })
+    })
+    
+    LET Check15530Status <= SELECT Id, Title, sum(item=pass) = 1 OR Id IN O AS OK
+    FROM Check15530
+    GROUP BY 1
+    
+    
+    LET Check15531 <= SELECT * FROM chain(
+    t0={
+      SELECT 15531 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15531`.`0`)
+      })
+    },
+    t1={
+      SELECT 15531 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15531`.`1`)
+      })
+    },
+    t2={
+      SELECT 15531 AS Id, 2 AS TestId, Title,
+         C(E=Value <= 4) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, int(int=Reg(k=k + '/' + v).value) AS Value, '' AS Context
+        FROM foreach(row=Env.`15531`.`2`)
+      })
+    })
+    
+    LET Check15531Status <= SELECT Id, Title, sum(item=pass) = 3 OR Id IN O AS OK
+    FROM Check15531
+    GROUP BY 1
+    
+    
+    LET Check15532 <= SELECT * FROM chain(
+    t0={
+      SELECT 15532 AS Id, 0 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15532`.`0`)
+      })
+    },
+    t1={
+      SELECT 15532 AS Id, 1 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15532`.`1`)
+      })
+    },
+    t2={
+      SELECT 15532 AS Id, 2 AS TestId, Title,
+         C(E=Value <= 14) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, int(int=Reg(k=k + '/' + v).value) AS Value, '' AS Context
+        FROM foreach(row=Env.`15532`.`2`)
+      })
+    })
+    
+    LET Check15532Status <= SELECT Id, Title, sum(item=pass) > 0 OR Id IN O AS OK
+    FROM Check15532
+    GROUP BY 1
+    
+    
+    LET Check15533 <= SELECT * FROM chain(
+    t0={
+      SELECT 15533 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15533`.`0`)
+      })
+    },
+    t1={
+      SELECT 15533 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15533`.`1`)
+      })
+    },
+    t2={
+      SELECT 15533 AS Id, 2 AS TestId, Title,
+         C(E=Value =~ regex) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15533`.`2`)
+      })
+    })
+    
+    LET Check15533Status <= SELECT Id, Title, sum(item=pass) = 3 OR Id IN O AS OK
+    FROM Check15533
+    GROUP BY 1
+    
+    
+    LET Check15534 <= SELECT * FROM chain(
+    t0={
+      SELECT 15534 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15534`.`0`)
+      })
+    },
+    t1={
+      SELECT 15534 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15534`.`1`)
+      })
+    },
+    t2={
+      SELECT 15534 AS Id, 2 AS TestId, Title,
+         C(E=Value = 1) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15534`.`2`)
+      })
+    })
+    
+    LET Check15534Status <= SELECT Id, Title, sum(item=pass) = 3 OR Id IN O AS OK
+    FROM Check15534
+    GROUP BY 1
+    
+    
+    LET Check15535 <= SELECT * FROM chain(
+    t0={
+      SELECT 15535 AS Id, 0 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15535`.`0`)
+      })
+    },
+    t1={
+      SELECT 15535 AS Id, 1 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15535`.`1`)
+      })
+    },
+    t2={
+      SELECT 15535 AS Id, 2 AS TestId, Title,
+         C(E=Value = 1) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15535`.`2`)
+      })
+    })
+    
+    LET Check15535Status <= SELECT Id, Title, sum(item=pass) > 0 OR Id IN O AS OK
+    FROM Check15535
+    GROUP BY 1
+    
+    
+    LET Check15536 <= SELECT * FROM chain(
+    t0={
+      SELECT 15536 AS Id, 0 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15536`.`0`)
+      })
+    },
+    t1={
+      SELECT 15536 AS Id, 1 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15536`.`1`)
+      })
+    },
+    t2={
+      SELECT 15536 AS Id, 2 AS TestId, Title,
+         C(E=Value = 0) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15536`.`2`)
+      })
+    })
+    
+    LET Check15536Status <= SELECT Id, Title, sum(item=pass) > 0 OR Id IN O AS OK
+    FROM Check15536
+    GROUP BY 1
+    
+    
+    LET Check15537 <= SELECT * FROM chain(
+    t0={
+      SELECT 15537 AS Id, 0 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15537`.`0`)
+      })
+    },
+    t1={
+      SELECT 15537 AS Id, 1 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15537`.`1`)
+      })
+    },
+    t2={
+      SELECT 15537 AS Id, 2 AS TestId, Title,
+         C(E=Value <= 15) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, int(int=Reg(k=k + '/' + v).value) AS Value, '' AS Context
+        FROM foreach(row=Env.`15537`.`2`)
+      })
+    })
+    
+    LET Check15537Status <= SELECT Id, Title, sum(item=pass) > 0 OR Id IN O AS OK
+    FROM Check15537
+    GROUP BY 1
+    
+    
+    LET Check15538 <= SELECT * FROM chain(
+    t0={
+      SELECT 15538 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15538`.`0`)
+      })
+    },
+    t1={
+      SELECT 15538 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15538`.`1`)
+      })
+    },
+    t2={
+      SELECT 15538 AS Id, 2 AS TestId, Title,
+         C(E=Value = 1) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15538`.`2`)
+      })
+    })
+    
+    LET Check15538Status <= SELECT Id, Title, sum(item=pass) = 3 OR Id IN O AS OK
+    FROM Check15538
+    GROUP BY 1
+    
+    
+    LET Check15539 <= SELECT * FROM chain(
+    t0={
+      SELECT 15539 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15539`.`0`)
+      })
+    },
+    t1={
+      SELECT 15539 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15539`.`1`)
+      })
+    },
+    t2={
+      SELECT 15539 AS Id, 2 AS TestId, Title,
+         C(E=Value = 1) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15539`.`2`)
+      })
+    })
+    
+    LET Check15539Status <= SELECT Id, Title, sum(item=pass) = 3 OR Id IN O AS OK
+    FROM Check15539
+    GROUP BY 1
+    
+    
+    LET Check15540 <= SELECT * FROM chain(
+    t0={
+      SELECT 15540 AS Id, 0 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15540`.`0`)
+      })
+    },
+    t1={
+      SELECT 15540 AS Id, 1 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15540`.`1`)
+      })
+    },
+    t2={
+      SELECT 15540 AS Id, 2 AS TestId, Title,
+         C(E=Value = 1) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15540`.`2`)
+      })
+    })
+    
+    LET Check15540Status <= SELECT Id, Title, sum(item=pass) > 0 OR Id IN O AS OK
+    FROM Check15540
+    GROUP BY 1
+    
+    
+    LET Check15541 <= SELECT * FROM chain(
+    t0={
+      SELECT 15541 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15541`.`0`)
+      })
+    },
+    t1={
+      SELECT 15541 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15541`.`1`)
+      })
+    },
+    t2={
+      SELECT 15541 AS Id, 2 AS TestId, Title,
+         C(E=Value >= 1) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, int(int=Reg(k=k + '/' + v).value) AS Value, '' AS Context
+        FROM foreach(row=Env.`15541`.`2`)
+      })
+    })
+    
+    LET Check15541Status <= SELECT Id, Title, sum(item=pass) = 3 OR Id IN O AS OK
+    FROM Check15541
+    GROUP BY 1
+    
+    
+    LET Check15542 <= SELECT * FROM chain(
+    t0={
+      SELECT 15542 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`15542`.`0`)
+      })
+    })
+    
+    LET Check15542Status <= SELECT Id, Title, sum(item=pass) = 1 OR Id IN O AS OK
+    FROM Check15542
+    GROUP BY 1
+    
+    
+    LET Check15543 <= SELECT * FROM chain(
+    t0={
+      SELECT 15543 AS Id, 0 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15543`.`0`)
+      })
+    },
+    t1={
+      SELECT 15543 AS Id, 1 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15543`.`1`)
+      })
+    },
+    t2={
+      SELECT 15543 AS Id, 2 AS TestId, Title,
+         C(E=Value = 1) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15543`.`2`)
+      })
+    })
+    
+    LET Check15543Status <= SELECT Id, Title, sum(item=pass) > 0 OR Id IN O AS OK
+    FROM Check15543
+    GROUP BY 1
+    
+    
+    LET Check15544 <= SELECT * FROM chain(
+    t0={
+      SELECT 15544 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15544`.`0`)
+      })
+    },
+    t1={
+      SELECT 15544 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15544`.`1`)
+      })
+    },
+    t2={
+      SELECT 15544 AS Id, 2 AS TestId, Title,
+         C(E=Value = 1) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15544`.`2`)
+      })
+    })
+    
+    LET Check15544Status <= SELECT Id, Title, sum(item=pass) = 3 OR Id IN O AS OK
+    FROM Check15544
+    GROUP BY 1
+    
+    
+    LET Check15545 <= SELECT * FROM chain(
+    t0={
+      SELECT 15545 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15545`.`0`)
+      })
+    },
+    t1={
+      SELECT 15545 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15545`.`1`)
+      })
+    },
+    t2={
+      SELECT 15545 AS Id, 2 AS TestId, Title,
+         C(E=Value = 1) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15545`.`2`)
+      })
+    })
+    
+    LET Check15545Status <= SELECT Id, Title, sum(item=pass) = 3 OR Id IN O AS OK
+    FROM Check15545
+    GROUP BY 1
+    
+    
+    LET Check15546 <= SELECT * FROM chain(
+    t0={
+      SELECT 15546 AS Id, 0 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15546`.`0`)
+      })
+    },
+    t1={
+      SELECT 15546 AS Id, 1 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15546`.`1`)
+      })
+    },
+    t2={
+      SELECT 15546 AS Id, 2 AS TestId, Title,
+         C(E=Value = 0) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15546`.`2`)
+      })
+    })
+    
+    LET Check15546Status <= SELECT Id, Title, sum(item=pass) > 0 OR Id IN O AS OK
+    FROM Check15546
+    GROUP BY 1
+    
+    
+    LET Check15547 <= SELECT * FROM chain(
+    t0={
+      SELECT 15547 AS Id, 0 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15547`.`0`)
+      })
+    },
+    t1={
+      SELECT 15547 AS Id, 1 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15547`.`1`)
+      })
+    },
+    t2={
+      SELECT 15547 AS Id, 2 AS TestId, Title,
+         C(E=NOT Value =~ regex) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15547`.`2`)
+      })
+    })
+    
+    LET Check15547Status <= SELECT Id, Title, sum(item=pass) > 0 OR Id IN O AS OK
+    FROM Check15547
+    GROUP BY 1
+    
+    
+    LET Check15548 <= SELECT * FROM chain(
+    t0={
+      SELECT 15548 AS Id, 0 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15548`.`0`)
+      })
+    },
+    t1={
+      SELECT 15548 AS Id, 1 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15548`.`1`)
+      })
+    },
+    t2={
+      SELECT 15548 AS Id, 2 AS TestId, Title,
+         C(E=Value =~ regex) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15548`.`2`)
+      })
+    })
+    
+    LET Check15548Status <= SELECT Id, Title, sum(item=pass) > 0 OR Id IN O AS OK
+    FROM Check15548
+    GROUP BY 1
+    
+    
+    LET Check15549 <= SELECT * FROM chain(
+    t0={
+      SELECT 15549 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15549`.`0`)
+      })
+    },
+    t1={
+      SELECT 15549 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15549`.`1`)
+      })
+    },
+    t2={
+      SELECT 15549 AS Id, 2 AS TestId, Title,
+         C(E=Value =~ regex) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15549`.`2`)
+      })
+    },
+    t3={
+      SELECT 15549 AS Id, 3 AS TestId, Title,
+         C(E=Value =~ regex) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15549`.`3`)
+      })
+    },
+    t4={
+      SELECT 15549 AS Id, 4 AS TestId, Title,
+         C(E=Value =~ regex) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15549`.`4`)
+      })
+    },
+    t5={
+      SELECT 15549 AS Id, 5 AS TestId, Title,
+         C(E=Value =~ regex) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15549`.`5`)
+      })
+    },
+    t6={
+      SELECT 15549 AS Id, 6 AS TestId, Title,
+         C(E=Value =~ regex) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15549`.`6`)
+      })
+    },
+    t7={
+      SELECT 15549 AS Id, 7 AS TestId, Title,
+         C(E=Value =~ regex) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15549`.`7`)
+      })
+    },
+    t8={
+      SELECT 15549 AS Id, 8 AS TestId, Title,
+         C(E=Value =~ regex) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15549`.`8`)
+      })
+    },
+    t9={
+      SELECT 15549 AS Id, 9 AS TestId, Title,
+         C(E=Value =~ regex) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15549`.`9`)
+      })
+    },
+    t10={
+      SELECT 15549 AS Id, 10 AS TestId, Title,
+         C(E=Value =~ regex) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15549`.`10`)
+      })
+    },
+    t11={
+      SELECT 15549 AS Id, 11 AS TestId, Title,
+         C(E=Value =~ regex) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15549`.`11`)
+      })
+    },
+    t12={
+      SELECT 15549 AS Id, 12 AS TestId, Title,
+         C(E=Value =~ regex) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15549`.`12`)
+      })
+    })
+    
+    LET Check15549Status <= SELECT Id, Title, sum(item=pass) = 13 OR Id IN O AS OK
+    FROM Check15549
+    GROUP BY 1
+    
+    
+    LET Check15550 <= SELECT * FROM chain(
+    t0={
+      SELECT 15550 AS Id, 0 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15550`.`0`)
+      })
+    },
+    t1={
+      SELECT 15550 AS Id, 1 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15550`.`1`)
+      })
+    },
+    t2={
+      SELECT 15550 AS Id, 2 AS TestId, Title,
+         C(E=Value = 1) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15550`.`2`)
+      })
+    })
+    
+    LET Check15550Status <= SELECT Id, Title, sum(item=pass) > 0 OR Id IN O AS OK
+    FROM Check15550
+    GROUP BY 1
+    
+    
+    LET Check15551 <= SELECT * FROM chain(
+    t0={
+      SELECT 15551 AS Id, 0 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15551`.`0`)
+      })
+    },
+    t1={
+      SELECT 15551 AS Id, 1 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15551`.`1`)
+      })
+    },
+    t2={
+      SELECT 15551 AS Id, 2 AS TestId, Title,
+         C(E=Value =~ regex) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15551`.`2`)
+      })
+    })
+    
+    LET Check15551Status <= SELECT Id, Title, sum(item=pass) > 0 OR Id IN O AS OK
+    FROM Check15551
+    GROUP BY 1
+    
+    
+    LET Check15552 <= SELECT * FROM chain(
+    t0={
+      SELECT 15552 AS Id, 0 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15552`.`0`)
+      })
+    },
+    t1={
+      SELECT 15552 AS Id, 1 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15552`.`1`)
+      })
+    },
+    t2={
+      SELECT 15552 AS Id, 2 AS TestId, Title,
+         C(E=NOT Value =~ '''\S+''') AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15552`.`2`)
+      })
+    })
+    
+    LET Check15552Status <= SELECT Id, Title, sum(item=pass) > 0 OR Id IN O AS OK
+    FROM Check15552
+    GROUP BY 1
+    
+    
+    LET Check15553 <= SELECT * FROM chain(
+    t0={
+      SELECT 15553 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15553`.`0`)
+      })
+    },
+    t1={
+      SELECT 15553 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15553`.`1`)
+      })
+    },
+    t2={
+      SELECT 15553 AS Id, 2 AS TestId, Title,
+         C(E=Value = 0) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15553`.`2`)
+      })
+    })
+    
+    LET Check15553Status <= SELECT Id, Title, sum(item=pass) = 3 OR Id IN O AS OK
+    FROM Check15553
+    GROUP BY 1
+    
+    
+    LET Check15554 <= SELECT * FROM chain(
+    t0={
+      SELECT 15554 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15554`.`0`)
+      })
+    },
+    t1={
+      SELECT 15554 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15554`.`1`)
+      })
+    },
+    t2={
+      SELECT 15554 AS Id, 2 AS TestId, Title,
+         C(E=Value = 1) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15554`.`2`)
+      })
+    })
+    
+    LET Check15554Status <= SELECT Id, Title, sum(item=pass) = 3 OR Id IN O AS OK
+    FROM Check15554
+    GROUP BY 1
+    
+    
+    LET Check15555 <= SELECT * FROM chain(
+    t0={
+      SELECT 15555 AS Id, 0 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15555`.`0`)
+      })
+    },
+    t1={
+      SELECT 15555 AS Id, 1 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15555`.`1`)
+      })
+    },
+    t2={
+      SELECT 15555 AS Id, 2 AS TestId, Title,
+         C(E=Value = 0) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15555`.`2`)
+      })
+    })
+    
+    LET Check15555Status <= SELECT Id, Title, sum(item=pass) > 0 OR Id IN O AS OK
+    FROM Check15555
+    GROUP BY 1
+    
+    
+    LET Check15556 <= SELECT * FROM chain(
+    t0={
+      SELECT 15556 AS Id, 0 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15556`.`0`)
+      })
+    },
+    t1={
+      SELECT 15556 AS Id, 1 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15556`.`1`)
+      })
+    },
+    t2={
+      SELECT 15556 AS Id, 2 AS TestId, Title,
+         C(E=Value = 0) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15556`.`2`)
+      })
+    })
+    
+    LET Check15556Status <= SELECT Id, Title, sum(item=pass) > 0 OR Id IN O AS OK
+    FROM Check15556
+    GROUP BY 1
+    
+    
+    LET Check15557 <= SELECT * FROM chain(
+    t0={
+      SELECT 15557 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15557`.`0`)
+      })
+    },
+    t1={
+      SELECT 15557 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15557`.`1`)
+      })
+    },
+    t2={
+      SELECT 15557 AS Id, 2 AS TestId, Title,
+         C(E=Value =~ regex) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15557`.`2`)
+      })
+    })
+    
+    LET Check15557Status <= SELECT Id, Title, sum(item=pass) = 3 OR Id IN O AS OK
+    FROM Check15557
+    GROUP BY 1
+    
+    
+    LET Check15558 <= SELECT * FROM chain(
+    t0={
+      SELECT 15558 AS Id, 0 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15558`.`0`)
+      })
+    },
+    t1={
+      SELECT 15558 AS Id, 1 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15558`.`1`)
+      })
+    },
+    t2={
+      SELECT 15558 AS Id, 2 AS TestId, Title,
+         C(E=Value = 1) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15558`.`2`)
+      })
+    })
+    
+    LET Check15558Status <= SELECT Id, Title, sum(item=pass) > 0 OR Id IN O AS OK
+    FROM Check15558
+    GROUP BY 1
+    
+    
+    LET Check15559 <= SELECT * FROM chain(
+    t0={
+      SELECT 15559 AS Id, 0 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15559`.`0`)
+      })
+    },
+    t1={
+      SELECT 15559 AS Id, 1 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15559`.`1`)
+      })
+    },
+    t2={
+      SELECT 15559 AS Id, 2 AS TestId, Title,
+         C(E=Value = 1) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15559`.`2`)
+      })
+    })
+    
+    LET Check15559Status <= SELECT Id, Title, sum(item=pass) > 0 OR Id IN O AS OK
+    FROM Check15559
+    GROUP BY 1
+    
+    
+    LET Check15560 <= SELECT * FROM chain(
+    t0={
+      SELECT 15560 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15560`.`0`)
+      })
+    },
+    t1={
+      SELECT 15560 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15560`.`1`)
+      })
+    },
+    t2={
+      SELECT 15560 AS Id, 2 AS TestId, Title,
+         C(E=Value = 5) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15560`.`2`)
+      })
+    })
+    
+    LET Check15560Status <= SELECT Id, Title, sum(item=pass) = 3 OR Id IN O AS OK
+    FROM Check15560
+    GROUP BY 1
+    
+    
+    LET Check15561 <= SELECT * FROM chain(
+    t0={
+      SELECT 15561 AS Id, 0 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15561`.`0`)
+      })
+    },
+    t1={
+      SELECT 15561 AS Id, 1 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15561`.`1`)
+      })
+    },
+    t2={
+      SELECT 15561 AS Id, 2 AS TestId, Title,
+         C(E=Value >= 1) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, int(int=Reg(k=k + '/' + v).value) AS Value, '' AS Context
+        FROM foreach(row=Env.`15561`.`2`)
+      })
+    })
+    
+    LET Check15561Status <= SELECT Id, Title, sum(item=pass) > 0 OR Id IN O AS OK
+    FROM Check15561
+    GROUP BY 1
+    
+    
+    LET Check15562 <= SELECT * FROM chain(
+    t0={
+      SELECT 15562 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15562`.`0`)
+      })
+    },
+    t1={
+      SELECT 15562 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15562`.`1`)
+      })
+    },
+    t2={
+      SELECT 15562 AS Id, 2 AS TestId, Title,
+         C(E=Value = 537395200) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15562`.`2`)
+      })
+    })
+    
+    LET Check15562Status <= SELECT Id, Title, sum(item=pass) = 3 OR Id IN O AS OK
+    FROM Check15562
+    GROUP BY 1
+    
+    
+    LET Check15563 <= SELECT * FROM chain(
+    t0={
+      SELECT 15563 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15563`.`0`)
+      })
+    },
+    t1={
+      SELECT 15563 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15563`.`1`)
+      })
+    },
+    t2={
+      SELECT 15563 AS Id, 2 AS TestId, Title,
+         C(E=Value = 537395200) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15563`.`2`)
+      })
+    })
+    
+    LET Check15563Status <= SELECT Id, Title, sum(item=pass) = 3 OR Id IN O AS OK
+    FROM Check15563
+    GROUP BY 1
+    
+    
+    LET Check15564 <= SELECT * FROM chain(
+    t0={
+      SELECT 15564 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15564`.`0`)
+      })
+    },
+    t1={
+      SELECT 15564 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15564`.`1`)
+      })
+    },
+    t2={
+      SELECT 15564 AS Id, 2 AS TestId, Title,
+         C(E=Value > 0) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, int(int=Reg(k=k + '/' + v).value) AS Value, '' AS Context
+        FROM foreach(row=Env.`15564`.`2`)
+      })
+    })
+    
+    LET Check15564Status <= SELECT Id, Title, sum(item=pass) = 3 OR Id IN O AS OK
+    FROM Check15564
+    GROUP BY 1
+    
+    
+    LET Check15565 <= SELECT * FROM chain(
+    t0={
+      SELECT 15565 AS Id, 0 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15565`.`0`)
+      })
+    },
+    t1={
+      SELECT 15565 AS Id, 1 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15565`.`1`)
+      })
+    },
+    t2={
+      SELECT 15565 AS Id, 2 AS TestId, Title,
+         C(E=Value = 1) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15565`.`2`)
+      })
+    })
+    
+    LET Check15565Status <= SELECT Id, Title, sum(item=pass) > 0 OR Id IN O AS OK
+    FROM Check15565
+    GROUP BY 1
+    
+    
+    LET Check15566 <= SELECT * FROM chain(
+    t0={
+      SELECT 15566 AS Id, 0 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15566`.`0`)
+      })
+    },
+    t1={
+      SELECT 15566 AS Id, 1 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15566`.`1`)
+      })
+    },
+    t2={
+      SELECT 15566 AS Id, 2 AS TestId, Title,
+         C(E=Value = 1) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15566`.`2`)
+      })
+    })
+    
+    LET Check15566Status <= SELECT Id, Title, sum(item=pass) > 0 OR Id IN O AS OK
+    FROM Check15566
+    GROUP BY 1
+    
+    
+    LET Check15567 <= SELECT * FROM chain(
+    t0={
+      SELECT 15567 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15567`.`0`)
+      })
+    },
+    t1={
+      SELECT 15567 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15567`.`1`)
+      })
+    },
+    t2={
+      SELECT 15567 AS Id, 2 AS TestId, Title,
+         C(E=Value = 1) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15567`.`2`)
+      })
+    })
+    
+    LET Check15567Status <= SELECT Id, Title, sum(item=pass) = 3 OR Id IN O AS OK
+    FROM Check15567
+    GROUP BY 1
+    
+    
+    LET Check15568 <= SELECT * FROM chain(
+    t0={
+      SELECT 15568 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15568`.`0`)
+      })
+    },
+    t1={
+      SELECT 15568 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15568`.`1`)
+      })
+    },
+    t2={
+      SELECT 15568 AS Id, 2 AS TestId, Title,
+         C(E=Value =~ regex) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15568`.`2`)
+      })
+    })
+    
+    LET Check15568Status <= SELECT Id, Title, sum(item=pass) = 3 OR Id IN O AS OK
+    FROM Check15568
+    GROUP BY 1
+    
+    
+    LET Check15569 <= SELECT * FROM chain(
+    t0={
+      SELECT 15569 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15569`.`0`)
+      })
+    },
+    t1={
+      SELECT 15569 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15569`.`1`)
+      })
+    },
+    t2={
+      SELECT 15569 AS Id, 2 AS TestId, Title,
+         C(E=Value = 0) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15569`.`2`)
+      })
+    })
+    
+    LET Check15569Status <= SELECT Id, Title, sum(item=pass) = 3 OR Id IN O AS OK
+    FROM Check15569
+    GROUP BY 1
+    
+    
+    LET Check15570 <= SELECT * FROM chain(
+    t0={
+      SELECT 15570 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15570`.`0`)
+      })
+    },
+    t1={
+      SELECT 15570 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15570`.`1`)
+      })
+    },
+    t2={
+      SELECT 15570 AS Id, 2 AS TestId, Title,
+         C(E=Value = 1) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15570`.`2`)
+      })
+    })
+    
+    LET Check15570Status <= SELECT Id, Title, sum(item=pass) = 3 OR Id IN O AS OK
+    FROM Check15570
+    GROUP BY 1
+    
+    
+    LET Check15571 <= SELECT * FROM chain(
+    t0={
+      SELECT 15571 AS Id, 0 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15571`.`0`)
+      })
+    },
+    t1={
+      SELECT 15571 AS Id, 1 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15571`.`1`)
+      })
+    },
+    t2={
+      SELECT 15571 AS Id, 2 AS TestId, Title,
+         C(E=Value = 1) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15571`.`2`)
+      })
+    })
+    
+    LET Check15571Status <= SELECT Id, Title, sum(item=pass) > 0 OR Id IN O AS OK
+    FROM Check15571
+    GROUP BY 1
+    
+    
+    LET Check15572 <= SELECT * FROM chain(
+    t0={
+      SELECT 15572 AS Id, 0 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15572`.`0`)
+      })
+    },
+    t1={
+      SELECT 15572 AS Id, 1 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15572`.`1`)
+      })
+    },
+    t2={
+      SELECT 15572 AS Id, 2 AS TestId, Title,
+         C(E=Value = 1) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15572`.`2`)
+      })
+    })
+    
+    LET Check15572Status <= SELECT Id, Title, sum(item=pass) > 0 OR Id IN O AS OK
+    FROM Check15572
+    GROUP BY 1
+    
+    
+    LET Check15573 <= SELECT * FROM chain(
+    t0={
+      SELECT 15573 AS Id, 0 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15573`.`0`)
+      })
+    },
+    t1={
+      SELECT 15573 AS Id, 1 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15573`.`1`)
+      })
+    },
+    t2={
+      SELECT 15573 AS Id, 2 AS TestId, Title,
+         C(E=Value = 1) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15573`.`2`)
+      })
+    })
+    
+    LET Check15573Status <= SELECT Id, Title, sum(item=pass) > 0 OR Id IN O AS OK
+    FROM Check15573
+    GROUP BY 1
+    
+    
+    LET Check15574 <= SELECT * FROM chain(
+    t0={
+      SELECT 15574 AS Id, 0 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15574`.`0`)
+      })
+    },
+    t1={
+      SELECT 15574 AS Id, 1 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15574`.`1`)
+      })
+    },
+    t2={
+      SELECT 15574 AS Id, 2 AS TestId, Title,
+         C(E=Value = 1) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15574`.`2`)
+      })
+    })
+    
+    LET Check15574Status <= SELECT Id, Title, sum(item=pass) > 0 OR Id IN O AS OK
+    FROM Check15574
+    GROUP BY 1
+    
+    
+    LET Check15575 <= SELECT * FROM chain(
+    t0={
+      SELECT 15575 AS Id, 0 AS TestId, Title,
+         C(E=Value = 4) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15575`.`0`)
+      })
+    })
+    
+    LET Check15575Status <= SELECT Id, Title, sum(item=pass) = 1 OR Id IN O AS OK
+    FROM Check15575
+    GROUP BY 1
+    
+    
+    LET Check15576 <= SELECT * FROM chain(
+    t0={
+      SELECT 15576 AS Id, 0 AS TestId, Title,
+         C(E=Value = 4) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15576`.`0`)
+      })
+    })
+    
+    LET Check15576Status <= SELECT Id, Title, sum(item=pass) = 1 OR Id IN O AS OK
+    FROM Check15576
+    GROUP BY 1
+    
+    
+    LET Check15577 <= SELECT * FROM chain(
+    t0={
+      SELECT 15577 AS Id, 0 AS TestId, Title,
+         C(E=Value = 4) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15577`.`0`)
+      })
+    })
+    
+    LET Check15577Status <= SELECT Id, Title, sum(item=pass) = 1 OR Id IN O AS OK
+    FROM Check15577
+    GROUP BY 1
+    
+    
+    LET Check15578 <= SELECT * FROM chain(
+    t0={
+      SELECT 15578 AS Id, 0 AS TestId, Title,
+         C(E=Value = 4) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15578`.`0`)
+      })
+    })
+    
+    LET Check15578Status <= SELECT Id, Title, sum(item=pass) = 1 OR Id IN O AS OK
+    FROM Check15578
+    GROUP BY 1
+    
+    
+    LET Check15579 <= SELECT * FROM chain(
+    t0={
+      SELECT 15579 AS Id, 0 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15579`.`0`)
+      })
+    },
+    t1={
+      SELECT 15579 AS Id, 1 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15579`.`1`)
+      })
+    },
+    t2={
+      SELECT 15579 AS Id, 2 AS TestId, Title,
+         C(E=Value = 4) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15579`.`2`)
+      })
+    })
+    
+    LET Check15579Status <= SELECT Id, Title, sum(item=pass) > 0 OR Id IN O AS OK
+    FROM Check15579
+    GROUP BY 1
+    
+    
+    LET Check15580 <= SELECT * FROM chain(
+    t0={
+      SELECT 15580 AS Id, 0 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15580`.`0`)
+      })
+    },
+    t1={
+      SELECT 15580 AS Id, 1 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15580`.`1`)
+      })
+    },
+    t2={
+      SELECT 15580 AS Id, 2 AS TestId, Title,
+         C(E=Value = 4) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15580`.`2`)
+      })
+    })
+    
+    LET Check15580Status <= SELECT Id, Title, sum(item=pass) > 0 OR Id IN O AS OK
+    FROM Check15580
+    GROUP BY 1
+    
+    
+    LET Check15581 <= SELECT * FROM chain(
+    t0={
+      SELECT 15581 AS Id, 0 AS TestId, Title,
+         C(E=Value = 4) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15581`.`0`)
+      })
+    })
+    
+    LET Check15581Status <= SELECT Id, Title, sum(item=pass) = 1 OR Id IN O AS OK
+    FROM Check15581
+    GROUP BY 1
+    
+    
+    LET Check15582 <= SELECT * FROM chain(
+    t0={
+      SELECT 15582 AS Id, 0 AS TestId, Title,
+         C(E=Value = 4) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15582`.`0`)
+      })
+    })
+    
+    LET Check15582Status <= SELECT Id, Title, sum(item=pass) = 1 OR Id IN O AS OK
+    FROM Check15582
+    GROUP BY 1
+    
+    
+    LET Check15583 <= SELECT * FROM chain(
+    t0={
+      SELECT 15583 AS Id, 0 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15583`.`0`)
+      })
+    },
+    t1={
+      SELECT 15583 AS Id, 1 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15583`.`1`)
+      })
+    },
+    t2={
+      SELECT 15583 AS Id, 2 AS TestId, Title,
+         C(E=Value = 4) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15583`.`2`)
+      })
+    })
+    
+    LET Check15583Status <= SELECT Id, Title, sum(item=pass) > 0 OR Id IN O AS OK
+    FROM Check15583
+    GROUP BY 1
+    
+    
+    LET Check15584 <= SELECT * FROM chain(
+    t0={
+      SELECT 15584 AS Id, 0 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15584`.`0`)
+      })
+    },
+    t1={
+      SELECT 15584 AS Id, 1 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15584`.`1`)
+      })
+    },
+    t2={
+      SELECT 15584 AS Id, 2 AS TestId, Title,
+         C(E=Value = 4) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15584`.`2`)
+      })
+    })
+    
+    LET Check15584Status <= SELECT Id, Title, sum(item=pass) > 0 OR Id IN O AS OK
+    FROM Check15584
+    GROUP BY 1
+    
+    
+    LET Check15585 <= SELECT * FROM chain(
+    t0={
+      SELECT 15585 AS Id, 0 AS TestId, Title,
+         C(E=Value = 4) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15585`.`0`)
+      })
+    })
+    
+    LET Check15585Status <= SELECT Id, Title, sum(item=pass) = 1 OR Id IN O AS OK
+    FROM Check15585
+    GROUP BY 1
+    
+    
+    LET Check15586 <= SELECT * FROM chain(
+    t0={
+      SELECT 15586 AS Id, 0 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15586`.`0`)
+      })
+    },
+    t1={
+      SELECT 15586 AS Id, 1 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15586`.`1`)
+      })
+    },
+    t2={
+      SELECT 15586 AS Id, 2 AS TestId, Title,
+         C(E=Value = 4) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15586`.`2`)
+      })
+    })
+    
+    LET Check15586Status <= SELECT Id, Title, sum(item=pass) > 0 OR Id IN O AS OK
+    FROM Check15586
+    GROUP BY 1
+    
+    
+    LET Check15587 <= SELECT * FROM chain(
+    t0={
+      SELECT 15587 AS Id, 0 AS TestId, Title,
+         C(E=Value = 4) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15587`.`0`)
+      })
+    })
+    
+    LET Check15587Status <= SELECT Id, Title, sum(item=pass) = 1 OR Id IN O AS OK
+    FROM Check15587
+    GROUP BY 1
+    
+    
+    LET Check15588 <= SELECT * FROM chain(
+    t0={
+      SELECT 15588 AS Id, 0 AS TestId, Title,
+         C(E=Value = 4) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15588`.`0`)
+      })
+    })
+    
+    LET Check15588Status <= SELECT Id, Title, sum(item=pass) = 1 OR Id IN O AS OK
+    FROM Check15588
+    GROUP BY 1
+    
+    
+    LET Check15589 <= SELECT * FROM chain(
+    t0={
+      SELECT 15589 AS Id, 0 AS TestId, Title,
+         C(E=Value = 4) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15589`.`0`)
+      })
+    })
+    
+    LET Check15589Status <= SELECT Id, Title, sum(item=pass) = 1 OR Id IN O AS OK
+    FROM Check15589
+    GROUP BY 1
+    
+    
+    LET Check15590 <= SELECT * FROM chain(
+    t0={
+      SELECT 15590 AS Id, 0 AS TestId, Title,
+         C(E=Value = 4) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15590`.`0`)
+      })
+    })
+    
+    LET Check15590Status <= SELECT Id, Title, sum(item=pass) = 1 OR Id IN O AS OK
+    FROM Check15590
+    GROUP BY 1
+    
+    
+    LET Check15591 <= SELECT * FROM chain(
+    t0={
+      SELECT 15591 AS Id, 0 AS TestId, Title,
+         C(E=Value = 4) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15591`.`0`)
+      })
+    })
+    
+    LET Check15591Status <= SELECT Id, Title, sum(item=pass) = 1 OR Id IN O AS OK
+    FROM Check15591
+    GROUP BY 1
+    
+    
+    LET Check15592 <= SELECT * FROM chain(
+    t0={
+      SELECT 15592 AS Id, 0 AS TestId, Title,
+         C(E=Value = 4) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15592`.`0`)
+      })
+    })
+    
+    LET Check15592Status <= SELECT Id, Title, sum(item=pass) = 1 OR Id IN O AS OK
+    FROM Check15592
+    GROUP BY 1
+    
+    
+    LET Check15593 <= SELECT * FROM chain(
+    t0={
+      SELECT 15593 AS Id, 0 AS TestId, Title,
+         C(E=Value = 4) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15593`.`0`)
+      })
+    })
+    
+    LET Check15593Status <= SELECT Id, Title, sum(item=pass) = 1 OR Id IN O AS OK
+    FROM Check15593
+    GROUP BY 1
+    
+    
+    LET Check15594 <= SELECT * FROM chain(
+    t0={
+      SELECT 15594 AS Id, 0 AS TestId, Title,
+         C(E=Value = 4) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15594`.`0`)
+      })
+    })
+    
+    LET Check15594Status <= SELECT Id, Title, sum(item=pass) = 1 OR Id IN O AS OK
+    FROM Check15594
+    GROUP BY 1
+    
+    
+    LET Check15595 <= SELECT * FROM chain(
+    t0={
+      SELECT 15595 AS Id, 0 AS TestId, Title,
+         C(E=Value = 4) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15595`.`0`)
+      })
+    })
+    
+    LET Check15595Status <= SELECT Id, Title, sum(item=pass) = 1 OR Id IN O AS OK
+    FROM Check15595
+    GROUP BY 1
+    
+    
+    LET Check15596 <= SELECT * FROM chain(
+    t0={
+      SELECT 15596 AS Id, 0 AS TestId, Title,
+         C(E=Value = 4) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15596`.`0`)
+      })
+    })
+    
+    LET Check15596Status <= SELECT Id, Title, sum(item=pass) = 1 OR Id IN O AS OK
+    FROM Check15596
+    GROUP BY 1
+    
+    
+    LET Check15597 <= SELECT * FROM chain(
+    t0={
+      SELECT 15597 AS Id, 0 AS TestId, Title,
+         C(E=Value = 4) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15597`.`0`)
+      })
+    })
+    
+    LET Check15597Status <= SELECT Id, Title, sum(item=pass) = 1 OR Id IN O AS OK
+    FROM Check15597
+    GROUP BY 1
+    
+    
+    LET Check15598 <= SELECT * FROM chain(
+    t0={
+      SELECT 15598 AS Id, 0 AS TestId, Title,
+         C(E=Value = 4) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15598`.`0`)
+      })
+    })
+    
+    LET Check15598Status <= SELECT Id, Title, sum(item=pass) = 1 OR Id IN O AS OK
+    FROM Check15598
+    GROUP BY 1
+    
+    
+    LET Check15599 <= SELECT * FROM chain(
+    t0={
+      SELECT 15599 AS Id, 0 AS TestId, Title,
+         C(E=Value = 4) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15599`.`0`)
+      })
+    })
+    
+    LET Check15599Status <= SELECT Id, Title, sum(item=pass) = 1 OR Id IN O AS OK
+    FROM Check15599
+    GROUP BY 1
+    
+    
+    LET Check15600 <= SELECT * FROM chain(
+    t0={
+      SELECT 15600 AS Id, 0 AS TestId, Title,
+         C(E=Value = 4) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15600`.`0`)
+      })
+    })
+    
+    LET Check15600Status <= SELECT Id, Title, sum(item=pass) = 1 OR Id IN O AS OK
+    FROM Check15600
+    GROUP BY 1
+    
+    
+    LET Check15601 <= SELECT * FROM chain(
+    t0={
+      SELECT 15601 AS Id, 0 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15601`.`0`)
+      })
+    },
+    t1={
+      SELECT 15601 AS Id, 1 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15601`.`1`)
+      })
+    },
+    t2={
+      SELECT 15601 AS Id, 2 AS TestId, Title,
+         C(E=Value = 4) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15601`.`2`)
+      })
+    })
+    
+    LET Check15601Status <= SELECT Id, Title, sum(item=pass) > 0 OR Id IN O AS OK
+    FROM Check15601
+    GROUP BY 1
+    
+    
+    LET Check15602 <= SELECT * FROM chain(
+    t0={
+      SELECT 15602 AS Id, 0 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15602`.`0`)
+      })
+    },
+    t1={
+      SELECT 15602 AS Id, 1 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15602`.`1`)
+      })
+    },
+    t2={
+      SELECT 15602 AS Id, 2 AS TestId, Title,
+         C(E=Value = 4) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15602`.`2`)
+      })
+    })
+    
+    LET Check15602Status <= SELECT Id, Title, sum(item=pass) > 0 OR Id IN O AS OK
+    FROM Check15602
+    GROUP BY 1
+    
+    
+    LET Check15603 <= SELECT * FROM chain(
+    t0={
+      SELECT 15603 AS Id, 0 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15603`.`0`)
+      })
+    },
+    t1={
+      SELECT 15603 AS Id, 1 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15603`.`1`)
+      })
+    },
+    t2={
+      SELECT 15603 AS Id, 2 AS TestId, Title,
+         C(E=Value = 4) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15603`.`2`)
+      })
+    })
+    
+    LET Check15603Status <= SELECT Id, Title, sum(item=pass) > 0 OR Id IN O AS OK
+    FROM Check15603
+    GROUP BY 1
+    
+    
+    LET Check15604 <= SELECT * FROM chain(
+    t0={
+      SELECT 15604 AS Id, 0 AS TestId, Title,
+         C(E=Value = 4) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15604`.`0`)
+      })
+    })
+    
+    LET Check15604Status <= SELECT Id, Title, sum(item=pass) = 1 OR Id IN O AS OK
+    FROM Check15604
+    GROUP BY 1
+    
+    
+    LET Check15605 <= SELECT * FROM chain(
+    t0={
+      SELECT 15605 AS Id, 0 AS TestId, Title,
+         C(E=Value = 4) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15605`.`0`)
+      })
+    })
+    
+    LET Check15605Status <= SELECT Id, Title, sum(item=pass) = 1 OR Id IN O AS OK
+    FROM Check15605
+    GROUP BY 1
+    
+    
+    LET Check15606 <= SELECT * FROM chain(
+    t0={
+      SELECT 15606 AS Id, 0 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15606`.`0`)
+      })
+    },
+    t1={
+      SELECT 15606 AS Id, 1 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15606`.`1`)
+      })
+    },
+    t2={
+      SELECT 15606 AS Id, 2 AS TestId, Title,
+         C(E=Value = 4) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15606`.`2`)
+      })
+    })
+    
+    LET Check15606Status <= SELECT Id, Title, sum(item=pass) > 0 OR Id IN O AS OK
+    FROM Check15606
+    GROUP BY 1
+    
+    
+    LET Check15607 <= SELECT * FROM chain(
+    t0={
+      SELECT 15607 AS Id, 0 AS TestId, Title,
+         C(E=Value = 4) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15607`.`0`)
+      })
+    })
+    
+    LET Check15607Status <= SELECT Id, Title, sum(item=pass) = 1 OR Id IN O AS OK
+    FROM Check15607
+    GROUP BY 1
+    
+    
+    LET Check15608 <= SELECT * FROM chain(
+    t0={
+      SELECT 15608 AS Id, 0 AS TestId, Title,
+         C(E=Value = 4) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15608`.`0`)
+      })
+    })
+    
+    LET Check15608Status <= SELECT Id, Title, sum(item=pass) = 1 OR Id IN O AS OK
+    FROM Check15608
+    GROUP BY 1
+    
+    
+    LET Check15609 <= SELECT * FROM chain(
+    t0={
+      SELECT 15609 AS Id, 0 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15609`.`0`)
+      })
+    },
+    t1={
+      SELECT 15609 AS Id, 1 AS TestId, Title,
+         C(E=NOT Value = 4) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15609`.`1`)
+      })
+    },
+    t2={
+      SELECT 15609 AS Id, 2 AS TestId, Title,
+         C(E=Value = 4) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15609`.`2`)
+      })
+    })
+    
+    LET Check15609Status <= SELECT Id, Title, sum(item=pass) > 0 OR Id IN O AS OK
+    FROM Check15609
+    GROUP BY 1
+    
+    
+    LET Check15610 <= SELECT * FROM chain(
+    t0={
+      SELECT 15610 AS Id, 0 AS TestId, Title,
+         C(E=Value = 4) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15610`.`0`)
+      })
+    })
+    
+    LET Check15610Status <= SELECT Id, Title, sum(item=pass) = 1 OR Id IN O AS OK
+    FROM Check15610
+    GROUP BY 1
+    
+    
+    LET Check15611 <= SELECT * FROM chain(
+    t0={
+      SELECT 15611 AS Id, 0 AS TestId, Title,
+         C(E=Value = 4) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15611`.`0`)
+      })
+    })
+    
+    LET Check15611Status <= SELECT Id, Title, sum(item=pass) = 1 OR Id IN O AS OK
+    FROM Check15611
+    GROUP BY 1
+    
+    
+    LET Check15612 <= SELECT * FROM chain(
+    t0={
+      SELECT 15612 AS Id, 0 AS TestId, Title,
+         C(E=Value = 4) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15612`.`0`)
+      })
+    })
+    
+    LET Check15612Status <= SELECT Id, Title, sum(item=pass) = 1 OR Id IN O AS OK
+    FROM Check15612
+    GROUP BY 1
+    
+    
+    LET Check15613 <= SELECT * FROM chain(
+    t0={
+      SELECT 15613 AS Id, 0 AS TestId, Title,
+         C(E=Value = 4) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15613`.`0`)
+      })
+    })
+    
+    LET Check15613Status <= SELECT Id, Title, sum(item=pass) = 1 OR Id IN O AS OK
+    FROM Check15613
+    GROUP BY 1
+    
+    
+    LET Check15614 <= SELECT * FROM chain(
+    t0={
+      SELECT 15614 AS Id, 0 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15614`.`0`)
+      })
+    },
+    t1={
+      SELECT 15614 AS Id, 1 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15614`.`1`)
+      })
+    },
+    t2={
+      SELECT 15614 AS Id, 2 AS TestId, Title,
+         C(E=Value = 4) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15614`.`2`)
+      })
+    })
+    
+    LET Check15614Status <= SELECT Id, Title, sum(item=pass) > 0 OR Id IN O AS OK
+    FROM Check15614
+    GROUP BY 1
+    
+    
+    LET Check15615 <= SELECT * FROM chain(
+    t0={
+      SELECT 15615 AS Id, 0 AS TestId, Title,
+         C(E=Value = 4) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15615`.`0`)
+      })
+    })
+    
+    LET Check15615Status <= SELECT Id, Title, sum(item=pass) = 1 OR Id IN O AS OK
+    FROM Check15615
+    GROUP BY 1
+    
+    
+    LET Check15616 <= SELECT * FROM chain(
+    t0={
+      SELECT 15616 AS Id, 0 AS TestId, Title,
+         C(E=Value = 4) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15616`.`0`)
+      })
+    })
+    
+    LET Check15616Status <= SELECT Id, Title, sum(item=pass) = 1 OR Id IN O AS OK
+    FROM Check15616
+    GROUP BY 1
+    
+    
+    LET Check15617 <= SELECT * FROM chain(
+    t0={
+      SELECT 15617 AS Id, 0 AS TestId, Title,
+         C(E=Value = 4) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15617`.`0`)
+      })
+    })
+    
+    LET Check15617Status <= SELECT Id, Title, sum(item=pass) = 1 OR Id IN O AS OK
+    FROM Check15617
+    GROUP BY 1
+    
+    
+    LET Check15618 <= SELECT * FROM chain(
+    t0={
+      SELECT 15618 AS Id, 0 AS TestId, Title,
+         C(E=Value = 4) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15618`.`0`)
+      })
+    })
+    
+    LET Check15618Status <= SELECT Id, Title, sum(item=pass) = 1 OR Id IN O AS OK
+    FROM Check15618
+    GROUP BY 1
+    
+    
+    LET Check15619 <= SELECT * FROM chain(
+    t0={
+      SELECT 15619 AS Id, 0 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15619`.`0`)
+      })
+    },
+    t1={
+      SELECT 15619 AS Id, 1 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15619`.`1`)
+      })
+    },
+    t2={
+      SELECT 15619 AS Id, 2 AS TestId, Title,
+         C(E=Value = 1) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15619`.`2`)
+      })
+    })
+    
+    LET Check15619Status <= SELECT Id, Title, sum(item=pass) > 0 OR Id IN O AS OK
+    FROM Check15619
+    GROUP BY 1
+    
+    
+    LET Check15620 <= SELECT * FROM chain(
+    t0={
+      SELECT 15620 AS Id, 0 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15620`.`0`)
+      })
+    },
+    t1={
+      SELECT 15620 AS Id, 1 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15620`.`1`)
+      })
+    },
+    t2={
+      SELECT 15620 AS Id, 2 AS TestId, Title,
+         C(E=Value = 1) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15620`.`2`)
+      })
+    })
+    
+    LET Check15620Status <= SELECT Id, Title, sum(item=pass) > 0 OR Id IN O AS OK
+    FROM Check15620
+    GROUP BY 1
+    
+    
+    LET Check15621 <= SELECT * FROM chain(
+    t0={
+      SELECT 15621 AS Id, 0 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15621`.`0`)
+      })
+    },
+    t1={
+      SELECT 15621 AS Id, 1 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15621`.`1`)
+      })
+    },
+    t2={
+      SELECT 15621 AS Id, 2 AS TestId, Title,
+         C(E=Value = 0) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15621`.`2`)
+      })
+    })
+    
+    LET Check15621Status <= SELECT Id, Title, sum(item=pass) > 0 OR Id IN O AS OK
+    FROM Check15621
+    GROUP BY 1
+    
+    
+    LET Check15622 <= SELECT * FROM chain(
+    t0={
+      SELECT 15622 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15622`.`0`)
+      })
+    },
+    t1={
+      SELECT 15622 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15622`.`1`)
+      })
+    },
+    t2={
+      SELECT 15622 AS Id, 2 AS TestId, Title,
+         C(E=Value = 1) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15622`.`2`)
+      })
+    })
+    
+    LET Check15622Status <= SELECT Id, Title, sum(item=pass) = 3 OR Id IN O AS OK
+    FROM Check15622
+    GROUP BY 1
+    
+    
+    LET Check15623 <= SELECT * FROM chain(
+    t0={
+      SELECT 15623 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15623`.`0`)
+      })
+    },
+    t1={
+      SELECT 15623 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15623`.`1`)
+      })
+    },
+    t2={
+      SELECT 15623 AS Id, 2 AS TestId, Title,
+         C(E=Value =~ regex) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15623`.`2`)
+      })
+    })
+    
+    LET Check15623Status <= SELECT Id, Title, sum(item=pass) = 3 OR Id IN O AS OK
+    FROM Check15623
+    GROUP BY 1
+    
+    
+    LET Check15624 <= SELECT * FROM chain(
+    t0={
+      SELECT 15624 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15624`.`0`)
+      })
+    },
+    t1={
+      SELECT 15624 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15624`.`1`)
+      })
+    },
+    t2={
+      SELECT 15624 AS Id, 2 AS TestId, Title,
+         C(E=Value >= 16384) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, int(int=Reg(k=k + '/' + v).value) AS Value, '' AS Context
+        FROM foreach(row=Env.`15624`.`2`)
+      })
+    })
+    
+    LET Check15624Status <= SELECT Id, Title, sum(item=pass) = 3 OR Id IN O AS OK
+    FROM Check15624
+    GROUP BY 1
+    
+    
+    LET Check15625 <= SELECT * FROM chain(
+    t0={
+      SELECT 15625 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15625`.`0`)
+      })
+    },
+    t1={
+      SELECT 15625 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15625`.`1`)
+      })
+    },
+    t2={
+      SELECT 15625 AS Id, 2 AS TestId, Title,
+         C(E=Value = 1) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15625`.`2`)
+      })
+    })
+    
+    LET Check15625Status <= SELECT Id, Title, sum(item=pass) = 3 OR Id IN O AS OK
+    FROM Check15625
+    GROUP BY 1
+    
+    
+    LET Check15626 <= SELECT * FROM chain(
+    t0={
+      SELECT 15626 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15626`.`0`)
+      })
+    },
+    t1={
+      SELECT 15626 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15626`.`1`)
+      })
+    },
+    t2={
+      SELECT 15626 AS Id, 2 AS TestId, Title,
+         C(E=Value = 1) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15626`.`2`)
+      })
+    })
+    
+    LET Check15626Status <= SELECT Id, Title, sum(item=pass) = 3 OR Id IN O AS OK
+    FROM Check15626
+    GROUP BY 1
+    
+    
+    LET Check15627 <= SELECT * FROM chain(
+    t0={
+      SELECT 15627 AS Id, 0 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15627`.`0`)
+      })
+    },
+    t1={
+      SELECT 15627 AS Id, 1 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15627`.`1`)
+      })
+    },
+    t2={
+      SELECT 15627 AS Id, 2 AS TestId, Title,
+         C(E=Value = 1) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15627`.`2`)
+      })
+    })
+    
+    LET Check15627Status <= SELECT Id, Title, sum(item=pass) > 0 OR Id IN O AS OK
+    FROM Check15627
+    GROUP BY 1
+    
+    
+    LET Check15628 <= SELECT * FROM chain(
+    t0={
+      SELECT 15628 AS Id, 0 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15628`.`0`)
+      })
+    },
+    t1={
+      SELECT 15628 AS Id, 1 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15628`.`1`)
+      })
+    },
+    t2={
+      SELECT 15628 AS Id, 2 AS TestId, Title,
+         C(E=Value = 1) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15628`.`2`)
+      })
+    })
+    
+    LET Check15628Status <= SELECT Id, Title, sum(item=pass) > 0 OR Id IN O AS OK
+    FROM Check15628
+    GROUP BY 1
+    
+    
+    LET Check15629 <= SELECT * FROM chain(
+    t0={
+      SELECT 15629 AS Id, 0 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15629`.`0`)
+      })
+    },
+    t1={
+      SELECT 15629 AS Id, 1 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15629`.`1`)
+      })
+    },
+    t2={
+      SELECT 15629 AS Id, 2 AS TestId, Title,
+         C(E=Value = 0) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15629`.`2`)
+      })
+    })
+    
+    LET Check15629Status <= SELECT Id, Title, sum(item=pass) > 0 OR Id IN O AS OK
+    FROM Check15629
+    GROUP BY 1
+    
+    
+    LET Check15630 <= SELECT * FROM chain(
+    t0={
+      SELECT 15630 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15630`.`0`)
+      })
+    },
+    t1={
+      SELECT 15630 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15630`.`1`)
+      })
+    },
+    t2={
+      SELECT 15630 AS Id, 2 AS TestId, Title,
+         C(E=Value = 1) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15630`.`2`)
+      })
+    })
+    
+    LET Check15630Status <= SELECT Id, Title, sum(item=pass) = 3 OR Id IN O AS OK
+    FROM Check15630
+    GROUP BY 1
+    
+    
+    LET Check15631 <= SELECT * FROM chain(
+    t0={
+      SELECT 15631 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15631`.`0`)
+      })
+    },
+    t1={
+      SELECT 15631 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15631`.`1`)
+      })
+    },
+    t2={
+      SELECT 15631 AS Id, 2 AS TestId, Title,
+         C(E=Value =~ regex) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15631`.`2`)
+      })
+    })
+    
+    LET Check15631Status <= SELECT Id, Title, sum(item=pass) = 3 OR Id IN O AS OK
+    FROM Check15631
+    GROUP BY 1
+    
+    
+    LET Check15632 <= SELECT * FROM chain(
+    t0={
+      SELECT 15632 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15632`.`0`)
+      })
+    },
+    t1={
+      SELECT 15632 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15632`.`1`)
+      })
+    },
+    t2={
+      SELECT 15632 AS Id, 2 AS TestId, Title,
+         C(E=Value >= 16384) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, int(int=Reg(k=k + '/' + v).value) AS Value, '' AS Context
+        FROM foreach(row=Env.`15632`.`2`)
+      })
+    })
+    
+    LET Check15632Status <= SELECT Id, Title, sum(item=pass) = 3 OR Id IN O AS OK
+    FROM Check15632
+    GROUP BY 1
+    
+    
+    LET Check15633 <= SELECT * FROM chain(
+    t0={
+      SELECT 15633 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15633`.`0`)
+      })
+    },
+    t1={
+      SELECT 15633 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15633`.`1`)
+      })
+    },
+    t2={
+      SELECT 15633 AS Id, 2 AS TestId, Title,
+         C(E=Value = 1) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15633`.`2`)
+      })
+    })
+    
+    LET Check15633Status <= SELECT Id, Title, sum(item=pass) = 3 OR Id IN O AS OK
+    FROM Check15633
+    GROUP BY 1
+    
+    
+    LET Check15634 <= SELECT * FROM chain(
+    t0={
+      SELECT 15634 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15634`.`0`)
+      })
+    },
+    t1={
+      SELECT 15634 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15634`.`1`)
+      })
+    },
+    t2={
+      SELECT 15634 AS Id, 2 AS TestId, Title,
+         C(E=Value = 1) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15634`.`2`)
+      })
+    })
+    
+    LET Check15634Status <= SELECT Id, Title, sum(item=pass) = 3 OR Id IN O AS OK
+    FROM Check15634
+    GROUP BY 1
+    
+    
+    LET Check15635 <= SELECT * FROM chain(
+    t0={
+      SELECT 15635 AS Id, 0 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15635`.`0`)
+      })
+    },
+    t1={
+      SELECT 15635 AS Id, 1 AS TestId, Title,
+         C(E=NOT Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15635`.`1`)
+      })
+    },
+    t2={
+      SELECT 15635 AS Id, 2 AS TestId, Title,
+         C(E=Value = 1) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v).value AS Value, '' AS Context
+        FROM foreach(row=Env.`15635`.`2`)
+      })
+    })
+    
+    LET Check15635Status <= SELECT Id, Title, sum(item=pass) > 0 OR Id IN O AS OK
+    FROM Check15635
+    GROUP BY 1
+    
+    
+    LET Check15671 <= SELECT * FROM chain(
+    t0={
+      SELECT 15671 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`15671`.`0`)
+      })
+    })
+    
+    LET Check15671Status <= SELECT Id, Title, sum(item=pass) = 1 OR Id IN O AS OK
+    FROM Check15671
+    GROUP BY 1
+    
+    
+    LET Check15808 <= SELECT * FROM chain(
+    t0={
+      SELECT 15808 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15808`.`0`)
+      })
+    },
+    t1={
+      SELECT 15808 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15808`.`1`)
+      })
+    },
+    t2={
+      SELECT 15808 AS Id, 2 AS TestId, Title,
+         C(E=Value >= 32768) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, int(int=Reg(k=k + '/' + v).value) AS Value, '' AS Context
+        FROM foreach(row=Env.`15808`.`2`)
+      })
+    })
+    
+    LET Check15808Status <= SELECT Id, Title, sum(item=pass) = 3 OR Id IN O AS OK
+    FROM Check15808
+    GROUP BY 1
+    
+    
+    LET Check15810 <= SELECT * FROM chain(
+    t0={
+      SELECT 15810 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k) AS Value, '' AS Context
+        FROM foreach(row=Env.`15810`.`0`)
+      })
+    },
+    t1={
+      SELECT 15810 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, Reg(k=k + '/' + v) AS Value, '' AS Context
+        FROM foreach(row=Env.`15810`.`1`)
+      })
+    },
+    t2={
+      SELECT 15810 AS Id, 2 AS TestId, Title,
+         C(E=Value >= 32768) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, int(int=Reg(k=k + '/' + v).value) AS Value, '' AS Context
+        FROM foreach(row=Env.`15810`.`2`)
+      })
+    })
+    
+    LET Check15810Status <= SELECT Id, Title, sum(item=pass) = 3 OR Id IN O AS OK
+    FROM Check15810
+    GROUP BY 1
+    
+    LET Failures <= SELECT * FROM chain(a0=Check15500Status,
+     a1=Check15501Status,
+     a2=Check15502Status,
+     a3=Check15503Status,
+     a4=Check15505Status,
+     a5=Check15506Status,
+     a6=Check15507Status,
+     a7=Check15508Status,
+     a8=Check15509Status,
+     a9=Check15510Status,
+     a10=Check15511Status,
+     a11=Check15512Status,
+     a12=Check15513Status,
+     a13=Check15514Status,
+     a14=Check15515Status,
+     a15=Check15516Status,
+     a16=Check15517Status,
+     a17=Check15518Status,
+     a18=Check15519Status,
+     a19=Check15520Status,
+     a20=Check15521Status,
+     a21=Check15522Status,
+     a22=Check15523Status,
+     a23=Check15524Status,
+     a24=Check15525Status,
+     a25=Check15526Status,
+     a26=Check15527Status,
+     a27=Check15528Status,
+     a29=Check15530Status,
+     a30=Check15531Status,
+     a31=Check15532Status,
+     a32=Check15533Status,
+     a33=Check15534Status,
+     a34=Check15535Status,
+     a35=Check15536Status,
+     a36=Check15537Status,
+     a37=Check15538Status,
+     a38=Check15539Status,
+     a39=Check15540Status,
+     a40=Check15541Status,
+     a41=Check15542Status,
+     a42=Check15543Status,
+     a43=Check15544Status,
+     a44=Check15545Status,
+     a45=Check15546Status,
+     a46=Check15547Status,
+     a47=Check15548Status,
+     a48=Check15549Status,
+     a49=Check15550Status,
+     a50=Check15551Status,
+     a51=Check15552Status,
+     a52=Check15553Status,
+     a53=Check15554Status,
+     a54=Check15555Status,
+     a55=Check15556Status,
+     a56=Check15557Status,
+     a57=Check15558Status,
+     a58=Check15559Status,
+     a59=Check15560Status,
+     a60=Check15561Status,
+     a61=Check15562Status,
+     a62=Check15563Status,
+     a63=Check15564Status,
+     a64=Check15565Status,
+     a65=Check15566Status,
+     a66=Check15567Status,
+     a67=Check15568Status,
+     a68=Check15569Status,
+     a69=Check15570Status,
+     a70=Check15571Status,
+     a71=Check15572Status,
+     a72=Check15573Status,
+     a73=Check15574Status,
+     a74=Check15575Status,
+     a75=Check15576Status,
+     a76=Check15577Status,
+     a77=Check15578Status,
+     a78=Check15579Status,
+     a79=Check15580Status,
+     a80=Check15581Status,
+     a81=Check15582Status,
+     a82=Check15583Status,
+     a83=Check15584Status,
+     a84=Check15585Status,
+     a85=Check15586Status,
+     a86=Check15587Status,
+     a87=Check15588Status,
+     a88=Check15589Status,
+     a89=Check15590Status,
+     a90=Check15591Status,
+     a91=Check15592Status,
+     a92=Check15593Status,
+     a93=Check15594Status,
+     a94=Check15595Status,
+     a95=Check15596Status,
+     a96=Check15597Status,
+     a97=Check15598Status,
+     a98=Check15599Status,
+     a99=Check15600Status,
+     a100=Check15601Status,
+     a101=Check15602Status,
+     a102=Check15603Status,
+     a103=Check15604Status,
+     a104=Check15605Status,
+     a105=Check15606Status,
+     a106=Check15607Status,
+     a107=Check15608Status,
+     a108=Check15609Status,
+     a109=Check15610Status,
+     a110=Check15611Status,
+     a111=Check15612Status,
+     a112=Check15613Status,
+     a113=Check15614Status,
+     a114=Check15615Status,
+     a115=Check15616Status,
+     a116=Check15617Status,
+     a117=Check15618Status,
+     a118=Check15619Status,
+     a119=Check15620Status,
+     a120=Check15621Status,
+     a121=Check15622Status,
+     a122=Check15623Status,
+     a123=Check15624Status,
+     a124=Check15625Status,
+     a125=Check15626Status,
+     a126=Check15627Status,
+     a127=Check15628Status,
+     a128=Check15629Status,
+     a129=Check15630Status,
+     a130=Check15631Status,
+     a131=Check15632Status,
+     a132=Check15633Status,
+     a133=Check15634Status,
+     a134=Check15635Status,
+     a170=Check15671Status,
+     a307=Check15808Status,
+     a309=Check15810Status)
+    WHERE NOT OK
+    
+    LET AllTests <= SELECT * FROM chain(a0=Check15500,
+     a1=Check15501,
+     a2=Check15502,
+     a3=Check15503,
+     a4=Check15505,
+     a5=Check15506,
+     a6=Check15507,
+     a7=Check15508,
+     a8=Check15509,
+     a9=Check15510,
+     a10=Check15511,
+     a11=Check15512,
+     a12=Check15513,
+     a13=Check15514,
+     a14=Check15515,
+     a15=Check15516,
+     a16=Check15517,
+     a17=Check15518,
+     a18=Check15519,
+     a19=Check15520,
+     a20=Check15521,
+     a21=Check15522,
+     a22=Check15523,
+     a23=Check15524,
+     a24=Check15525,
+     a25=Check15526,
+     a26=Check15527,
+     a27=Check15528,
+     a29=Check15530,
+     a30=Check15531,
+     a31=Check15532,
+     a32=Check15533,
+     a33=Check15534,
+     a34=Check15535,
+     a35=Check15536,
+     a36=Check15537,
+     a37=Check15538,
+     a38=Check15539,
+     a39=Check15540,
+     a40=Check15541,
+     a41=Check15542,
+     a42=Check15543,
+     a43=Check15544,
+     a44=Check15545,
+     a45=Check15546,
+     a46=Check15547,
+     a47=Check15548,
+     a48=Check15549,
+     a49=Check15550,
+     a50=Check15551,
+     a51=Check15552,
+     a52=Check15553,
+     a53=Check15554,
+     a54=Check15555,
+     a55=Check15556,
+     a56=Check15557,
+     a57=Check15558,
+     a58=Check15559,
+     a59=Check15560,
+     a60=Check15561,
+     a61=Check15562,
+     a62=Check15563,
+     a63=Check15564,
+     a64=Check15565,
+     a65=Check15566,
+     a66=Check15567,
+     a67=Check15568,
+     a68=Check15569,
+     a69=Check15570,
+     a70=Check15571,
+     a71=Check15572,
+     a72=Check15573,
+     a73=Check15574,
+     a74=Check15575,
+     a75=Check15576,
+     a76=Check15577,
+     a77=Check15578,
+     a78=Check15579,
+     a79=Check15580,
+     a80=Check15581,
+     a81=Check15582,
+     a82=Check15583,
+     a83=Check15584,
+     a84=Check15585,
+     a85=Check15586,
+     a86=Check15587,
+     a87=Check15588,
+     a88=Check15589,
+     a89=Check15590,
+     a90=Check15591,
+     a91=Check15592,
+     a92=Check15593,
+     a93=Check15594,
+     a94=Check15595,
+     a95=Check15596,
+     a96=Check15597,
+     a97=Check15598,
+     a98=Check15599,
+     a99=Check15600,
+     a100=Check15601,
+     a101=Check15602,
+     a102=Check15603,
+     a103=Check15604,
+     a104=Check15605,
+     a105=Check15606,
+     a106=Check15607,
+     a107=Check15608,
+     a108=Check15609,
+     a109=Check15610,
+     a110=Check15611,
+     a111=Check15612,
+     a112=Check15613,
+     a113=Check15614,
+     a114=Check15615,
+     a115=Check15616,
+     a116=Check15617,
+     a117=Check15618,
+     a118=Check15619,
+     a119=Check15620,
+     a120=Check15621,
+     a121=Check15622,
+     a122=Check15623,
+     a123=Check15624,
+     a124=Check15625,
+     a125=Check15626,
+     a126=Check15627,
+     a127=Check15628,
+     a128=Check15629,
+     a129=Check15630,
+     a130=Check15631,
+     a131=Check15632,
+     a132=Check15633,
+     a133=Check15634,
+     a134=Check15635,
+     a170=Check15671,
+     a307=Check15808,
+     a309=Check15810)
+    
+    SELECT * FROM Failures
+
+- name: FailedTests
+  query: |
+    -- For failed checks show all tests
+    SELECT Id, TestId, CheckDetails, Value, Context, pass
+    FROM foreach(row={
+      SELECT Id AS FailedId FROM Failures
+    },
+    query={
+      SELECT *,
+         get(item=Env,
+             member=format(format="%v.%v", args=[Id, TestId])) AS CheckDetails
+      FROM AllTests
+      WHERE Id = FailedId
+    })
+
+- name: AllTests
+  query: |
+    SELECT * FROM AllTests
+
+- name: Remediation
+  query: |
+    
+    SELECT * FROM if(condition=Remediate, then={
+      SELECT * FROM chain(
+      r110={ SELECT Id, Title,
+             RunPowerShell(S='Get-Service WpnService | Stop-Service -PassThru | Set-Service -StartupType Disabled')
+       AS _Result
+             FROM Check15611Status WHERE NOT OK }
+    )})
+    
+
+- name: Stats
+  query: |
+    LET TotalFailed <= SELECT count() AS Total FROM Failures GROUP BY 1
+    LET TotalChecks <= 394
+
+    SELECT TotalFailed[0].Total AS TotalFailed, TotalChecks FROM scope()
+
