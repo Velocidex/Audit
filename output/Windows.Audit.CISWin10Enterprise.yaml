@@ -33,17 +33,17 @@ sources:
     
     LET O <= OverruleChecks.Id
     
-    LET _Cmd(cmd) = SELECT Stdout
+    LET _Cmd(cmd) = SELECT Stdout + Stderr AS Out
       FROM execve(argv=commandline_split(command=cmd), length=1000000)
     
     LET CmdOut(cmd, re) = parse_string_with_regex(regex=re,
-        string=cache(func=_Cmd(cmd=cmd)[0].Stdout, key=cmd))
+        string=cache(func=_Cmd(cmd=cmd)[0].Out, key=cmd))
     
     LET M <= '(?m)'
     
-    LET CmdMatch(cmd, re) = cache(func=_Cmd(cmd=cmd)[0].Stdout, key=cmd) =~ M+re
+    LET CmdMatch(cmd, re) = cache(func=_Cmd(cmd=cmd)[0].Out, key=cmd) =~ M+re
     LET CmdContext(cmd, re) = format(format="match '%v' on '%v': %v", args=[re,
-           cmd, cache(func=_Cmd(cmd=cmd)[0].Stdout, key=cmd)[:ContextLength] ])
+           cmd, cache(func=_Cmd(cmd=cmd)[0].Out, key=cmd)[:ContextLength] ])
     
     LET _Reg(Path) = SELECT Data FROM stat(filename=Path, accessor="registry")
     
