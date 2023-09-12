@@ -3,7 +3,7 @@ ArtifactName: Windows.Audit.CISWin10Enterprise
 Precondition: |
   SELECT * FROM info() WHERE OS =~ "windows"
 Description: |
-  This artifact was generated from the Wahzu SCA project.
+  This artifact was generated from the Wazuh SCA project.
 Export: |
   LET RunPowerShell(S) = SELECT * FROM execve(
       argv=["Powershell", "-ExecutionPolicy",
