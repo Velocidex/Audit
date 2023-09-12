@@ -1,11 +1,7 @@
 
 name: Darwin.Audit.CISMacOS13
 description: |
-<<<<<<< HEAD
    This artifact was generated from the Wazuh SCA project.
-=======
-   This artifact was generated from the Wahzu SCA project.
->>>>>>> dab7b1c (Added documentation and changes to initial checks)
    
    Using the cis_apple_macOS_13.x.yml.
    
@@ -28,11 +24,7 @@ sources:
 - name: FailedChecks
   query: |
     
-<<<<<<< HEAD
-    LET JSONEnv = "H4sIAAAAAAAA/9SY227bOBCGX2VAFHDS+iS7SVsDuQjsBMhu4hRV2t4IKWhqZHNLkVqSiteo8+4LSnJiK8bCp7jeGwOWQGq+f/4ZHn6RttdsNknnF8l+WBySDjEqsmOqMU1CahFqglSJRtIhfQUSxzB7D/SBckEHAuukSvCfBJlFN8E3KlIkVXLHrXDjLqRJNcK5EHCeJAJriVYPPMQQ/NlUVwa6qdYorZsrn6BDunF4Qy0bHbE4PGNxWAWNZxqPSZVcuQ/l0VdJV0n3lwpBHh+r2WOvBKUMNUzzxEJNwB/0gfrFP4SAvKn3/a8GdQ8jmgpr6lQIxepccvud25Gfcot9GuNRham4Th1DfRb610ylynFdDf5CZi+V/hMnR5Xz1KqYWs66I2Q/L6STKawcB2Qm5r33ZjXVUqsg/4hTqZhpXZW8OZXkhDxWiXfA2gRB/d2iOP3bO9irQIWNWodio54aS6HoRhaajYU+jgulDHwfoYTzWQVvoVzrIK21TK+1bLVf0Qq7tQ/FblSIyZU0lgpxQ9mtXwiwifuKaUBFELupnsTcXL32QVpuBc3WcuAehCts975ku7BQBzTSEBrXfKCpnjQ+a4xQo2RoGs/yMBXHqFneiPMQN7WI2x1wRi1X8gk20ioGO0L3Enyr9DZl9375ZuHkN5ddV8mID3vU0kIJ5xkI0mazdZr/AuvsPSjNM1Pnr+cC2zS7PrJUczuBL2gSJQ0aoDIEf2IsxnDJxVbWPjmknvD/TOhG3Wm/WS0K9vS1C5Y+dyLKGBrzQk2UkdIMw0XReyjoZKFIjoIgfHe8rFIgM0SbnUG7+VLfp6NRsbXtud4bo7ROzWs0Bu5GVILScPF3SgVYBe0m9OjEzGvMpT3i0p514/A2tWWl60MPplNoLkh+utdC2pnQa5l3N+KuYuCymoWBP2yz4lIRwVCoARXGLq620/vWaj35kmscu/LdvDQ//JdP1uIxRQupR7Oo8pBmQZYAp/dWp/jbOIsMftw2g8YiFXaEeVRbJdHPp4IbFW6zO/r46hktAnVx7iKpr8RdZPhTKcON1OiGGXDZMNniZtCmCdSGaFPD5VCiHSv90/L4ia2fP4I7HmMnCMzbILBvb+VKkD7abFy2mvZck1o4aGyB+2npJth7cQ1YgpzjM6gfUC+jBD971VkJMRtwZTJUt0Bw6Tb5WiWaO95rHnO7bsP1lt8HeuX7QDOCGoOACJpKNmJWgODGwhSGGhP36tnMtz3/fIjSzi3qzRUvXr713BrS7YE/oprLoaPtcbNJ2jxvOVj5hmoNMMM0ojR5aOvT+dnwXaC1lqOVb0PWQYsH4fpEbre6C572cp7yMXvGw9LEOJoC5IfLCP5INJcWtYEpsNRCLYTKWQVqUWt9rs/5VLtAW36C9son6HLz0Bgri0INuZwF/yV7BNfu2XNzjKKViOYHb4NzUsZ5/DcAAP//yDO5GhQZAAA="
-=======
     LET JSONEnv = "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"
->>>>>>> dab7b1c (Added documentation and changes to initial checks)
     LET Env <= parse_json(data=gunzip(string=base64decode(string=JSONEnv)))
     
     LET C(E) = if(condition=E, then=1, else=0)
@@ -361,9 +353,6 @@ sources:
     FROM Check31015
     GROUP BY 1
     
-<<<<<<< HEAD
-    LET Failures <= SELECT * FROM chain(a0=Check31000Status,
-=======
     
     LET Check31016 <= SELECT * FROM chain(
     t0={
@@ -1239,8 +1228,7 @@ sources:
     FROM Check31060
     GROUP BY 1
     
-    LET Failours <= SELECT * FROM chain(a0=Check31000Status,
->>>>>>> dab7b1c (Added documentation and changes to initial checks)
+    LET Failures <= SELECT * FROM chain(a0=Check31000Status,
      a1=Check31001Status,
      a2=Check31002Status,
      a3=Check31003Status,
@@ -1255,9 +1243,6 @@ sources:
      a12=Check31012Status,
      a13=Check31013Status,
      a14=Check31014Status,
-<<<<<<< HEAD
-     a15=Check31015Status)
-=======
      a15=Check31015Status,
      a16=Check31016Status,
      a17=Check31017Status,
@@ -1304,7 +1289,6 @@ sources:
      a58=Check31058Status,
      a59=Check31059Status,
      a60=Check31060Status)
->>>>>>> dab7b1c (Added documentation and changes to initial checks)
     WHERE NOT OK
     
     LET AllTests <= SELECT * FROM chain(a0=Check31000,
@@ -1322,11 +1306,6 @@ sources:
      a12=Check31012,
      a13=Check31013,
      a14=Check31014,
-<<<<<<< HEAD
-     a15=Check31015)
-    
-    SELECT * FROM Failures
-=======
      a15=Check31015,
      a16=Check31016,
      a17=Check31017,
@@ -1374,19 +1353,14 @@ sources:
      a59=Check31059,
      a60=Check31060)
     
-    SELECT * FROM Failours
->>>>>>> dab7b1c (Added documentation and changes to initial checks)
+    SELECT * FROM Failures
 
 - name: FailedTests
   query: |
     -- For failed checks show all tests
     SELECT Id, TestId, CheckDetails, Value, Context, pass
     FROM foreach(row={
-<<<<<<< HEAD
       SELECT Id AS FailedId FROM Failures
-=======
-      SELECT Id AS FailedId FROM Failours
->>>>>>> dab7b1c (Added documentation and changes to initial checks)
     },
     query={
       SELECT *,
@@ -1398,14 +1372,10 @@ sources:
 
 - name: AllTests
   query: |
-<<<<<<< HEAD
-    SELECT * FROM AllTests
-=======
     SELECT *,
       get(item=Env,
           member=format(format="%v.%v", args=[Id, TestId])) AS CheckDetails
     FROM AllTests
->>>>>>> dab7b1c (Added documentation and changes to initial checks)
 
 - name: Remediation
   query: |
@@ -1418,11 +1388,7 @@ sources:
 
 - name: Stats
   query: |
-<<<<<<< HEAD
     LET TotalFailed <= SELECT count() AS Total FROM Failures GROUP BY 1
-=======
-    LET TotalFailed <= SELECT count() AS Total FROM Failours GROUP BY 1
->>>>>>> dab7b1c (Added documentation and changes to initial checks)
     LET TotalChecks <= 61
 
     SELECT TotalFailed[0].Total AS TotalFailed, TotalChecks FROM scope()
