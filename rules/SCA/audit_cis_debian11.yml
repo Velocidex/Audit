@@ -3,7 +3,7 @@ ArtifactName: Linux.Audit.CISDebian11
 Precondition: |
   SELECT * FROM info() WHERE OS =~ "linux"
 Description: |
-  This artifact was generated from the Wahzu SCA project.
+  This artifact was generated from the Wazuh SCA project.
 
   Using the file cis_debian11.yml.
 Type: SCA
