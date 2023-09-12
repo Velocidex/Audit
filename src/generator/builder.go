@@ -67,7 +67,10 @@ sources:
 
 - name: AllTests
   query: |
-    SELECT * FROM AllTests
+    SELECT *,
+      get(item=Env,
+          member=format(format="%%v.%%v", args=[Id, TestId])) AS CheckDetails
+    FROM AllTests
 
 - name: Remediation
   query: |
@@ -124,7 +127,7 @@ func (self *Rules) BuildVQL() string {
 	env := ordereddict.NewDict()
 
 	for _, c := range self.Checks {
-		if c.Verified {
+		if !c.Disabled {
 			test_env := ordereddict.NewDict()
 			env.Set(c.Id, test_env)
 			parts = append(parts, c.BuildVQL(test_env))
@@ -170,7 +173,7 @@ LET FContext(f, re) = format(format="match '%%v' on file '%%v': %%v", args=[re,
 	chained_status := []string{}
 	chained_all := []string{}
 	for i, c := range self.Checks {
-		if !c.Verified {
+		if c.Disabled {
 			continue
 		}
 		chained_status = append(chained_status,

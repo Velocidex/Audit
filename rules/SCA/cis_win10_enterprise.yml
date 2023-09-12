@@ -23,7 +23,6 @@ Checks:
     Env:
       cmd: net.exe accounts
       re: Length of password history maintained:\s+(\d+)
-  Verified: true
 - Id: "15501"
   Title: Ensure 'Maximum password age' is set to '365 or fewer days, but not 0'.
   Condition: all
@@ -44,7 +43,6 @@ Checks:
     Env:
       cmd: net.exe accounts
       re: Maximum password age \(days\):\s+(\d+)
-  Verified: true
 - Id: "15502"
   Title: Ensure 'Minimum password age' is set to '1 or more day(s)'.
   Condition: all
@@ -57,7 +55,6 @@ Checks:
     Env:
       cmd: net.exe accounts
       re: Minimum password age \(days\):\s+(\d+)
-  Verified: true
 - Id: "15503"
   Title: Ensure 'Minimum password length' is set to '14 or more character(s)'.
   Condition: all
@@ -70,7 +67,6 @@ Checks:
     Env:
       cmd: net.exe accounts
       re: Minimum password length:\s+(\d+)
-  Verified: true
 - Id: "15505"
   Title: Ensure 'Relax minimum password length limits' is set to 'Enabled'.
   Condition: all
@@ -89,14 +85,13 @@ Checks:
       k: HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\SAM
       v: RelaxMinimumPasswordLengthLimits
   - Name: Value
-    ColumnExpression: Reg(k=k + '/' + v)
+    ColumnExpression: Reg(k=k + '/' + v).value
     WhereExpression: Value = 1
     OriginalTest: r:HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\SAM -> RelaxMinimumPasswordLengthLimits
       -> 1
     Env:
       k: HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\SAM
       v: RelaxMinimumPasswordLengthLimits
-  Verified: true
 - Id: "15506"
   Title: Ensure 'Account lockout duration' is set to '15 or more minute(s)'.
   Condition: all
@@ -109,7 +104,6 @@ Checks:
     Env:
       cmd: net.exe accounts
       re: Lockout duration \(minutes\):\s+(\d+)
-  Verified: true
 - Id: "15507"
   Title: Ensure 'Account lockout threshold' is set to '5 or fewer invalid logon attempt(s),
     but not 0'.
@@ -129,7 +123,6 @@ Checks:
     Env:
       cmd: net.exe accounts
       re: Lockout threshold:\s+(\d+)
-  Verified: true
 - Id: "15508"
   Title: Ensure 'Reset account lockout counter after' is set to '15 or more minute(s)'.
   Condition: all
@@ -142,7 +135,6 @@ Checks:
     Env:
       cmd: net.exe accounts
       re: Lockout observation window \(minutes\):\s+(\d+)
-  Verified: true
 - Id: "15509"
   Title: 'Ensure ''Accounts: Administrator account status'' is set to ''Disabled''.'
   Condition: any
@@ -161,7 +153,6 @@ Checks:
     Env:
       cmd: net user administrator
       re: The user name could not be found.
-  Verified: true
 - Id: "15510"
   Title: 'Ensure ''Accounts: Block Microsoft accounts'' is set to ''Users can''t add
     or log on with Microsoft accounts''.'
@@ -189,7 +180,6 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System
       v: NoConnectedUser
-  Verified: true
 - Id: "15511"
   Title: 'Ensure ''Accounts: Guest account status'' is set to ''Disabled''.'
   Condition: all
@@ -201,7 +191,6 @@ Checks:
     Env:
       cmd: net user guest
       re: Account active\s+No
-  Verified: true
 - Id: "15512"
   Title: 'Ensure ''Accounts: Limit local account use of blank passwords to console
     logon only'' is set to ''Enabled''.'
@@ -223,7 +212,6 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Lsa
       v: LimitBlankPasswordUse
-  Verified: true
 - Id: "15513"
   Title: 'Configure ''Accounts: Rename administrator account''.'
   Condition: all
@@ -235,7 +223,6 @@ Checks:
     Env:
       cmd: net user administrator
       re: The user name could not be found.
-  Verified: true
 - Id: "15514"
   Title: 'Configure ''Accounts: Rename guest account''.'
   Condition: all
@@ -247,7 +234,6 @@ Checks:
     Env:
       cmd: net user guest
       re: The user name could not be found.
-  Verified: true
 - Id: "15515"
   Title: 'Ensure ''Audit: Force audit policy subcategory settings (Windows Vista or
     later) to override audit policy category settings'' is set to ''Enabled''.'
@@ -275,7 +261,6 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Lsa
       v: SCENoApplyLegacyAuditPolicy
-  Verified: true
 - Id: "15516"
   Title: 'Ensure ''Audit: Shut down system immediately if unable to log security audits''
     is set to ''Disabled''.'
@@ -303,7 +288,6 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Lsa
       v: CrashOnAuditFail
-  Verified: true
 - Id: "15517"
   Title: 'Ensure ''Devices: Allowed to format and eject removable media'' is set to
     ''Administrators and Interactive Users''.'
@@ -331,7 +315,6 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Winlogon
       v: AllocateDASD
-  Verified: true
 - Id: "15518"
   Title: 'Ensure ''Devices: Prevent users from installing printer drivers'' is set
     to ''Enabled''.'
@@ -363,7 +346,6 @@ Checks:
       k: HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Print\Providers\LanMan
         Print Services\Servers
       v: AddPrinterDrivers
-  Verified: true
 - Id: "15519"
   Title: 'Ensure ''Domain member: Digitally encrypt or sign secure channel data (always)''
     is set to ''Enabled''.'
@@ -391,7 +373,6 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\Netlogon\Parameters
       v: RequireSignOrSeal
-  Verified: true
 - Id: "15520"
   Title: 'Ensure ''Domain member: Digitally encrypt secure channel data (when possible)''
     is set to ''Enabled''.'
@@ -419,7 +400,6 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\Netlogon\Parameters
       v: SealSecureChannel
-  Verified: true
 - Id: "15521"
   Title: 'Ensure ''Domain member: Digitally sign secure channel data (when possible)''
     is set to ''Enabled''.'
@@ -447,7 +427,6 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\Netlogon\Parameters
       v: SignSecureChannel
-  Verified: true
 - Id: "15522"
   Title: 'Ensure ''Domain member: Disable machine account password changes'' is set
     to ''Disabled''.'
@@ -475,7 +454,6 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\Netlogon\Parameters
       v: DisablePasswordChange
-  Verified: true
 - Id: "15523"
   Title: 'Ensure ''Domain member: Maximum machine account password age'' is set to
     ''30 or fewer days, but not 0''.'
@@ -497,7 +475,6 @@ Checks:
     Env:
       cmd: net.exe accounts
       re: Maximum password age (days):\s+(\d+)
-  Verified: true
 - Id: "15524"
   Title: 'Ensure ''Domain member: Require strong (Windows 2000 or later) session key''
     is set to ''Enabled''.'
@@ -525,7 +502,6 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\Netlogon\Parameters
       v: RequireStrongKey
-  Verified: true
 - Id: "15525"
   Title: 'Ensure ''Interactive logon: Do not require CTRL+ALT+DEL'' is set to ''Disabled''.'
   Condition: all
@@ -552,7 +528,6 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System
       v: DisableCAD
-  Verified: true
 - Id: "15526"
   Title: 'Ensure ''Interactive logon: Don''t display last signed-in'' is set to ''Enabled''.'
   Condition: all
@@ -579,7 +554,6 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System
       v: DontDisplayLastUserName
-  Verified: true
 - Id: "15527"
   Title: 'Ensure ''Interactive logon: Machine account lockout threshold'' is set to
     ''10 or fewer invalid logon attempts, but not 0''.'
@@ -615,7 +589,6 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System
       v: MaxDevicePasswordFailedAttempts
-  Verified: true
 - Id: "15528"
   Title: 'Ensure ''Interactive logon: Machine inactivity limit'' is set to ''900 or
     fewer second(s), but not 0''.'
@@ -651,7 +624,6 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System
       v: InactivityTimeoutSecs
-  Verified: true
 - Id: "15529"
   Title: 'Configure ''Interactive logon: Message text for users attempting to log
     on''.'
@@ -666,7 +638,6 @@ Checks:
       cmd: reg query HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\system
         /v legalnoticetext
       re: \s+legalnoticetext\s+REG_SZ\s+$
-  Verified: false
 - Id: "15530"
   Title: 'Configure ''Interactive logon: Message title for users attempting to log
     on''.'
@@ -681,7 +652,6 @@ Checks:
       cmd: reg query HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\system
         /v legalnoticecaption
       re: \s+legalnoticecaption\s+REG_SZ\s+$
-  Verified: true
 - Id: "15531"
   Title: 'Ensure ''Interactive logon: Number of previous logons to cache (in case
     domain controller is not available)'' is set to ''4 or fewer logon(s)''.'
@@ -709,7 +679,6 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon
       v: CachedLogonsCount
-  Verified: true
 - Id: "15532"
   Title: 'Ensure ''Interactive logon: Prompt user to change password before expiration''
     is set to ''between 5 and 14 days''.'
@@ -737,7 +706,6 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Winlogon
       v: PasswordExpiryWarning
-  Verified: true
 - Id: "15533"
   Title: 'Ensure ''Interactive logon: Smart card removal behavior'' is set to ''Lock
     Workstation'' or higher.'
@@ -766,7 +734,6 @@ Checks:
       k: HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Winlogon
       v: ScRemoveOption
       regex: ^1$|^2$
-  Verified: true
 - Id: "15534"
   Title: 'Ensure ''Microsoft network client: Digitally sign communications (always)''
     is set to ''Enabled''.'
@@ -794,7 +761,6 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\LanmanWorkstation\Parameters
       v: RequireSecuritySignature
-  Verified: true
 - Id: "15535"
   Title: 'Ensure ''Microsoft network client: Digitally sign communications (if server
     agrees)'' is set to ''Enabled''.'
@@ -822,7 +788,6 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\LanmanWorkstation\Parameters
       v: EnableSecuritySignature
-  Verified: true
 - Id: "15536"
   Title: 'Ensure ''Microsoft network client: Send unencrypted password to third-party
     SMB servers'' is set to ''Disabled''.'
@@ -850,7 +815,6 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\LanmanWorkstation\Parameters
       v: EnablePlainTextPassword
-  Verified: true
 - Id: "15537"
   Title: 'Ensure ''Microsoft network server: Amount of idle time required before suspending
     session'' is set to ''15 or fewer minute(s)''.'
@@ -878,7 +842,6 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\LanManServer\Parameters
       v: AutoDisconnect
-  Verified: true
 - Id: "15538"
   Title: 'Ensure ''Microsoft network server: Digitally sign communications (always)''
     is set to ''Enabled''.'
@@ -906,7 +869,6 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\LanManServer\Parameters
       v: RequireSecuritySignature
-  Verified: true
 - Id: "15539"
   Title: 'Ensure ''Microsoft network server: Digitally sign communications (if client
     agrees)'' is set to ''Enabled''.'
@@ -934,7 +896,6 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\LanManServer\Parameters
       v: EnableSecuritySignature
-  Verified: true
 - Id: "15540"
   Title: 'Ensure ''Microsoft network server: Disconnect clients when logon hours expire''
     is set to ''Enabled''.'
@@ -962,7 +923,6 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\LanManServer\Parameters
       v: EnableForcedLogOff
-  Verified: true
 - Id: "15541"
   Title: 'Ensure ''Microsoft network server: Server SPN target name validation level''
     is set to ''Accept if provided by client'' or higher.'
@@ -990,7 +950,6 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanManServer\Parameters
       v: SMBServerNameHardeningLevel
-  Verified: true
 - Id: "15542"
   Title: 'Ensure ''Network access: Allow anonymous SID/Name translation'' is set to
     ''Disabled''.'
@@ -1006,7 +965,6 @@ Checks:
       cmd: powershell "$null = secedit /export /cfg $env:temp/secexport.cfg; $(gc
         $env:temp/secexport.cfg | Select-String \"LSAAnonymousNameLookup\").ToString().Split(\"=\")[1].Trim()"
       re: "0"
-  Verified: true
 - Id: "15543"
   Title: 'Ensure ''Network access: Do not allow anonymous enumeration of SAM accounts''
     is set to ''Enabled''.'
@@ -1034,7 +992,6 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa
       v: RestrictAnonymousSAM
-  Verified: true
 - Id: "15544"
   Title: 'Ensure ''Network access: Do not allow anonymous enumeration of SAM accounts
     and shares'' is set to ''Enabled''.'
@@ -1061,7 +1018,6 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa
       v: RestrictAnonymous
-  Verified: true
 - Id: "15545"
   Title: 'Ensure ''Network access: Do not allow storage of passwords and credentials
     for network authentication'' is set to ''Enabled''.'
@@ -1088,7 +1044,6 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa
       v: DisableDomainCreds
-  Verified: true
 - Id: "15546"
   Title: 'Ensure ''Network access: Let Everyone permissions apply to anonymous users''
     is set to ''Disabled''.'
@@ -1116,7 +1071,6 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Lsa
       v: EveryoneIncludesAnonymous
-  Verified: true
 - Id: "15547"
   Title: 'Ensure ''Network access: Named Pipes that can be accessed anonymously''
     is set to ''None''.'
@@ -1145,8 +1099,8 @@ Checks:
       k: HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\LanManServer\Parameters
       v: NullSessionPipes
       regex: \S+
-  Verified: true
 - Id: "15548"
+  Disabled: true
   Title: 'Ensure ''Network access: Remotely accessible registry paths'' is configured.'
   Condition: any
   Rules:
@@ -1175,8 +1129,8 @@ Checks:
       v: Machine
       regex: System\\CurrentControlSet\\Control\\ProductOptions System\\CurrentControlSet\\Control\\Server
         Applications Software\\Microsoft\\Windows NT\\CurrentVersion
-  Verified: true
 - Id: "15549"
+  Disabled: true
   Title: 'Ensure ''Network access: Remotely accessible registry paths and sub-paths''
     is configured.'
   Condition: all
@@ -1294,8 +1248,8 @@ Checks:
       k: HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\SecurePipeServers\Winreg\AllowedPaths
       v: Machine
       regex: System\\CurrentControlSet\\Services\\SysmonLog
-  Verified: true
 - Id: "15550"
+  Disabled: true
   Title: 'Ensure ''Network access: Restrict anonymous access to Named Pipes and Shares''
     is set to ''Enabled''.'
   Condition: any
@@ -1322,8 +1276,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\LanManServer\Parameters
       v: RestrictNullSessAccess
-  Verified: true
 - Id: "15551"
+  Disabled: true
   Title: 'Ensure ''Network access: Restrict clients allowed to make remote calls to
     SAM'' is set to ''Administrators: Remote Access: Allow''.'
   Condition: any
@@ -1351,8 +1305,8 @@ Checks:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa
       v: restrictremotesam
       regex: O:BAG:BAD:\(A;;RC;;;BA\)
-  Verified: true
 - Id: "15552"
+  Disabled: true
   Title: 'Ensure ''Network access: Shares that can be accessed anonymously'' is set
     to ''None''.'
   Condition: any
@@ -1373,14 +1327,14 @@ Checks:
       v: NullSessionShares
   - Name: Value
     ColumnExpression: Reg(k=k + '/' + v).value
-    WhereExpression: NOT Value =~ '''\S+'''
+    WhereExpression: NOT Value = \S+
     OriginalTest: not r:HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\LanManServer\Parameters
       -> NullSessionShares -> \S+
     Env:
       k: HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\LanManServer\Parameters
       v: NullSessionShares
-  Verified: true
 - Id: "15553"
+  Disabled: true
   Title: 'Ensure ''Network access: Sharing and security model for local accounts''
     is set to ''Classic - local users authenticate as themselves''.'
   Condition: all
@@ -1406,8 +1360,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Lsa
       v: ForceGuest
-  Verified: true
 - Id: "15554"
+  Disabled: true
   Title: 'Ensure ''Network security: Allow Local System to use computer identity for
     NTLM'' is set to ''Enabled''.'
   Condition: all
@@ -1433,8 +1387,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Lsa
       v: UseMachineId
-  Verified: true
 - Id: "15555"
+  Disabled: true
   Title: 'Ensure ''Network security: Allow LocalSystem NULL session fallback'' is
     set to ''Disabled''.'
   Condition: any
@@ -1461,8 +1415,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Lsa\MSV1_0
       v: allownullsessionfallback
-  Verified: true
 - Id: "15556"
+  Disabled: true
   Title: 'Ensure ''Network Security: Allow PKU2U authentication requests to this computer
     to use online identities'' is set to ''Disabled''.'
   Condition: any
@@ -1489,8 +1443,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Lsa\pku2u
       v: AllowOnlineID
-  Verified: true
 - Id: "15557"
+  Disabled: true
   Title: 'Ensure ''Network security: Configure encryption types allowed for Kerberos''
     is set to ''AES128_HMAC_SHA1, AES256_HMAC_SHA1, Future encryption types''.'
   Condition: all
@@ -1518,8 +1472,8 @@ Checks:
       k: HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\Kerberos\Parameters
       v: SupportedEncryptionTypes
       regex: 2147483644|2147483640
-  Verified: true
 - Id: "15558"
+  Disabled: true
   Title: 'Ensure ''Network security: Do not store LAN Manager hash value on next password
     change'' is set to ''Enabled''.'
   Condition: any
@@ -1546,8 +1500,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Lsa
       v: NoLMHash
-  Verified: true
 - Id: "15559"
+  Disabled: true
   Title: 'Ensure ''Network security: Force logoff when logon hours expire'' is set
     to ''Enabled''.'
   Condition: any
@@ -1574,8 +1528,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanManServer\Parameters
       v: EnableForcedLogOff
-  Verified: true
 - Id: "15560"
+  Disabled: true
   Title: 'Ensure ''Network security: LAN Manager authentication level'' is set to
     ''Send NTLMv2 response only. Refuse LM & NTLM''.'
   Condition: all
@@ -1601,8 +1555,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Lsa
       v: LmCompatibilityLevel
-  Verified: true
 - Id: "15561"
+  Disabled: true
   Title: 'Ensure ''Network security: LDAP client signing requirements'' is set to
     ''Negotiate signing'' or higher.'
   Condition: any
@@ -1629,8 +1583,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\LDAP
       v: LDAPClientIntegrity
-  Verified: true
 - Id: "15562"
+  Disabled: true
   Title: 'Ensure ''Network security: Minimum session security for NTLM SSP based (including
     secure RPC) clients'' is set to ''Require NTLMv2 session security, Require 128-bit
     encryption''.'
@@ -1658,8 +1612,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Lsa\MSV1_0
       v: NTLMMinClientSec
-  Verified: true
 - Id: "15563"
+  Disabled: true
   Title: 'Ensure ''Network security: Minimum session security for NTLM SSP based (including
     secure RPC) servers'' is set to ''Require NTLMv2 session security, Require 128-bit
     encryption''.'
@@ -1687,8 +1641,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Lsa\MSV1_0
       v: NTLMMinServerSec
-  Verified: true
 - Id: "15564"
+  Disabled: true
   Title: 'Ensure ''System cryptography: Force strong key protection for user keys
     stored on the computer'' is set to ''User is prompted when the key is first used''
     or higher.'
@@ -1716,8 +1670,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Cryptography
       v: ForceKeyProtection
-  Verified: true
 - Id: "15565"
+  Disabled: true
   Title: 'Ensure ''System objects: Require case insensitivity for non-Windows subsystems''
     is set to ''Enabled''.'
   Condition: any
@@ -1745,8 +1699,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Kernel
       v: ObCaseInsensitive
-  Verified: true
 - Id: "15566"
+  Disabled: true
   Title: 'Ensure ''System objects: Strengthen default permissions of internal system
     objects (e.g. Symbolic Links)'' is set to ''Enabled''.'
   Condition: any
@@ -1774,8 +1728,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager
       v: ProtectionMode
-  Verified: true
 - Id: "15567"
+  Disabled: true
   Title: 'Ensure ''User Account Control: Admin Approval Mode for the Built-in Administrator
     account'' is set to ''Enabled''.'
   Condition: all
@@ -1802,8 +1756,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System
       v: FilterAdministratorToken
-  Verified: true
 - Id: "15568"
+  Disabled: true
   Title: 'Ensure ''User Account Control: Behavior of the elevation prompt for administrators
     in Admin Approval Mode'' is set to ''Prompt for consent on the secure desktop''.'
   Condition: all
@@ -1831,8 +1785,8 @@ Checks:
       k: HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System
       v: ConsentPromptBehaviorAdmin
       regex: ^2$
-  Verified: true
 - Id: "15569"
+  Disabled: true
   Title: 'Ensure ''User Account Control: Behavior of the elevation prompt for standard
     users'' is set to ''Automatically deny elevation requests''.'
   Condition: all
@@ -1859,8 +1813,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System
       v: ConsentPromptBehaviorUser
-  Verified: true
 - Id: "15570"
+  Disabled: true
   Title: 'Ensure ''User Account Control: Detect application installations and prompt
     for elevation'' is set to ''Enabled''.'
   Condition: all
@@ -1887,8 +1841,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System
       v: EnableInstallerDetection
-  Verified: true
 - Id: "15571"
+  Disabled: true
   Title: 'Ensure ''User Account Control: Only elevate UIAccess applications that are
     installed in secure locations'' is set to ''Enabled''.'
   Condition: any
@@ -1915,8 +1869,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System
       v: EnableSecureUIAPaths
-  Verified: true
 - Id: "15572"
+  Disabled: true
   Title: 'Ensure ''User Account Control: Run all administrators in Admin Approval
     Mode'' is set to ''Enabled''.'
   Condition: any
@@ -1943,8 +1897,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System
       v: EnableLUA
-  Verified: true
 - Id: "15573"
+  Disabled: true
   Title: 'Ensure ''User Account Control: Switch to the secure desktop when prompting
     for elevation'' is set to ''Enabled''.'
   Condition: any
@@ -1971,8 +1925,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System
       v: PromptOnSecureDesktop
-  Verified: true
 - Id: "15574"
+  Disabled: true
   Title: 'Ensure ''User Account Control: Virtualize file and registry write failures
     to per-user locations'' is set to ''Enabled''.'
   Condition: any
@@ -1999,8 +1953,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System
       v: EnableVirtualization
-  Verified: true
 - Id: "15575"
+  Disabled: true
   Title: Ensure 'Bluetooth Audio Gateway Service (BTAGService)' is set to 'Disabled'.
   Condition: all
   Rules:
@@ -2012,8 +1966,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\BTAGService
       v: Start
-  Verified: true
 - Id: "15576"
+  Disabled: true
   Title: Ensure 'Bluetooth Support Service (bthserv)' is set to 'Disabled'.
   Condition: all
   Rules:
@@ -2025,8 +1979,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\bthserv
       v: Start
-  Verified: true
 - Id: "15577"
+  Disabled: true
   Title: Ensure 'Downloaded Maps Manager (MapsBroker)' is set to 'Disabled'.
   Condition: all
   Rules:
@@ -2038,8 +1992,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\MapsBroker
       v: Start
-  Verified: true
 - Id: "15578"
+  Disabled: true
   Title: Ensure 'Geolocation Service (lfsvc)' is set to 'Disabled'.
   Condition: all
   Rules:
@@ -2051,8 +2005,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\lfsvc
       v: Start
-  Verified: true
 - Id: "15579"
+  Disabled: true
   Title: Ensure 'IIS Admin Service (IISADMIN)' is set to 'Disabled' or 'Not Installed'.
   Condition: any
   Rules:
@@ -2078,8 +2032,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\IISADMIN
       v: Start
-  Verified: true
 - Id: "15580"
+  Disabled: true
   Title: Ensure 'Infrared monitor service (irmon)' is set to 'Disabled' or 'Not Installed'.
   Condition: any
   Rules:
@@ -2105,8 +2059,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\irmon
       v: Start
-  Verified: true
 - Id: "15581"
+  Disabled: true
   Title: Ensure 'Internet Connection Sharing (ICS) (SharedAccess)' is set to 'Disabled'.
   Condition: all
   Rules:
@@ -2118,8 +2072,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess
       v: Start
-  Verified: true
 - Id: "15582"
+  Disabled: true
   Title: Ensure 'Link-Layer Topology Discovery Mapper (lltdsvc)' is set to 'Disabled'.
   Condition: all
   Rules:
@@ -2131,8 +2085,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\lltdsvc
       v: Start
-  Verified: true
 - Id: "15583"
+  Disabled: true
   Title: Ensure 'LxssManager (LxssManager)' is set to 'Disabled' or 'Not Installed'.
   Condition: any
   Rules:
@@ -2158,8 +2112,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LxssManager
       v: Start
-  Verified: true
 - Id: "15584"
+  Disabled: true
   Title: Ensure 'Microsoft FTP Service (FTPSVC)' is set to 'Disabled' or 'Not Installed'.
   Condition: any
   Rules:
@@ -2185,8 +2139,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\FTPSVC
       v: Start
-  Verified: true
 - Id: "15585"
+  Disabled: true
   Title: Ensure 'Microsoft iSCSI Initiator Service (MSiSCSI)' is set to 'Disabled'.
   Condition: all
   Rules:
@@ -2198,8 +2152,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\MSiSCSI
       v: Start
-  Verified: true
 - Id: "15586"
+  Disabled: true
   Title: Ensure 'OpenSSH SSH Server (sshd)' is set to 'Disabled' or 'Not Installed'.
   Condition: any
   Rules:
@@ -2225,8 +2179,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\sshd
       v: Start
-  Verified: true
 - Id: "15587"
+  Disabled: true
   Title: Ensure 'Peer Name Resolution Protocol (PNRPsvc)' is set to 'Disabled'.
   Condition: all
   Rules:
@@ -2238,8 +2192,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\PNRPsvc
       v: Start
-  Verified: true
 - Id: "15588"
+  Disabled: true
   Title: Ensure 'Peer Networking Grouping (p2psvc)' is set to 'Disabled'.
   Condition: all
   Rules:
@@ -2251,8 +2205,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\p2psvc
       v: Start
-  Verified: true
 - Id: "15589"
+  Disabled: true
   Title: Ensure 'Peer Networking Identity Manager (p2pimsvc)' is set to 'Disabled'.
   Condition: all
   Rules:
@@ -2264,8 +2218,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\p2pimsvc
       v: Start
-  Verified: true
 - Id: "15590"
+  Disabled: true
   Title: Ensure 'PNRP Machine Name Publication Service (PNRPAutoReg)' is set to 'Disabled'.
   Condition: all
   Rules:
@@ -2277,8 +2231,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\PNRPAutoReg
       v: Start
-  Verified: true
 - Id: "15591"
+  Disabled: true
   Title: Ensure 'Print Spooler (Spooler)' is set to 'Disabled'.
   Condition: all
   Rules:
@@ -2290,8 +2244,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Spooler
       v: Start
-  Verified: true
 - Id: "15592"
+  Disabled: true
   Title: Ensure 'Problem Reports and Solutions Control Panel Support (wercplsupport)'
     is set to 'Disabled'.
   Condition: all
@@ -2304,8 +2258,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\wercplsupport
       v: Start
-  Verified: true
 - Id: "15593"
+  Disabled: true
   Title: Ensure 'Remote Access Auto Connection Manager (RasAuto)' is set to 'Disabled'.
   Condition: all
   Rules:
@@ -2317,8 +2271,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\RasAuto
       v: Start
-  Verified: true
 - Id: "15594"
+  Disabled: true
   Title: Ensure 'Remote Desktop Configuration (SessionEnv)' is set to 'Disabled'.
   Condition: all
   Rules:
@@ -2330,8 +2284,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SessionEnv
       v: Start
-  Verified: true
 - Id: "15595"
+  Disabled: true
   Title: Ensure 'Remote Desktop Services (TermService)' is set to 'Disabled'.
   Condition: all
   Rules:
@@ -2343,8 +2297,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\TermService
       v: Start
-  Verified: true
 - Id: "15596"
+  Disabled: true
   Title: Ensure 'Remote Desktop Services UserMode Port Redirector (UmRdpService)'
     is set to 'Disabled'.
   Condition: all
@@ -2357,8 +2311,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\UmRdpService
       v: Start
-  Verified: true
 - Id: "15597"
+  Disabled: true
   Title: Ensure 'Remote Procedure Call (RPC) Locator (RpcLocator)' is set to 'Disabled'.
   Condition: all
   Rules:
@@ -2370,8 +2324,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\RpcLocator
       v: Start
-  Verified: true
 - Id: "15598"
+  Disabled: true
   Title: Ensure 'Remote Registry (RemoteRegistry)' is set to 'Disabled'.
   Condition: all
   Rules:
@@ -2383,8 +2337,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\RemoteRegistry
       v: Start
-  Verified: true
 - Id: "15599"
+  Disabled: true
   Title: Ensure 'Routing and Remote Access (RemoteAccess)' is set to 'Disabled'.
   Condition: all
   Rules:
@@ -2396,8 +2350,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\RemoteAccess
       v: Start
-  Verified: true
 - Id: "15600"
+  Disabled: true
   Title: Ensure 'Server (LanmanServer)' is set to 'Disabled'.
   Condition: all
   Rules:
@@ -2409,8 +2363,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanmanServer
       v: Start
-  Verified: true
 - Id: "15601"
+  Disabled: true
   Title: Ensure 'Simple TCP/IP Services (simptcp)' is set to 'Disabled' or 'Not Installed'.
   Condition: any
   Rules:
@@ -2436,8 +2390,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\simptcp
       v: Start
-  Verified: true
 - Id: "15602"
+  Disabled: true
   Title: Ensure 'SNMP Service (SNMP)' is set to 'Disabled' or 'Not Installed'.
   Condition: any
   Rules:
@@ -2463,8 +2417,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SNMP
       v: Start
-  Verified: true
 - Id: "15603"
+  Disabled: true
   Title: Ensure 'Special Administration Console Helper (sacsvr)' is set to 'Disabled'
     or 'Not Installed'.
   Condition: any
@@ -2491,8 +2445,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\sacsvr
       v: Start
-  Verified: true
 - Id: "15604"
+  Disabled: true
   Title: Ensure 'SSDP Discovery (SSDPSRV)' is set to 'Disabled'.
   Condition: all
   Rules:
@@ -2504,8 +2458,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SSDPSRV
       v: Start
-  Verified: true
 - Id: "15605"
+  Disabled: true
   Title: Ensure 'UPnP Device Host (upnphost)' is set to 'Disabled'.
   Condition: all
   Rules:
@@ -2517,8 +2471,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\upnphost
       v: Start
-  Verified: true
 - Id: "15606"
+  Disabled: true
   Title: Ensure 'Web Management Service (WMSvc)' is set to 'Disabled' or 'Not Installed'.
   Condition: any
   Rules:
@@ -2544,8 +2498,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WMSvc
       v: Start
-  Verified: true
 - Id: "15607"
+  Disabled: true
   Title: Ensure 'Windows Error Reporting Service (WerSvc)' is set to 'Disabled'.
   Condition: all
   Rules:
@@ -2557,8 +2511,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WerSvc
       v: Start
-  Verified: true
 - Id: "15608"
+  Disabled: true
   Title: Ensure 'Windows Event Collector (Wecsvc)' is set to 'Disabled'.
   Condition: all
   Rules:
@@ -2570,8 +2524,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Wecsvc
       v: Start
-  Verified: true
 - Id: "15609"
+  Disabled: true
   Title: Ensure 'Windows Media Player Network Sharing Service (WMPNetworkSvc)' is
     set to 'Disabled' or 'Not Installed'.
   Condition: any
@@ -2598,8 +2552,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WMPNetworkSvc
       v: Start
-  Verified: true
 - Id: "15610"
+  Disabled: true
   Title: Ensure 'Windows Mobile Hotspot Service (icssvc)' is set to 'Disabled'.
   Condition: all
   Rules:
@@ -2611,8 +2565,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\icssvc
       v: Start
-  Verified: true
 - Id: "15611"
+  Disabled: true
   Title: Ensure 'Windows Push Notifications System Service (WpnService)' is set to
     'Disabled'.
   Condition: all
@@ -2625,10 +2579,10 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WpnService
       v: Start
-  Verified: true
   Remediate: |
     RunPowerShell(S='Get-Service WpnService | Stop-Service -PassThru | Set-Service -StartupType Disabled')
 - Id: "15612"
+  Disabled: true
   Title: Ensure 'Windows PushToInstall Service (PushToInstall)' is set to 'Disabled'.
   Condition: all
   Rules:
@@ -2640,8 +2594,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\PushToInstall
       v: Start
-  Verified: true
 - Id: "15613"
+  Disabled: true
   Title: Ensure 'Windows Remote Management (WS-Management) (WinRM)' is set to 'Disabled'.
   Condition: all
   Rules:
@@ -2653,8 +2607,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WinRM
       v: Start
-  Verified: true
 - Id: "15614"
+  Disabled: true
   Title: Ensure 'World Wide Web Publishing Service (W3SVC)' is set to 'Disabled' or
     'Not Installed'.
   Condition: any
@@ -2681,8 +2635,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W3SVC
       v: Start
-  Verified: true
 - Id: "15615"
+  Disabled: true
   Title: Ensure 'Xbox Accessory Management Service (XboxGipSvc)' is set to 'Disabled'.
   Condition: all
   Rules:
@@ -2694,8 +2648,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\XboxGipSvc
       v: Start
-  Verified: true
 - Id: "15616"
+  Disabled: true
   Title: Ensure 'Xbox Live Auth Manager (XblAuthManager)' is set to 'Disabled'.
   Condition: all
   Rules:
@@ -2707,8 +2661,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\XblAuthManager
       v: Start
-  Verified: true
 - Id: "15617"
+  Disabled: true
   Title: Ensure 'Xbox Live Game Save (XblGameSave)' is set to 'Disabled'.
   Condition: all
   Rules:
@@ -2720,8 +2674,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\XblGameSave
       v: Start
-  Verified: true
 - Id: "15618"
+  Disabled: true
   Title: Ensure 'Xbox Live Networking Service (XboxNetApiSvc)' is set to 'Disabled'.
   Condition: all
   Rules:
@@ -2733,8 +2687,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\XboxNetApiSvc
       v: Start
-  Verified: true
 - Id: "15619"
+  Disabled: true
   Title: 'Ensure ''Windows Firewall: Domain: Firewall state'' is set to ''On (recommended)''.'
   Condition: any
   Rules:
@@ -2760,8 +2714,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile
       v: EnableFirewall
-  Verified: true
 - Id: "15620"
+  Disabled: true
   Title: 'Ensure ''Windows Firewall: Domain: Inbound connections'' is set to ''Block
     (default)''.'
   Condition: any
@@ -2788,8 +2742,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile
       v: DefaultInboundAction
-  Verified: true
 - Id: "15621"
+  Disabled: true
   Title: 'Ensure ''Windows Firewall: Domain: Outbound connections'' is set to ''Allow
     (default)''.'
   Condition: any
@@ -2816,8 +2770,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile
       v: DefaultOutboundAction
-  Verified: true
 - Id: "15622"
+  Disabled: true
   Title: 'Ensure ''Windows Firewall: Domain: Settings: Display a notification'' is
     set to ''No''.'
   Condition: all
@@ -2844,8 +2798,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile
       v: DisableNotifications
-  Verified: true
 - Id: "15623"
+  Disabled: true
   Title: 'Ensure ''Windows Firewall: Domain: Logging: Name'' is set to ''%SystemRoot%\System32\logfiles\firewall\domainfw.log''.'
   Condition: all
   Rules:
@@ -2872,8 +2826,8 @@ Checks:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging
       v: LogFilePath
       regex: System32\\logfiles\\firewall\\domainfw.log
-  Verified: true
 - Id: "15624"
+  Disabled: true
   Title: 'Ensure ''Windows Firewall: Domain: Logging: Size limit (KB)'' is set to
     ''16,384 KB or greater''.'
   Condition: all
@@ -2900,8 +2854,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging
       v: LogFileSize
-  Verified: true
 - Id: "15625"
+  Disabled: true
   Title: 'Ensure ''Windows Firewall: Domain: Logging: Log dropped packets'' is set
     to ''Yes''.'
   Condition: all
@@ -2928,8 +2882,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging
       v: LogDroppedPackets
-  Verified: true
 - Id: "15626"
+  Disabled: true
   Title: 'Ensure ''Windows Firewall: Domain: Logging: Log successful connections''
     is set to ''Yes''.'
   Condition: all
@@ -2956,8 +2910,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging
       v: LogSuccessfulConnections
-  Verified: true
 - Id: "15627"
+  Disabled: true
   Title: 'Ensure ''Windows Firewall: Private: Firewall state'' is set to ''On (recommended)''.'
   Condition: any
   Rules:
@@ -2983,8 +2937,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile
       v: EnableFirewall
-  Verified: true
 - Id: "15628"
+  Disabled: true
   Title: 'Ensure ''Windows Firewall: Private: Inbound connections'' is set to ''Block
     (default)''.'
   Condition: any
@@ -3011,8 +2965,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile
       v: DefaultInboundAction
-  Verified: true
 - Id: "15629"
+  Disabled: true
   Title: 'Ensure ''Windows Firewall: Private: Outbound connections'' is set to ''Allow
     (default)''.'
   Condition: any
@@ -3039,8 +2993,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile
       v: DefaultOutboundAction
-  Verified: true
 - Id: "15630"
+  Disabled: true
   Title: 'Ensure ''Windows Firewall: Private: Settings: Display a notification'' is
     set to ''No''.'
   Condition: all
@@ -3067,8 +3021,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile
       v: DisableNotifications
-  Verified: true
 - Id: "15631"
+  Disabled: true
   Title: 'Ensure ''Windows Firewall: Private: Logging: Name'' is set to ''%SystemRoot%\System32\logfiles\firewall\privatefw.log''.'
   Condition: all
   Rules:
@@ -3095,8 +3049,8 @@ Checks:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile\Logging
       v: LogFilePath
       regex: System32\\logfiles\\firewall\\privatefw.log
-  Verified: true
 - Id: "15632"
+  Disabled: true
   Title: 'Ensure ''Windows Firewall: Private: Logging: Size limit (KB)'' is set to
     ''16,384 KB or greater''.'
   Condition: all
@@ -3123,8 +3077,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile\Logging
       v: LogFileSize
-  Verified: true
 - Id: "15633"
+  Disabled: true
   Title: 'Ensure ''Windows Firewall: Private: Logging: Log dropped packets'' is set
     to ''Yes''.'
   Condition: all
@@ -3151,8 +3105,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile\Logging
       v: LogDroppedPackets
-  Verified: true
 - Id: "15634"
+  Disabled: true
   Title: 'Ensure ''Windows Firewall: Private: Logging: Log successful connections''
     is set to ''Yes''.'
   Condition: all
@@ -3179,8 +3133,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile\Logging
       v: LogSuccessfulConnections
-  Verified: true
 - Id: "15635"
+  Disabled: true
   Title: 'Ensure ''Windows Firewall: Public: Firewall state'' is set to ''On (recommended)''.'
   Condition: any
   Rules:
@@ -3206,8 +3160,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile
       v: EnableFirewall
-  Verified: true
 - Id: "15636"
+  Disabled: true
   Title: 'Ensure ''Windows Firewall: Public: Inbound connections'' is set to ''Block
     (default)''.'
   Condition: any
@@ -3234,8 +3188,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile
       v: DefaultInboundAction
-  Verified: false
 - Id: "15637"
+  Disabled: true
   Title: 'Ensure ''Windows Firewall: Public: Outbound connections'' is set to ''Allow
     (default)''.'
   Condition: any
@@ -3262,8 +3216,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile
       v: DefaultOutboundAction
-  Verified: false
 - Id: "15638"
+  Disabled: true
   Title: 'Ensure ''Windows Firewall: Public: Settings: Display a notification'' is
     set to ''No''.'
   Condition: all
@@ -3290,8 +3244,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile
       v: DisableNotifications
-  Verified: false
 - Id: "15639"
+  Disabled: true
   Title: 'Ensure ''Windows Firewall: Public: Settings: Apply local firewall rules''
     is set to ''No''.'
   Condition: all
@@ -3318,8 +3272,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile
       v: AllowLocalPolicyMerge
-  Verified: false
 - Id: "15640"
+  Disabled: true
   Title: 'Ensure ''Windows Firewall: Public: Settings: Apply local connection security
     rules'' is set to ''No''.'
   Condition: all
@@ -3346,8 +3300,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile
       v: AllowLocalIPsecPolicyMerge
-  Verified: false
 - Id: "15641"
+  Disabled: true
   Title: 'Ensure ''Windows Firewall: Public: Logging: Name'' is set to ''%SystemRoot%\System32\logfiles\firewall\publicfw.log''.'
   Condition: all
   Rules:
@@ -3374,8 +3328,8 @@ Checks:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging
       v: LogFilePath
       regex: System32\\logfiles\\firewall\\publicfw.log
-  Verified: false
 - Id: "15642"
+  Disabled: true
   Title: 'Ensure ''Windows Firewall: Public: Logging: Size limit (KB)'' is set to
     ''16,384 KB or greater''.'
   Condition: all
@@ -3402,8 +3356,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging
       v: LogFileSize
-  Verified: false
 - Id: "15643"
+  Disabled: true
   Title: 'Ensure ''Windows Firewall: Public: Logging: Log dropped packets'' is set
     to ''Yes''.'
   Condition: all
@@ -3430,8 +3384,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging
       v: LogDroppedPackets
-  Verified: false
 - Id: "15644"
+  Disabled: true
   Title: 'Ensure ''Windows Firewall: Public: Logging: Log successful connections''
     is set to ''Yes''.'
   Condition: all
@@ -3458,8 +3412,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging
       v: LogSuccessfulConnections
-  Verified: false
 - Id: "15645"
+  Disabled: true
   Title: Ensure 'Audit Credential Validation' is set to 'Success and Failure'.
   Condition: all
   Rules:
@@ -3471,8 +3425,8 @@ Checks:
     Env:
       cmd: auditpol.exe /get /subcategory:"Credential Validation"
       re: Success and Failure
-  Verified: false
 - Id: "15646"
+  Disabled: true
   Title: Ensure 'Audit Application Group Management' is set to 'Success and Failure'.
   Condition: all
   Rules:
@@ -3484,8 +3438,8 @@ Checks:
     Env:
       cmd: auditpol.exe /get /subcategory:"Application Group Management"
       re: Success and Failure
-  Verified: false
 - Id: "15647"
+  Disabled: true
   Title: Ensure 'Audit Security Group Management' is set to include 'Success'.
   Condition: all
   Rules:
@@ -3497,8 +3451,8 @@ Checks:
     Env:
       cmd: auditpol.exe /get /subcategory:"Security Group Management"
       re: Success
-  Verified: false
 - Id: "15648"
+  Disabled: true
   Title: Ensure 'Audit User Account Management' is set to 'Success and Failure'.
   Condition: all
   Rules:
@@ -3510,8 +3464,8 @@ Checks:
     Env:
       cmd: auditpol.exe /get /subcategory:"User Account Management"
       re: Success and Failure
-  Verified: false
 - Id: "15649"
+  Disabled: true
   Title: Ensure 'Audit PNP Activity' is set to include 'Success'.
   Condition: all
   Rules:
@@ -3522,8 +3476,8 @@ Checks:
     Env:
       cmd: auditpol.exe /get /subcategory:"Plug and Play Events"
       re: Success
-  Verified: false
 - Id: "15650"
+  Disabled: true
   Title: Ensure 'Audit Process Creation' is set to include 'Success'.
   Condition: all
   Rules:
@@ -3534,8 +3488,8 @@ Checks:
     Env:
       cmd: auditpol.exe /get /subcategory:"Process Creation"
       re: Success
-  Verified: false
 - Id: "15651"
+  Disabled: true
   Title: Ensure 'Audit Account Lockout' is set to include 'Failure'.
   Condition: all
   Rules:
@@ -3546,8 +3500,8 @@ Checks:
     Env:
       cmd: auditpol.exe /get /subcategory:"Account Lockout"
       re: Failure
-  Verified: false
 - Id: "15652"
+  Disabled: true
   Title: Ensure 'Audit Group Membership' is set to include 'Success'.
   Condition: all
   Rules:
@@ -3558,8 +3512,8 @@ Checks:
     Env:
       cmd: auditpol.exe /get /subcategory:"Group Membership"
       re: Success
-  Verified: false
 - Id: "15653"
+  Disabled: true
   Title: Ensure 'Audit Logoff' is set to include 'Success'.
   Condition: all
   Rules:
@@ -3570,8 +3524,8 @@ Checks:
     Env:
       cmd: auditpol.exe /get /subcategory:"Logoff"
       re: Success
-  Verified: false
 - Id: "15654"
+  Disabled: true
   Title: Ensure 'Audit Logon' is set to 'Success and Failure'.
   Condition: all
   Rules:
@@ -3582,8 +3536,8 @@ Checks:
     Env:
       cmd: auditpol.exe /get /subcategory:"Logon"
       re: Success and Failure
-  Verified: false
 - Id: "15655"
+  Disabled: true
   Title: Ensure 'Audit Other Logon/Logoff Events' is set to 'Success and Failure'.
   Condition: all
   Rules:
@@ -3595,8 +3549,8 @@ Checks:
     Env:
       cmd: auditpol.exe /get /subcategory:"Other Logon/Logoff Events"
       re: Success and Failure
-  Verified: false
 - Id: "15656"
+  Disabled: true
   Title: Ensure 'Audit Special Logon' is set to include 'Success'.
   Condition: all
   Rules:
@@ -3607,8 +3561,8 @@ Checks:
     Env:
       cmd: auditpol.exe /get /subcategory:"Special Logon"
       re: Success
-  Verified: false
 - Id: "15657"
+  Disabled: true
   Title: Ensure 'Audit Detailed File Share' is set to include 'Failure'.
   Condition: all
   Rules:
@@ -3619,8 +3573,8 @@ Checks:
     Env:
       cmd: auditpol.exe /get /subcategory:"Detailed File Share"
       re: Failure
-  Verified: false
 - Id: "15658"
+  Disabled: true
   Title: Ensure 'Audit File Share' is set to 'Success and Failure'.
   Condition: all
   Rules:
@@ -3631,8 +3585,8 @@ Checks:
     Env:
       cmd: auditpol.exe /get /subcategory:"File Share"
       re: Success and Failure
-  Verified: false
 - Id: "15659"
+  Disabled: true
   Title: Ensure 'Audit Other Object Access Events' is set to 'Success and Failure'.
   Condition: all
   Rules:
@@ -3644,8 +3598,8 @@ Checks:
     Env:
       cmd: auditpol.exe /get /subcategory:"Other Object Access Events"
       re: Success and Failure
-  Verified: false
 - Id: "15660"
+  Disabled: true
   Title: Ensure 'Audit Removable Storage' is set to 'Success and Failure'.
   Condition: all
   Rules:
@@ -3657,8 +3611,8 @@ Checks:
     Env:
       cmd: auditpol.exe /get /subcategory:"Removable Storage"
       re: Success and Failure
-  Verified: false
 - Id: "15661"
+  Disabled: true
   Title: Ensure 'Audit Audit Policy Change' is set to include 'Success'.
   Condition: all
   Rules:
@@ -3669,8 +3623,8 @@ Checks:
     Env:
       cmd: auditpol.exe /get /subcategory:"Audit Policy Change"
       re: Success
-  Verified: false
 - Id: "15662"
+  Disabled: true
   Title: Ensure 'Audit Authentication Policy Change' is set to include 'Success'.
   Condition: all
   Rules:
@@ -3682,8 +3636,8 @@ Checks:
     Env:
       cmd: auditpol.exe /get /subcategory:"Authentication Policy Change"
       re: Success
-  Verified: false
 - Id: "15663"
+  Disabled: true
   Title: Ensure 'Audit Authorization Policy Change' is set to include 'Success'.
   Condition: all
   Rules:
@@ -3695,8 +3649,8 @@ Checks:
     Env:
       cmd: auditpol.exe /get /subcategory:"Authorization Policy Change"
       re: Success
-  Verified: false
 - Id: "15664"
+  Disabled: true
   Title: Ensure 'Audit MPSSVC Rule-Level Policy Change' is set to 'Success and Failure'.
   Condition: all
   Rules:
@@ -3708,8 +3662,8 @@ Checks:
     Env:
       cmd: auditpol.exe /get /subcategory:"MPSSVC Rule-Level Policy Change"
       re: Success and Failure
-  Verified: false
 - Id: "15665"
+  Disabled: true
   Title: Ensure 'Audit Other Policy Change Events' is set to include 'Failure'.
   Condition: all
   Rules:
@@ -3721,8 +3675,8 @@ Checks:
     Env:
       cmd: auditpol.exe /get /subcategory:"Other Policy Change Events"
       re: Failure
-  Verified: false
 - Id: "15666"
+  Disabled: true
   Title: Ensure 'Audit Sensitive Privilege Use' is set to 'Success and Failure'.
   Condition: all
   Rules:
@@ -3734,8 +3688,8 @@ Checks:
     Env:
       cmd: auditpol.exe /get /subcategory:"Sensitive Privilege Use"
       re: Success and Failure
-  Verified: false
 - Id: "15667"
+  Disabled: true
   Title: Ensure 'Audit IPsec Driver' is set to 'Success and Failure'.
   Condition: all
   Rules:
@@ -3747,8 +3701,8 @@ Checks:
     Env:
       cmd: auditpol.exe /get /subcategory:"IPsec Driver"
       re: Success and Failure
-  Verified: false
 - Id: "15668"
+  Disabled: true
   Title: Ensure 'Audit Other System Events' is set to 'Success and Failure'.
   Condition: all
   Rules:
@@ -3760,8 +3714,8 @@ Checks:
     Env:
       cmd: auditpol.exe /get /subcategory:"Other System Events"
       re: Success and Failure
-  Verified: false
 - Id: "15669"
+  Disabled: true
   Title: Ensure 'Audit Security State Change' is set to include 'Success'.
   Condition: all
   Rules:
@@ -3772,8 +3726,8 @@ Checks:
     Env:
       cmd: auditpol.exe /get /subcategory:"Security State Change"
       re: Success
-  Verified: false
 - Id: "15670"
+  Disabled: true
   Title: Ensure 'Audit Security System Extension' is set to include 'Success'.
   Condition: all
   Rules:
@@ -3785,8 +3739,8 @@ Checks:
     Env:
       cmd: auditpol.exe /get /subcategory:"Security System Extension"
       re: Success
-  Verified: false
 - Id: "15671"
+  Disabled: true
   Title: Ensure 'Audit System Integrity' is set to 'Success and Failure'.
   Condition: all
   Rules:
@@ -3798,8 +3752,8 @@ Checks:
     Env:
       cmd: auditpol.exe /get /subcategory:"System Integrity"
       re: Success and Failure
-  Verified: true
 - Id: "15672"
+  Disabled: true
   Title: Ensure 'Prevent enabling lock screen camera' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -3825,8 +3779,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Personalization
       v: NoLockScreenCamera
-  Verified: false
 - Id: "15673"
+  Disabled: true
   Title: Ensure 'Prevent enabling lock screen slide show' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -3852,8 +3806,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Personalization
       v: NoLockScreenSlideshow
-  Verified: false
 - Id: "15674"
+  Disabled: true
   Title: Ensure 'Allow users to enable online speech recognition services' is set
     to 'Disabled'.
   Condition: all
@@ -3880,8 +3834,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\InputPersonalization
       v: AllowInputPersonalization
-  Verified: false
 - Id: "15675"
+  Disabled: true
   Title: Ensure 'Allow Online Tips' is set to 'Disabled'.
   Condition: all
   Rules:
@@ -3907,8 +3861,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer
       v: AllowOnlineTips
-  Verified: false
 - Id: "15676"
+  Disabled: true
   Title: Ensure LAPS AdmPwd GPO Extension / CSE is installed.
   Condition: all
   Rules:
@@ -3926,8 +3880,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\GPExtensions\{D76B9641-3288-4f75-942D-087DE603E3EA}
       v: DllName
-  Verified: false
 - Id: "15677"
+  Disabled: true
   Title: Ensure 'Do not allow password expiration time longer than required by policy'
     is set to 'Enabled'.
   Condition: all
@@ -3962,8 +3916,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft Services\AdmPwd
       v: PwdExpirationProtectionEnabled
-  Verified: false
 - Id: "15678"
+  Disabled: true
   Title: Ensure 'Enable Local Admin Password Management' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -3997,8 +3951,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft Services\AdmPwd
       v: AdmPwdEnabled
-  Verified: false
 - Id: "15679"
+  Disabled: true
   Title: 'Ensure ''Password Settings: Password Complexity'' is set to ''Enabled: Large
     letters + small letters + numbers + special characters''.'
   Condition: all
@@ -4033,8 +3987,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft Services\AdmPwd
       v: PasswordComplexity
-  Verified: false
 - Id: "15680"
+  Disabled: true
   Title: 'Ensure ''Password Settings: Password Length'' is set to ''Enabled: 15 or
     more''.'
   Condition: all
@@ -4069,8 +4023,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft Services\AdmPwd
       v: PasswordLength
-  Verified: false
 - Id: "15681"
+  Disabled: true
   Title: 'Ensure ''Password Settings: Password Age (Days)'' is set to ''Enabled: 30
     or fewer''.'
   Condition: all
@@ -4105,8 +4059,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft Services\AdmPwd
       v: PasswordAgeDays
-  Verified: false
 - Id: "15682"
+  Disabled: true
   Title: Ensure 'Apply UAC restrictions to local accounts on network logons' is set
     to 'Enabled'.
   Condition: any
@@ -4133,8 +4087,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System
       v: LocalAccountTokenFilterPolicy
-  Verified: false
 - Id: "15683"
+  Disabled: true
   Title: 'Ensure ''Configure SMB v1 client driver'' is set to ''Enabled: Disable driver''.'
   Condition: any
   Rules:
@@ -4160,8 +4114,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\mrxsmb10
       v: Start
-  Verified: false
 - Id: "15684"
+  Disabled: true
   Title: Ensure 'Configure SMB v1 server' is set to 'Disabled'.
   Condition: any
   Rules:
@@ -4187,8 +4141,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters
       v: SMB1
-  Verified: false
 - Id: "15685"
+  Disabled: true
   Title: Ensure 'Enable Structured Exception Handling Overwrite Protection (SEHOP)'
     is set to 'Enabled'.
   Condition: all
@@ -4215,8 +4169,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\kernel
       v: DisableExceptionChainValidation
-  Verified: false
 - Id: "15686"
+  Disabled: true
   Title: Ensure 'Limits print driver installation to Administrators' is set to 'Enabled'.
   Condition: any
   Rules:
@@ -4242,8 +4196,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsNT\Printers\PointAndPrint
       v: RestrictDriverInstallationToAdministrators
-  Verified: false
 - Id: "15687"
+  Disabled: true
   Title: 'Ensure ''NetBT NodeType configuration'' is set to ''Enabled: P-node''.'
   Condition: all
   Rules:
@@ -4269,8 +4223,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\NetBT\Parameters
       v: NodeType
-  Verified: false
 - Id: "15688"
+  Disabled: true
   Title: Ensure 'WDigest Authentication' is set to 'Disabled'.
   Condition: any
   Rules:
@@ -4296,8 +4250,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest
       v: UseLogonCredential
-  Verified: false
 - Id: "15689"
+  Disabled: true
   Title: 'Ensure ''MSS: (AutoAdminLogon) Enable Automatic Logon (not recommended)''
     is set to ''Disabled''.'
   Condition: any
@@ -4324,8 +4278,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon
       v: AutoAdminLogon
-  Verified: false
 - Id: "15690"
+  Disabled: true
   Title: 'Ensure ''MSS: (DisableIPSourceRouting IPv6) IP source routing protection
     level (protects against packet spoofing)'' is set to ''Enabled: Highest protection,
     source routing is completely disabled''.'
@@ -4353,8 +4307,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters
       v: DisableIPSourceRouting
-  Verified: false
 - Id: "15691"
+  Disabled: true
   Title: 'Ensure ''MSS: (DisableIPSourceRouting) IP source routing protection level
     (protects against packet spoofing)'' is set to ''Enabled: Highest protection,
     source routing is completely disabled''.'
@@ -4382,8 +4336,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters
       v: DisableIPSourceRouting
-  Verified: false
 - Id: "15692"
+  Disabled: true
   Title: 'Ensure ''MSS: (DisableSavePassword) Prevent the dial-up password from being
     saved'' is set to ''Enabled''.'
   Condition: all
@@ -4410,8 +4364,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\RasMan\Parameters
       v: DisableSavePassword
-  Verified: false
 - Id: "15693"
+  Disabled: true
   Title: 'Ensure ''MSS: (EnableICMPRedirect) Allow ICMP redirects to override OSPF
     generated routes'' is set to ''Disabled''.'
   Condition: all
@@ -4438,8 +4392,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters
       v: EnableICMPRedirect
-  Verified: false
 - Id: "15694"
+  Disabled: true
   Title: 'Ensure ''MSS: (KeepAliveTime) How often keep-alive packets are sent in milliseconds''
     is set to ''Enabled: 300,000 or 5 minutes (recommended)''.'
   Condition: all
@@ -4466,8 +4420,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters
       v: KeepAliveTime
-  Verified: false
 - Id: "15695"
+  Disabled: true
   Title: 'Ensure ''MSS: (NoNameReleaseOnDemand) Allow the computer to ignore NetBIOS
     name release requests except from WINS servers'' is set to ''Enabled''.'
   Condition: any
@@ -4494,8 +4448,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\NetBT\Parameters
       v: NoNameReleaseOnDemand
-  Verified: false
 - Id: "15696"
+  Disabled: true
   Title: 'Ensure ''MSS: (PerformRouterDiscovery) Allow IRDP to detect and configure
     Default Gateway addresses (could lead to DoS)'' is set to ''Disabled''.'
   Condition: all
@@ -4522,8 +4476,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters
       v: PerformRouterDiscovery
-  Verified: false
 - Id: "15697"
+  Disabled: true
   Title: 'Ensure ''MSS: (SafeDllSearchMode) Enable Safe DLL search mode (recommended)''
     is set to ''Enabled''.'
   Condition: any
@@ -4551,8 +4505,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager
       v: SafeDllSearchMode
-  Verified: false
 - Id: "15698"
+  Disabled: true
   Title: 'Ensure ''MSS: (ScreenSaverGracePeriod) The time in seconds before the screen
     saver grace period expires (0 recommended)'' is set to ''Enabled: 5 or fewer seconds''.'
   Condition: any
@@ -4579,8 +4533,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon
       v: ScreenSaverGracePeriod
-  Verified: false
 - Id: "15699"
+  Disabled: true
   Title: 'Ensure ''MSS: (TcpMaxDataRetransmissions IPv6) How many times unacknowledged
     data is retransmitted'' is set to ''Enabled: 3''.'
   Condition: all
@@ -4607,8 +4561,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\TCPIP6\Parameters
       v: TcpMaxDataRetransmissions
-  Verified: false
 - Id: "15700"
+  Disabled: true
   Title: 'Ensure ''MSS: (TcpMaxDataRetransmissions) How many times unacknowledged
     data is retransmitted'' is set to ''Enabled: 3''.'
   Condition: all
@@ -4635,8 +4589,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters
       v: TcpMaxDataRetransmissions
-  Verified: false
 - Id: "15701"
+  Disabled: true
   Title: 'Ensure ''MSS: (WarningLevel) Percentage threshold for the security event
     log at which the system will generate a warning'' is set to ''Enabled: 90% or
     less''.'
@@ -4664,8 +4618,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Eventlog\Security
       v: WarningLevel
-  Verified: false
 - Id: "15702"
+  Disabled: true
   Title: 'Ensure ''Configure DNS over HTTPS (DoH) name resolution'' is set to ''Enabled:
     Allow DoH'' or higher.'
   Condition: all
@@ -4693,8 +4647,8 @@ Checks:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient
       v: DoHPolicy
       regex: ^2$|^3$
-  Verified: false
 - Id: "15703"
+  Disabled: true
   Title: Ensure 'Turn off multicast name resolution' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -4720,8 +4674,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient
       v: EnableMulticast
-  Verified: false
 - Id: "15704"
+  Disabled: true
   Title: Ensure 'Enable Font Providers' is set to 'Disabled'.
   Condition: all
   Rules:
@@ -4747,8 +4701,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System
       v: EnableFontProviders
-  Verified: false
 - Id: "15705"
+  Disabled: true
   Title: Ensure 'Enable insecure guest logons' is set to 'Disabled'.
   Condition: all
   Rules:
@@ -4774,8 +4728,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\LanmanWorkstation
       v: AllowInsecureGuestAuth
-  Verified: false
 - Id: "15706"
+  Disabled: true
   Title: Ensure 'Turn on Mapper I/O (LLTDIO) driver' is set to 'Disabled'.
   Condition: any
   Rules:
@@ -4801,8 +4755,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\LLTD
       v: EnableLLTDIO
-  Verified: false
 - Id: "15707"
+  Disabled: true
   Title: Ensure 'Turn on Responder (RSPNDR) driver' is set to 'Disabled'.
   Condition: any
   Rules:
@@ -4828,8 +4782,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\LLTD
       v: EnableRspndr
-  Verified: false
 - Id: "15708"
+  Disabled: true
   Title: Ensure 'Turn off Microsoft Peer-to-Peer Networking Services' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -4854,8 +4808,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Peernet
       v: Disabled
-  Verified: false
 - Id: "15709"
+  Disabled: true
   Title: Ensure 'Prohibit installation and configuration of Network Bridge on your
     DNS domain network' is set to 'Enabled'.
   Condition: all
@@ -4883,8 +4837,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Network Connections
       v: NC_AllowNetBridge_NLA
-  Verified: false
 - Id: "15710"
+  Disabled: true
   Title: Ensure 'Prohibit use of Internet Connection Sharing on your DNS domain network'
     is set to 'Enabled'.
   Condition: all
@@ -4912,8 +4866,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Network Connections
       v: NC_ShowSharedAccessUI
-  Verified: false
 - Id: "15711"
+  Disabled: true
   Title: Ensure 'Require domain users to elevate when setting a network's location'
     is set to 'Enabled'.
   Condition: all
@@ -4941,8 +4895,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Network Connections
       v: NC_StdDomainUserSetLocation
-  Verified: false
 - Id: "15712"
+  Disabled: true
   Title: Ensure 'Hardened UNC Paths' is set to 'Enabled, with "Require Mutual Authentication"
     and "Require Integrity" set for all NETLOGON and SYSVOL shares'.
   Condition: all
@@ -4987,8 +4941,8 @@ Checks:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths
       v: \\*\SYSVOL
       regex: RequireMutualAuthentication=1, RequireIntegrity=1
-  Verified: false
 - Id: "15713"
+  Disabled: true
   Title: Disable IPv6 (Ensure TCPIP6 Parameter 'DisabledComponents' is set to '0xff
     (255)').
   Condition: all
@@ -5015,8 +4969,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\TCPIP6\Parameters
       v: DisabledComponents
-  Verified: false
 - Id: "15714"
+  Disabled: true
   Title: Ensure 'Configuration of wireless settings using Windows Connect Now' is
     set to 'Disabled'.
   Condition: all
@@ -5107,8 +5061,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WCN\Registrars
       v: DisableWPDRegistrar
-  Verified: false
 - Id: "15715"
+  Disabled: true
   Title: Ensure 'Prohibit access of the Windows Connect Now wizards' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -5134,8 +5088,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WCN\UI
       v: DisableWcnUi
-  Verified: false
 - Id: "15716"
+  Disabled: true
   Title: 'Ensure ''Minimize the number of simultaneous connections to the Internet
     or a Windows Domain'' is set to ''Enabled: 3 = Prevent Wi-Fi when on Ethernet''.'
   Condition: all
@@ -5162,8 +5116,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WcmSvc\GroupPolicy
       v: fMinimizeConnections
-  Verified: false
 - Id: "15717"
+  Disabled: true
   Title: Ensure 'Prohibit connection to non-domain networks when connected to domain
     authenticated network' is set to 'Enabled'.
   Condition: all
@@ -5190,8 +5144,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WcmSvc\GroupPolicy
       v: fBlockNonDomain
-  Verified: false
 - Id: "15718"
+  Disabled: true
   Title: Ensure 'Allow Windows to automatically connect to suggested open hotspots,
     to networks shared by contacts, and to hotspots offering paid services' is set
     to 'Disabled'.
@@ -5219,8 +5173,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WcmSvc\wifinetworkmanager\config
       v: AutoConnectAllowedOEM
-  Verified: false
 - Id: "15719"
+  Disabled: true
   Title: Ensure 'Allow Print Spooler to accept client connections' is set to 'Disabled'.
   Condition: all
   Rules:
@@ -5246,8 +5200,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\WindowsNT\Printers
       v: RegisterSpoolerRemoteRpcEndPoint
-  Verified: false
 - Id: "15720"
+  Disabled: true
   Title: 'Ensure ''Point and Print Restrictions: When installing drivers for a new
     connection'' is set to ''Enabled: Show warning and elevation prompt''.'
   Condition: any
@@ -5274,8 +5228,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\WindowsNT\Printers\PointAndPrint
       v: NoWarningNoElevationOnInstall
-  Verified: false
 - Id: "15721"
+  Disabled: true
   Title: 'Ensure ''Point and Print Restrictions: When updating drivers for an existing
     connection'' is set to ''Enabled: Show warning and elevation prompt''.'
   Condition: any
@@ -5302,8 +5256,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\WindowsNT\Printers\PointAndPrint
       v: UpdatePromptSettings
-  Verified: false
 - Id: "15722"
+  Disabled: true
   Title: Ensure 'Turn off notifications network usage' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -5329,8 +5283,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\PushNotifications
       v: NoCloudApplicationNotification
-  Verified: false
 - Id: "15723"
+  Disabled: true
   Title: Ensure 'Include command line in process creation events' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -5356,8 +5310,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\Audit
       v: ProcessCreationIncludeCmdLine_Enabled
-  Verified: false
 - Id: "15724"
+  Disabled: true
   Title: 'Ensure ''Encryption Oracle Remediation'' is set to ''Enabled: Force Updated
     Clients''.'
   Condition: all
@@ -5384,8 +5338,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\CredSSP\Parameters
       v: AllowEncryptionOracle
-  Verified: false
 - Id: "15725"
+  Disabled: true
   Title: Ensure 'Remote host allows delegation of non-exportable credentials' is set
     to 'Enabled'.
   Condition: all
@@ -5412,8 +5366,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\CredentialsDelegation
       v: AllowProtectedCreds
-  Verified: false
 - Id: "15726"
+  Disabled: true
   Title: Ensure 'Turn On Virtualization Based Security' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -5439,8 +5393,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard
       v: EnableVirtualizationBasedSecurity
-  Verified: false
 - Id: "15727"
+  Disabled: true
   Title: 'Ensure ''Turn On Virtualization Based Security: Select Platform Security
     Level'' is set to ''Secure Boot and DMA Protection''.'
   Condition: all
@@ -5467,8 +5421,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard
       v: RequirePlatformSecurityFeatures
-  Verified: false
 - Id: "15728"
+  Disabled: true
   Title: 'Ensure ''Turn On Virtualization Based Security: Virtualization Based Protection
     of Code Integrity'' is set to ''Enabled with UEFI lock''.'
   Condition: all
@@ -5495,8 +5449,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard
       v: HypervisorEnforcedCodeIntegrity
-  Verified: false
 - Id: "15729"
+  Disabled: true
   Title: 'Ensure ''Turn On Virtualization Based Security: Require UEFI Memory Attributes
     Table'' is set to ''True (checked)''.'
   Condition: all
@@ -5523,8 +5477,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard
       v: HVCIMATRequired
-  Verified: false
 - Id: "15730"
+  Disabled: true
   Title: 'Ensure ''Turn On Virtualization Based Security: Credential Guard Configuration''
     is set to ''Enabled with UEFI lock''.'
   Condition: all
@@ -5551,8 +5505,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard
       v: LsaCfgFlags
-  Verified: false
 - Id: "15731"
+  Disabled: true
   Title: 'Ensure ''Turn On Virtualization Based Security: Secure Launch Configuration''
     is set to ''Enabled''.'
   Condition: all
@@ -5579,8 +5533,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard
       v: ConfigureSystemGuardLaunch
-  Verified: false
 - Id: "15732"
+  Disabled: true
   Title: Ensure 'Prevent device metadata retrieval from the Internet' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -5607,8 +5561,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Device Metadata
       v: PreventDeviceMetadataFromNetwork
-  Verified: false
 - Id: "15733"
+  Disabled: true
   Title: 'Ensure ''Boot-Start Driver Initialization Policy'' is set to ''Enabled:
     Good, unknown and bad but critical''.'
   Condition: all
@@ -5635,8 +5589,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Policies\EarlyLaunch
       v: DriverLoadPolicy
-  Verified: false
 - Id: "15734"
+  Disabled: true
   Title: 'Ensure ''Configure registry policy processing: Do not apply during periodic
     background processing'' is set to ''Enabled: FALSE''.'
   Condition: all
@@ -5663,8 +5617,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Group Policy\{35378EAC-683F-11D2-A89A-00C04FBBCFA2}
       v: NoBackgroundPolicy
-  Verified: false
 - Id: "15735"
+  Disabled: true
   Title: 'Ensure ''Configure registry policy processing: Process even if the Group
     Policy objects have not changed'' is set to ''Enabled: TRUE''.'
   Condition: all
@@ -5691,8 +5645,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Group Policy\{35378EAC-683F-11D2-A89A-00C04FBBCFA2}
       v: NoGPOListChanges
-  Verified: false
 - Id: "15736"
+  Disabled: true
   Title: Ensure 'Continue experiences on this device' is set to 'Disabled'.
   Condition: all
   Rules:
@@ -5718,8 +5672,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System
       v: EnableCdp
-  Verified: false
 - Id: "15737"
+  Disabled: true
   Title: Ensure 'Turn off background refresh of Group Policy' is set to 'Disabled'.
   Condition: any
   Rules:
@@ -5737,8 +5691,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System
       v: DisableBkGndGroupPolicy
-  Verified: false
 - Id: "15738"
+  Disabled: true
   Title: Ensure 'Turn off access to the Store' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -5764,8 +5718,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Explorer
       v: NoUseStoreOpenWith
-  Verified: false
 - Id: "15739"
+  Disabled: true
   Title: Ensure 'Turn off downloading of print drivers over HTTP' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -5791,8 +5745,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Printers
       v: DisableWebPnPDownload
-  Verified: false
 - Id: "15740"
+  Disabled: true
   Title: Ensure 'Turn off handwriting personalization data sharing' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -5818,8 +5772,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\TabletPC
       v: PreventHandwritingDataSharing
-  Verified: false
 - Id: "15741"
+  Disabled: true
   Title: Ensure 'Turn off handwriting recognition error reporting' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -5845,8 +5799,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\HandwritingErrorReports
       v: PreventHandwritingErrorReports
-  Verified: false
 - Id: "15742"
+  Disabled: true
   Title: Ensure 'Turn off Internet Connection Wizard if URL connection is referring
     to Microsoft.com' is set to 'Enabled'.
   Condition: all
@@ -5877,8 +5831,8 @@ Checks:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Internet Connection
         Wizard
       v: ExitOnMSICW
-  Verified: false
 - Id: "15743"
+  Disabled: true
   Title: Ensure 'Turn off Internet download for Web publishing and online ordering
     wizards' is set to 'Enabled'.
   Condition: all
@@ -5905,8 +5859,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer
       v: NoWebServices
-  Verified: false
 - Id: "15744"
+  Disabled: true
   Title: Ensure 'Turn off printing over HTTP' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -5932,8 +5886,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Printers
       v: DisableHTTPPrinting
-  Verified: false
 - Id: "15745"
+  Disabled: true
   Title: Ensure 'Turn off Registration if URL connection is referring to Microsoft.com'
     is set to 'Enabled'.
   Condition: all
@@ -5964,8 +5918,8 @@ Checks:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Registration Wizard
         Control
       v: NoRegistration
-  Verified: false
 - Id: "15746"
+  Disabled: true
   Title: Ensure 'Turn off Search Companion content file updates' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -5991,8 +5945,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\SearchCompanion
       v: DisableContentFileUpdates
-  Verified: false
 - Id: "15747"
+  Disabled: true
   Title: Ensure 'Turn off the "Order Prints" picture task' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -6018,8 +5972,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer
       v: NoOnlinePrintsWizard
-  Verified: false
 - Id: "15748"
+  Disabled: true
   Title: Ensure'Turn off the "Publish to Web" task for files and folders' is set to
     'Enabled'.
   Condition: all
@@ -6046,8 +6000,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer
       v: NoPublishingWizard
-  Verified: false
 - Id: "15749"
+  Disabled: true
   Title: Ensure 'Turn off the Windows Messenger Customer Experience Improvement Program'
     is set to 'Enabled'.
   Condition: all
@@ -6074,8 +6028,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Messenger\Client
       v: CEIP
-  Verified: false
 - Id: "15750"
+  Disabled: true
   Title: Ensure 'Turn off Windows Customer Experience Improvement Program' is set
     to 'Enabled'.
   Condition: all
@@ -6102,8 +6056,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\SQMClient\Windows
       v: CEIPEnable
-  Verified: false
 - Id: "15751"
+  Disabled: true
   Title: Ensure 'Turn off Windows Error Reporting' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -6130,8 +6084,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting
       v: Disabled
-  Verified: false
 - Id: "15752"
+  Disabled: true
   Title: 'Ensure ''Support device authentication using certificate'' is set to ''Enabled:
     Automatic''.'
   Condition: all
@@ -6152,8 +6106,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\kerberos\parameters
       v: DevicePKInitEnabled
-  Verified: false
 - Id: "15753"
+  Disabled: true
   Title: 'Ensure ''Enumeration policy for external devices incompatible with Kernel
     DMA Protection'' is set to ''Enabled: Block All''.'
   Condition: all
@@ -6181,8 +6135,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Kernel DMA Protection
       v: DeviceEnumerationPolicy
-  Verified: false
 - Id: "15754"
+  Disabled: true
   Title: Ensure 'Disallow copying of user input methods to the system account for
     sign-in' is set to 'Enabled'.
   Condition: all
@@ -6209,8 +6163,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Control Panel\International
       v: BlockUserInputMethodsForSignIn
-  Verified: false
 - Id: "15755"
+  Disabled: true
   Title: Ensure 'Block user from showing account details on sign-in' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -6236,8 +6190,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System
       v: BlockUserFromShowingAccountDetailsOnSignin
-  Verified: false
 - Id: "15756"
+  Disabled: true
   Title: Ensure 'Do not display network selection UI' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -6263,8 +6217,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System
       v: DontDisplayNetworkSelectionUI
-  Verified: false
 - Id: "15757"
+  Disabled: true
   Title: Ensure 'Do not enumerate connected users on domain-joined computers' is set
     to 'Enabled'.
   Condition: all
@@ -6291,8 +6245,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System
       v: DontEnumerateConnectedUsers
-  Verified: false
 - Id: "15758"
+  Disabled: true
   Title: Ensure 'Enumerate local users on domain-joined computers' is set to 'Disabled'.
   Condition: any
   Rules:
@@ -6318,8 +6272,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System
       v: EnumerateLocalUsers
-  Verified: false
 - Id: "15759"
+  Disabled: true
   Title: Ensure 'Turn off app notifications on the lock screen' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -6345,8 +6299,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System
       v: DisableLockScreenAppNotifications
-  Verified: false
 - Id: "15760"
+  Disabled: true
   Title: Ensure 'Turn off picture password sign-in' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -6372,8 +6326,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System
       v: BlockDomainPicturePassword
-  Verified: false
 - Id: "15761"
+  Disabled: true
   Title: Ensure 'Turn on convenience PIN sign-in' is set to 'Disabled'.
   Condition: any
   Rules:
@@ -6399,8 +6353,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System
       v: AllowDomainPINLogon
-  Verified: false
 - Id: "15762"
+  Disabled: true
   Title: Ensure 'Allow Clipboard synchronization across devices' is set to 'Disabled'.
   Condition: all
   Rules:
@@ -6426,8 +6380,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System
       v: AllowCrossDeviceClipboard
-  Verified: false
 - Id: "15763"
+  Disabled: true
   Title: Ensure 'Allow upload of User Activities' is set to 'Disabled'.
   Condition: all
   Rules:
@@ -6453,8 +6407,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System
       v: UploadUserActivities
-  Verified: false
 - Id: "15764"
+  Disabled: true
   Title: Ensure 'Allow network connectivity during connected-standby (on battery)'
     is set to 'Disabled'.
   Condition: all
@@ -6481,8 +6435,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Power\PowerSettings\f15576e8-98b7-4186-b944-eafa664402d9
       v: DCSettingIndex
-  Verified: false
 - Id: "15765"
+  Disabled: true
   Title: Ensure 'Allow network connectivity during connected-standby (plugged in)'
     is set to 'Disabled'.
   Condition: all
@@ -6509,8 +6463,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Power\PowerSettings\f15576e8-98b7-4186-b944-eafa664402d9
       v: ACSettingIndex
-  Verified: false
 - Id: "15766"
+  Disabled: true
   Title: Ensure 'Require a password when a computer wakes (on battery)' is set to
     'Enabled'.
   Condition: any
@@ -6537,8 +6491,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Power\PowerSettings\0e796bdb-100d-47d6-a2d5-f7d2daa51f51
       v: DCSettingIndex
-  Verified: false
 - Id: "15767"
+  Disabled: true
   Title: Ensure 'Require a password when a computer wakes (plugged in)' is set to
     'Enabled'.
   Condition: any
@@ -6565,8 +6519,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Power\PowerSettings\0e796bdb-100d-47d6-a2d5-f7d2daa51f51
       v: ACSettingIndex
-  Verified: false
 - Id: "15768"
+  Disabled: true
   Title: Ensure 'Configure Offer Remote Assistance' is set to 'Disabled'.
   Condition: any
   Rules:
@@ -6593,8 +6547,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services
       v: fAllowUnsolicited
-  Verified: false
 - Id: "15769"
+  Disabled: true
   Title: Ensure 'Configure Solicited Remote Assistance' is set to 'Disabled'.
   Condition: all
   Rules:
@@ -6621,8 +6575,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services
       v: fAllowToGetHelp
-  Verified: false
 - Id: "15770"
+  Disabled: true
   Title: Ensure 'Enable RPC Endpoint Mapper Client Authentication' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -6648,8 +6602,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Rpc
       v: EnableAuthEpResolution
-  Verified: false
 - Id: "15771"
+  Disabled: true
   Title: 'Ensure ''Restrict Unauthenticated RPC clients'' is set to ''Enabled: Authenticated''.'
   Condition: any
   Rules:
@@ -6675,8 +6629,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Rpc
       v: RestrictRemoteClients
-  Verified: false
 - Id: "15772"
+  Disabled: true
   Title: 'Ensure ''Microsoft Support Diagnostic Tool: Turn on MSDT interactive communication
     with support provider'' is set to ''Disabled''.'
   Condition: all
@@ -6703,8 +6657,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\ScriptedDiagnosticsProvider\Policy
       v: DisableQueryRemoteServer
-  Verified: false
 - Id: "15773"
+  Disabled: true
   Title: Ensure 'Enable/Disable PerfTrack' is set to 'Disabled'.
   Condition: all
   Rules:
@@ -6730,8 +6684,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WDI\{9c5a40da-b965-4fc3-8781-88dd50a6299d}
       v: ScenarioExecutionEnabled
-  Verified: false
 - Id: "15774"
+  Disabled: true
   Title: Ensure 'Turn off the advertising ID' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -6757,8 +6711,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\AdvertisingInfo
       v: DisabledByGroupPolicy
-  Verified: false
 - Id: "15775"
+  Disabled: true
   Title: Ensure 'Enable Windows NTP Client' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -6784,8 +6738,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\W32Time\TimeProviders\NtpClient
       v: Enabled
-  Verified: false
 - Id: "15776"
+  Disabled: true
   Title: Ensure 'Enable Windows NTP Server' is set to 'Disabled'.
   Condition: any
   Rules:
@@ -6811,8 +6765,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\W32Time\TimeProviders\NtpServer
       v: Enabled
-  Verified: false
 - Id: "15777"
+  Disabled: true
   Title: Ensure 'Allow a Windows app to share application data between users' is set
     to 'Disabled'.
   Condition: any
@@ -6839,8 +6793,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\AppModel\StateManager
       v: AllowSharedLocalAppData
-  Verified: false
 - Id: "15778"
+  Disabled: true
   Title: Ensure 'Prevent non-admin users from installing packaged Windows apps' is
     set to 'Enabled'.
   Condition: all
@@ -6867,8 +6821,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Appx
       v: BlockNonAdminUserInstall
-  Verified: false
 - Id: "15779"
+  Disabled: true
   Title: 'Ensure ''Let Windows apps activate with voice while the system is locked''
     is set to ''Enabled: Force Deny''.'
   Condition: all
@@ -6895,8 +6849,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy
       v: LetAppsActivateWithVoiceAboveLock
-  Verified: false
 - Id: "15780"
+  Disabled: true
   Title: Ensure 'Allow Microsoft accounts to be optional' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -6922,8 +6876,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System
       v: MSAOptional
-  Verified: false
 - Id: "15781"
+  Disabled: true
   Title: Ensure 'Block launching Universal Windows apps with Windows Runtime API access
     from hosted content.' is set to 'Enabled'.
   Condition: all
@@ -6950,8 +6904,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System
       v: BlockHostedAppAccessWinRT
-  Verified: false
 - Id: "15782"
+  Disabled: true
   Title: Ensure 'Disallow Autoplay for non-volume devices' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -6977,8 +6931,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Explorer
       v: NoAutoplayfornonVolume
-  Verified: false
 - Id: "15783"
+  Disabled: true
   Title: 'Ensure ''Set the default behavior for AutoRun'' is set to ''Enabled: Do
     not execute any autorun commands''.'
   Condition: all
@@ -7005,8 +6959,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer
       v: NoAutorun
-  Verified: false
 - Id: "15784"
+  Disabled: true
   Title: 'Ensure ''Turn off Autoplay'' is set to ''Enabled: All drives''.'
   Condition: all
   Rules:
@@ -7032,8 +6986,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer
       v: NoDriveTypeAutoRun
-  Verified: false
 - Id: "15785"
+  Disabled: true
   Title: Ensure 'Configure enhanced anti-spoofing' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -7059,8 +7013,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Biometrics\FacialFeatures
       v: EnhancedAntiSpoofing
-  Verified: false
 - Id: "15786"
+  Disabled: true
   Title: Ensure 'Allow Use of Camera' is set to 'Disabled'.
   Condition: all
   Rules:
@@ -7085,8 +7039,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Camera
       v: AllowCamera
-  Verified: false
 - Id: "15787"
+  Disabled: true
   Title: Ensure 'Turn off cloud consumer account state content' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -7112,8 +7066,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\CloudContent
       v: DisableConsumerAccountStateContent
-  Verified: false
 - Id: "15788"
+  Disabled: true
   Title: Ensure 'Turn off cloud optimized content' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -7139,8 +7093,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\CloudContent
       v: DisableCloudOptimizedContent
-  Verified: false
 - Id: "15789"
+  Disabled: true
   Title: Ensure 'Turn off Microsoft consumer experiences' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -7166,8 +7120,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\CloudContent
       v: DisableWindowsConsumerFeatures
-  Verified: false
 - Id: "15790"
+  Disabled: true
   Title: 'Ensure ''Require pin for pairing'' is set to ''Enabled: First Time'' OR
     ''Enabled: Always''.'
   Condition: all
@@ -7195,8 +7149,8 @@ Checks:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Connect
       v: RequirePinForPairing
       regex: ^1$|^2$
-  Verified: false
 - Id: "15791"
+  Disabled: true
   Title: Ensure 'Do not display the password reveal button' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -7222,8 +7176,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\CredUI
       v: DisablePasswordReveal
-  Verified: false
 - Id: "15792"
+  Disabled: true
   Title: Ensure 'Enumerate administrator accounts on elevation' is set to 'Disabled'.
   Condition: any
   Rules:
@@ -7249,8 +7203,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\CredUI
       v: EnumerateAdministrators
-  Verified: false
 - Id: "15793"
+  Disabled: true
   Title: Ensure 'Prevent the use of security questions for local accounts' is set
     to 'Enabled'.
   Condition: all
@@ -7277,8 +7231,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System
       v: NoLocalPasswordResetQuestions
-  Verified: false
 - Id: "15794"
+  Disabled: true
   Title: 'Ensure ''Allow Diagnostic Data'' is set to ''Enabled: Diagnostic data off
     (not recommended)'' or ''Enabled: Send required diagnostic data''.'
   Condition: all
@@ -7306,8 +7260,8 @@ Checks:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DataCollection
       v: AllowTelemetry
       regex: ^0$|^1$
-  Verified: false
 - Id: "15795"
+  Disabled: true
   Title: 'Ensure ''Configure Authenticated Proxy usage for the Connected User Experience
     and Telemetry service'' is set to ''Enabled: Disable Authenticated Proxy usage''.'
   Condition: all
@@ -7334,8 +7288,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DataCollection
       v: DisableEnterpriseAuthProxy
-  Verified: false
 - Id: "15796"
+  Disabled: true
   Title: Ensure 'Disable OneSettings Downloads' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -7361,8 +7315,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DataCollection
       v: DisableOneSettingsDownloads
-  Verified: false
 - Id: "15797"
+  Disabled: true
   Title: Ensure 'Do not show feedback notifications' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -7388,8 +7342,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DataCollection
       v: DoNotShowFeedbackNotifications
-  Verified: false
 - Id: "15798"
+  Disabled: true
   Title: Ensure 'Enable OneSettings Auditing' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -7415,8 +7369,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DataCollection
       v: EnableOneSettingsAuditing
-  Verified: false
 - Id: "15799"
+  Disabled: true
   Title: Ensure 'Limit Diagnostic Log Collection' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -7442,8 +7396,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DataCollection
       v: LimitDiagnosticLogCollection
-  Verified: false
 - Id: "15800"
+  Disabled: true
   Title: Ensure 'Limit Dump Collection' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -7469,8 +7423,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DataCollection
       v: LimitDumpCollection
-  Verified: false
 - Id: "15801"
+  Disabled: true
   Title: Ensure 'Toggle user control over Insider builds' is set to 'Disabled'.
   Condition: all
   Rules:
@@ -7496,8 +7450,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\PreviewBuilds
       v: AllowBuildPreview
-  Verified: false
 - Id: "15802"
+  Disabled: true
   Title: 'Ensure ''Download Mode'' is NOT set to ''Enabled: Internet''.'
   Condition: all
   Rules:
@@ -7510,8 +7464,8 @@ Checks:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DeliveryOptimization
       v: DODownloadMode
       regex: ^3$
-  Verified: false
 - Id: "15803"
+  Disabled: true
   Title: 'Ensure ''Application: Control Event Log behavior when the log file reaches
     its maximum size'' is set to ''Disabled''.'
   Condition: any
@@ -7538,8 +7492,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\EventLog\Application
       v: Retention
-  Verified: false
 - Id: "15804"
+  Disabled: true
   Title: 'Ensure ''Application: Specify the maximum log file size (KB)'' is set to
     ''Enabled: 32,768 or greater''.'
   Condition: all
@@ -7566,8 +7520,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\EventLog\Application
       v: MaxSize
-  Verified: false
 - Id: "15805"
+  Disabled: true
   Title: 'Ensure ''Security: Control Event Log behavior when the log file reaches
     its maximum size'' is set to ''Disabled''.'
   Condition: any
@@ -7594,8 +7548,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\EventLog\Security
       v: Retention
-  Verified: false
 - Id: "15806"
+  Disabled: true
   Title: 'Ensure ''Security: Specify the maximum log file size (KB)'' is set to ''Enabled:
     196,608 or greater''.'
   Condition: all
@@ -7622,8 +7576,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\EventLog\Security
       v: MaxSize
-  Verified: false
 - Id: "15807"
+  Disabled: true
   Title: 'Ensure ''Setup: Control Event Log behavior when the log file reaches its
     maximum size'' is set to ''Disabled''.'
   Condition: any
@@ -7650,8 +7604,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\EventLog\Setup
       v: Retention
-  Verified: false
 - Id: "15808"
+  Disabled: true
   Title: 'Ensure ''Setup: Specify the maximum log file size (KB)'' is set to ''Enabled:
     32,768 or greater''.'
   Condition: all
@@ -7678,8 +7632,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\EventLog\Setup
       v: MaxSize
-  Verified: true
 - Id: "15809"
+  Disabled: true
   Title: 'Ensure ''System: Control Event Log behavior when the log file reaches its
     maximum size'' is set to ''Disabled''.'
   Condition: any
@@ -7706,8 +7660,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\EventLog\System
       v: Retention
-  Verified: false
 - Id: "15810"
+  Disabled: true
   Title: 'Ensure ''System: Specify the maximum log file size (KB)'' is set to ''Enabled:
     32,768 or greater''.'
   Condition: all
@@ -7734,8 +7688,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\EventLog\System
       v: MaxSize
-  Verified: true
 - Id: "15811"
+  Disabled: true
   Title: Ensure 'Turn off Data Execution Prevention for Explorer' is set to 'Disabled'.
   Condition: any
   Rules:
@@ -7761,8 +7715,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Explorer
       v: NoDataExecutionPrevention
-  Verified: false
 - Id: "15812"
+  Disabled: true
   Title: Ensure 'Turn off heap termination on corruption' is set to 'Disabled'.
   Condition: any
   Rules:
@@ -7788,8 +7742,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Explorer
       v: NoHeapTerminationOnCorruption
-  Verified: false
 - Id: "15813"
+  Disabled: true
   Title: Ensure 'Turn off shell protocol protected mode' is set to 'Disabled'.
   Condition: any
   Rules:
@@ -7815,8 +7769,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer
       v: PreXPSP2ShellProtocolBehavior
-  Verified: false
 - Id: "15814"
+  Disabled: true
   Title: Ensure 'Prevent the computer from joining a homegroup' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -7842,8 +7796,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\HomeGroup
       v: DisableHomeGroup
-  Verified: false
 - Id: "15815"
+  Disabled: true
   Title: Ensure 'Turn off location' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -7869,8 +7823,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\LocationAndSensors
       v: DisableLocation
-  Verified: false
 - Id: "15816"
+  Disabled: true
   Title: Ensure 'Allow Message Service Cloud Sync' is set to 'Disabled'.
   Condition: all
   Rules:
@@ -7896,8 +7850,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Messaging
       v: AllowMessageSync
-  Verified: false
 - Id: "15817"
+  Disabled: true
   Title: Ensure 'Block all consumer Microsoft account user authentication' is set
     to 'Enabled'.
   Condition: all
@@ -7924,8 +7878,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\MicrosoftAccount
       v: DisableUserAuth
-  Verified: false
 - Id: "15818"
+  Disabled: true
   Title: Ensure 'Configure local setting override for reporting to Microsoft MAPS'
     is set to 'Disabled'.
   Condition: any
@@ -7952,8 +7906,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet
       v: LocalSettingOverrideSpynetReporting
-  Verified: false
 - Id: "15819"
+  Disabled: true
   Title: Ensure 'Join Microsoft MAPS' is set to 'Disabled'.
   Condition: any
   Rules:
@@ -7971,8 +7925,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet
       v: SpynetReporting
-  Verified: false
 - Id: "15820"
+  Disabled: true
   Title: Ensure 'Configure Attack Surface Reduction rules' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -8002,8 +7956,8 @@ Checks:
       k: HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows Defender\Windows Defender
         Exploit Guard\ASR
       v: ExploitGuard_ASR_Rules
-  Verified: false
 - Id: "15821"
+  Disabled: true
   Title: 'Ensure ''Configure Attack Surface Reduction rules: Set the state for each
     ASR rule'' is configured.'
   Condition: all
@@ -8225,8 +8179,8 @@ Checks:
       k: HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows Defender\Windows Defender
         Exploit Guard\ASR\Rules
       v: B2B3F03D-6A65-4F7B-A9C7-1C7EF74A9BA4
-  Verified: false
 - Id: "15822"
+  Disabled: true
   Title: 'Ensure ''Prevent users and apps from accessing dangerous websites'' is set
     to ''Enabled: Block''.'
   Condition: all
@@ -8257,8 +8211,8 @@ Checks:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Windows Defender
         Exploit Guard\Network Protection
       v: EnableNetworkProtection
-  Verified: false
 - Id: "15823"
+  Disabled: true
   Title: Ensure 'Enable file hash computation feature' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -8284,8 +8238,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\MpEngine
       v: EnableFileHashComputation
-  Verified: false
 - Id: "15824"
+  Disabled: true
   Title: Ensure 'Scan all downloaded files and attachments' is set to 'Enabled'.
   Condition: any
   Rules:
@@ -8311,8 +8265,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Real-TimeProtection
       v: DisableIOAVProtection
-  Verified: false
 - Id: "15825"
+  Disabled: true
   Title: Ensure 'Turn off real-time protection' is set to 'Disabled'.
   Condition: any
   Rules:
@@ -8338,8 +8292,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Real-TimeProtection
       v: DisableRealtimeMonitoring
-  Verified: false
 - Id: "15826"
+  Disabled: true
   Title: Ensure 'Turn on behavior monitoring' is set to 'Enabled'.
   Condition: any
   Rules:
@@ -8365,8 +8319,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Real-TimeProtection
       v: DisableBehaviorMonitoring
-  Verified: false
 - Id: "15827"
+  Disabled: true
   Title: Ensure 'Turn on script scanning' is set to 'Enabled'.
   Condition: any
   Rules:
@@ -8392,8 +8346,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Real-TimeProtection
       v: DisableScriptScanning
-  Verified: false
 - Id: "15828"
+  Disabled: true
   Title: Ensure 'Configure Watson events' is set to 'Disabled'.
   Condition: all
   Rules:
@@ -8419,8 +8373,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Reporting
       v: DisableGenericRePorts
-  Verified: false
 - Id: "15829"
+  Disabled: true
   Title: Ensure 'Scan removable drives' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -8446,8 +8400,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Scan
       v: DisableRemovableDriveScanning
-  Verified: false
 - Id: "15830"
+  Disabled: true
   Title: Ensure 'Turn on e-mail scanning' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -8473,8 +8427,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Scan
       v: DisableEmailScanning
-  Verified: false
 - Id: "15831"
+  Disabled: true
   Title: 'Ensure ''Configure detection for potentially unwanted applications'' is
     set to ''Enabled: Block''.'
   Condition: all
@@ -8501,8 +8455,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender
       v: PUAProtection
-  Verified: false
 - Id: "15832"
+  Disabled: true
   Title: Ensure 'Turn off Microsoft Defender AntiVirus' is set to 'Disabled'.
   Condition: any
   Rules:
@@ -8528,8 +8482,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender
       v: DisableAntiSpyware
-  Verified: false
 - Id: "15833"
+  Disabled: true
   Title: Ensure 'Enable news and interests on the taskbar' is set to 'Disabled'.
   Condition: all
   Rules:
@@ -8556,8 +8510,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Windows Feeds
       v: EnableFeeds
-  Verified: false
 - Id: "15834"
+  Disabled: true
   Title: Ensure 'Prevent the usage of OneDrive for file storage' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -8583,8 +8537,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\OneDrive
       v: DisableFileSyncNGSC
-  Verified: false
 - Id: "15835"
+  Disabled: true
   Title: Ensure 'Turn off Push To Install service' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -8610,8 +8564,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\PushToInstall
       v: DisablePushToInstall
-  Verified: false
 - Id: "15836"
+  Disabled: true
   Title: Ensure 'Do not allow passwords to be saved' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -8638,8 +8592,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services
       v: DisablePasswordSaving
-  Verified: false
 - Id: "15837"
+  Disabled: true
   Title: Ensure 'Allow users to connect remotely by using Remote Desktop Services'
     is set to 'Disabled'.
   Condition: any
@@ -8667,8 +8621,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services
       v: fDenyTSConnections
-  Verified: false
 - Id: "15838"
+  Disabled: true
   Title: Ensure 'Allow UI Automation redirection' is set to 'Disabled'.
   Condition: all
   Rules:
@@ -8695,8 +8649,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services
       v: EnableUiaRedirection
-  Verified: false
 - Id: "15839"
+  Disabled: true
   Title: Ensure 'Do not allow COM port redirection' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -8723,8 +8677,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services
       v: fDisableCcm
-  Verified: false
 - Id: "15840"
+  Disabled: true
   Title: Ensure 'Do not allow drive redirection' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -8751,8 +8705,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services
       v: fDisableCdm
-  Verified: false
 - Id: "15841"
+  Disabled: true
   Title: Ensure 'Do not allow location redirection' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -8779,8 +8733,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services
       v: fDisableLocationRedir
-  Verified: false
 - Id: "15842"
+  Disabled: true
   Title: Ensure 'Do not allow LPT port redirection' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -8807,8 +8761,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services
       v: fDisableLPT
-  Verified: false
 - Id: "15843"
+  Disabled: true
   Title: Ensure 'Do not allow supported Plug and Play device redirection' is set to
     'Enabled'.
   Condition: all
@@ -8836,8 +8790,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services
       v: fDisablePNPRedir
-  Verified: false
 - Id: "15844"
+  Disabled: true
   Title: Ensure 'Always prompt for password upon connection' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -8864,8 +8818,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services
       v: fPromptForPassword
-  Verified: false
 - Id: "15845"
+  Disabled: true
   Title: Ensure 'Require secure RPC communication' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -8892,8 +8846,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services
       v: fEncryptRPCTraffic
-  Verified: false
 - Id: "15846"
+  Disabled: true
   Title: 'Ensure ''Require use of specific security layer for remote (RDP) connections''
     is set to ''Enabled: SSL''.'
   Condition: all
@@ -8921,8 +8875,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services
       v: SecurityLayer
-  Verified: false
 - Id: "15847"
+  Disabled: true
   Title: Ensure 'Require user authentication for remote connections by using Network
     Level Authentication' is set to 'Enabled'.
   Condition: any
@@ -8950,8 +8904,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services
       v: UserAuthentication
-  Verified: false
 - Id: "15848"
+  Disabled: true
   Title: 'Ensure ''Set client connection encryption level'' is set to ''Enabled: High
     Level''.'
   Condition: any
@@ -8979,8 +8933,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services
       v: MinEncryptionLevel
-  Verified: false
 - Id: "15849"
+  Disabled: true
   Title: 'Ensure ''Set time limit for active but idle Remote Desktop Services sessions''
     is set to ''Enabled: 15 minutes or less, but not Never (0)''.'
   Condition: all
@@ -9016,8 +8970,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services
       v: MaxIdleTime
-  Verified: false
 - Id: "15850"
+  Disabled: true
   Title: 'Ensure ''Set time limit for disconnected sessions'' is set to ''Enabled:
     1 minute''.'
   Condition: all
@@ -9045,8 +8999,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services
       v: MaxDisconnectionTime
-  Verified: false
 - Id: "15851"
+  Disabled: true
   Title: Ensure 'Do not delete temp folders upon exit' is set to 'Disabled'.
   Condition: any
   Rules:
@@ -9073,8 +9027,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services
       v: DeleteTempDirsOnExit
-  Verified: false
 - Id: "15852"
+  Disabled: true
   Title: Ensure 'Prevent downloading of enclosures' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -9100,8 +9054,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Internet Explorer\Feeds
       v: DisableEnclosureDownload
-  Verified: false
 - Id: "15853"
+  Disabled: true
   Title: 'Ensure ''Allow Cloud Search'' is set to ''Enabled: Disable Cloud Search''.'
   Condition: all
   Rules:
@@ -9128,8 +9082,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Windows Search
       v: AllowCloudSearch
-  Verified: false
 - Id: "15854"
+  Disabled: true
   Title: Ensure 'Allow Cortana' is set to 'Disabled'.
   Condition: all
   Rules:
@@ -9156,8 +9110,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Windows Search
       v: AllowCortana
-  Verified: false
 - Id: "15855"
+  Disabled: true
   Title: Ensure 'Allow Cortana above lock screen' is set to 'Disabled'.
   Condition: all
   Rules:
@@ -9184,8 +9138,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Windows Search
       v: AllowCortanaAboveLock
-  Verified: false
 - Id: "15856"
+  Disabled: true
   Title: Ensure 'Allow indexing of encrypted files' is set to 'Disabled'.
   Condition: any
   Rules:
@@ -9212,8 +9166,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Windows Search
       v: AllowIndexingEncryptedStoresOrItems
-  Verified: false
 - Id: "15857"
+  Disabled: true
   Title: Ensure 'Allow search and Cortana to use location' is set to 'Disabled'.
   Condition: all
   Rules:
@@ -9240,8 +9194,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Windows Search
       v: AllowSearchToUseLocation
-  Verified: false
 - Id: "15858"
+  Disabled: true
   Title: Ensure 'Turn off KMS Client Online AVS Validation' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -9271,8 +9225,8 @@ Checks:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\CurrentVersion\Software
         Protection Platform
       v: NoGenTicket
-  Verified: false
 - Id: "15859"
+  Disabled: true
   Title: Ensure 'Disable all apps from Microsoft Store' is set to 'Disabled'.
   Condition: all
   Rules:
@@ -9298,8 +9252,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsStore
       v: DisableStoreApps
-  Verified: false
 - Id: "15860"
+  Disabled: true
   Title: Ensure 'Only display the private store within the Microsoft Store' is set
     to 'Enabled'.
   Condition: all
@@ -9326,8 +9280,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsStore
       v: RequirePrivateStoreOnly
-  Verified: false
 - Id: "15861"
+  Disabled: true
   Title: Ensure 'Turn off Automatic Download and Install of updates' is set to 'Disabled'.
   Condition: any
   Rules:
@@ -9353,8 +9307,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsStore
       v: AutoDownload
-  Verified: false
 - Id: "15862"
+  Disabled: true
   Title: Ensure 'Turn off the offer to update to the latest version of Windows' is
     set to 'Enabled'.
   Condition: all
@@ -9381,8 +9335,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsStore
       v: DisableOSUpgrade
-  Verified: false
 - Id: "15863"
+  Disabled: true
   Title: Ensure 'Turn off the Store application' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -9408,8 +9362,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsStore
       v: RemoveWindowsStore
-  Verified: false
 - Id: "15864"
+  Disabled: true
   Title: Ensure 'Allow widgets' is set to 'Disabled'.
   Condition: all
   Rules:
@@ -9434,8 +9388,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Dsh
       v: AllowNewsAndInterests
-  Verified: false
 - Id: "15865"
+  Disabled: true
   Title: 'Ensure ''Configure Windows Defender SmartScreen'' is set to ''Enabled: Warn
     and prevent bypass''.'
   Condition: all
@@ -9478,8 +9432,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System
       v: ShellSmartScreenLevel
-  Verified: false
 - Id: "15866"
+  Disabled: true
   Title: Ensure 'Configure Windows Defender SmartScreen' is set to 'Enabled'.
   Condition: any
   Rules:
@@ -9505,8 +9459,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\MicrosoftEdge\PhishingFilter
       v: EnabledV9
-  Verified: false
 - Id: "15867"
+  Disabled: true
   Title: Ensure 'Prevent bypassing Windows Defender SmartScreen prompts for sites'
     is set to 'Enabled'.
   Condition: all
@@ -9533,8 +9487,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\MicrosoftEdge\PhishingFilter
       v: PreventOverride
-  Verified: false
 - Id: "15868"
+  Disabled: true
   Title: Ensure 'Enables or disables Windows Game Recording and Broadcasting' is set
     to 'Disabled'.
   Condition: all
@@ -9561,8 +9515,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\GameDVR
       v: AllowGameDVR
-  Verified: false
 - Id: "15869"
+  Disabled: true
   Title: Ensure 'Allow suggested apps in Windows Ink Workspace' is set to 'Disabled'.
   Condition: all
   Rules:
@@ -9588,8 +9542,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsInkWorkspace
       v: AllowSuggestedAppsInWindowsInkWorkspace
-  Verified: false
 - Id: "15870"
+  Disabled: true
   Title: 'Ensure ''Allow Windows Ink Workspace'' is set to ''Enabled: On, but disallow
     access above lock'' OR ''Disabled'' but not ''Enabled: On''.'
   Condition: all
@@ -9617,8 +9571,8 @@ Checks:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsInkWorkspace
       v: AllowWindowsInkWorkspace
       regex: ^0$|^1$
-  Verified: false
 - Id: "15871"
+  Disabled: true
   Title: Ensure 'Allow user control over installs' is set to 'Disabled'.
   Condition: any
   Rules:
@@ -9644,8 +9598,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Installer
       v: EnableUserControl
-  Verified: false
 - Id: "15872"
+  Disabled: true
   Title: Ensure 'Always install with elevated privileges' is set to 'Disabled'.
   Condition: any
   Rules:
@@ -9671,8 +9625,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Installer
       v: AlwaysInstallElevated
-  Verified: false
 - Id: "15873"
+  Disabled: true
   Title: Ensure 'Prevent Internet Explorer security prompt for Windows Installer scripts'
     is set to 'Disabled'.
   Condition: any
@@ -9699,8 +9653,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Installer
       v: SafeForScripting
-  Verified: false
 - Id: "15874"
+  Disabled: true
   Title: Ensure 'Sign-in and lock last interactive user automatically after a restart'
     is set to 'Disabled'.
   Condition: all
@@ -9727,8 +9681,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System
       v: DisableAutomaticRestartSignOn
-  Verified: false
 - Id: "15875"
+  Disabled: true
   Title: Ensure 'Turn on PowerShell Script Block Logging' is set to 'Enabled'.
   Condition: any
   Rules:
@@ -9754,8 +9708,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging
       v: EnableScriptBlockLogging
-  Verified: false
 - Id: "15876"
+  Disabled: true
   Title: Ensure 'Turn on PowerShell Transcription' is set to 'Disabled'.
   Condition: any
   Rules:
@@ -9781,8 +9735,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\PowerShell\Transcription
       v: EnableTranscripting
-  Verified: false
 - Id: "15877"
+  Disabled: true
   Title: Ensure 'Allow Basic authentication' is set to 'Disabled'.
   Condition: any
   Rules:
@@ -9808,8 +9762,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WinRM\Client
       v: AllowBasic
-  Verified: false
 - Id: "15878"
+  Disabled: true
   Title: Ensure 'Allow unencrypted traffic' is set to 'Disabled'.
   Condition: any
   Rules:
@@ -9835,8 +9789,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WinRM\Client
       v: AllowUnencryptedTraffic
-  Verified: false
 - Id: "15879"
+  Disabled: true
   Title: Ensure 'Disallow Digest authentication' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -9862,8 +9816,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WinRM\Client
       v: AllowDigest
-  Verified: false
 - Id: "15880"
+  Disabled: true
   Title: Ensure 'Allow Basic authentication' is set to 'Disabled'.
   Condition: any
   Rules:
@@ -9889,8 +9843,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WinRM\Service
       v: AllowBasic
-  Verified: false
 - Id: "15881"
+  Disabled: true
   Title: Ensure 'Allow remote server management through WinRM' is set to 'Disabled'.
   Condition: any
   Rules:
@@ -9916,8 +9870,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WinRM\Service
       v: AllowAutoConfig
-  Verified: false
 - Id: "15882"
+  Disabled: true
   Title: Ensure 'Allow unencrypted traffic' is set to 'Disabled'.
   Condition: any
   Rules:
@@ -9943,8 +9897,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WinRM\Service
       v: AllowUnencryptedTraffic
-  Verified: false
 - Id: "15883"
+  Disabled: true
   Title: Ensure 'Disallow WinRM from storing RunAs credentials' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -9970,8 +9924,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WinRM\Service
       v: DisableRunAs
-  Verified: false
 - Id: "15884"
+  Disabled: true
   Title: Ensure 'Allow Remote Shell Access' is set to 'Disabled'.
   Condition: all
   Rules:
@@ -9997,8 +9951,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WinRM\Service\WinRS
       v: AllowRemoteShellAccess
-  Verified: false
 - Id: "15885"
+  Disabled: true
   Title: Ensure 'Allow clipboard sharing with Windows Sandbox' is set to 'Disabled'.
   Condition: all
   Rules:
@@ -10024,8 +9978,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Sandbox
       v: AllowClipboardRedirection
-  Verified: false
 - Id: "15886"
+  Disabled: true
   Title: Ensure 'Allow networking in Windows Sandbox' is set to 'Disabled'.
   Condition: all
   Rules:
@@ -10051,8 +10005,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Sandbox
       v: AllowNetworking
-  Verified: false
 - Id: "15887"
+  Disabled: true
   Title: Ensure 'Prevent users from modifying settings' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -10083,8 +10037,8 @@ Checks:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender Security
         Center\App and Browser protection
       v: DisallowExploitProtectionOverride
-  Verified: false
 - Id: "15888"
+  Disabled: true
   Title: Ensure 'No auto-restart with logged on users for scheduled automatic updates
     installations' is set to 'Disabled'.
   Condition: any
@@ -10111,8 +10065,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU
       v: NoAutoRebootWithLoggedOnUsers
-  Verified: false
 - Id: "15889"
+  Disabled: true
   Title: Ensure 'Configure Automatic Updates' is set to 'Enabled'.
   Condition: any
   Rules:
@@ -10138,8 +10092,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU
       v: NoAutoUpdate
-  Verified: false
 - Id: "15890"
+  Disabled: true
   Title: 'Ensure ''Configure Automatic Updates: Scheduled install day'' is set to
     ''0 - Every day''.'
   Condition: any
@@ -10160,8 +10114,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU
       v: ScheduledInstallDay
-  Verified: false
 - Id: "15891"
+  Disabled: true
   Title: Ensure 'Remove access to "Pause updates" feature' is set to 'Enabled'.
   Condition: all
   Rules:
@@ -10187,8 +10141,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate
       v: SetDisablePauseUXAccess
-  Verified: false
 - Id: "15892"
+  Disabled: true
   Title: Ensure 'Manage preview builds' is set to 'Disabled'.
   Condition: any
   Rules:
@@ -10214,8 +10168,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate
       v: ManagePreviewBuildsPolicyValue
-  Verified: false
 - Id: "15893"
+  Disabled: true
   Title: 'Ensure ''Select when Preview Builds and Feature Updates are received'' is
     set to ''Enabled: 180 or more days''.'
   Condition: all
@@ -10258,8 +10212,8 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate
       v: DeferFeatureUpdatesPeriodInDays
-  Verified: false
 - Id: "15894"
+  Disabled: true
   Title: 'Ensure ''Select when Quality Updates are received'' is set to ''Enabled:
     0 days''.'
   Condition: all
@@ -10280,4 +10234,3 @@ Checks:
     Env:
       k: HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate
       v: DeferQualityUpdatesPeriodInDays
-  Verified: false
