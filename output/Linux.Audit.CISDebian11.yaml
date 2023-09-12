@@ -1,0 +1,968 @@
+
+name: Linux.Audit.CISDebian11
+description: |
+   This artifact was generated from the Wazuh SCA project.
+   
+   Using the file cis_debian11.yml.
+   
+parameters:
+- name: OverruleChecks
+  default: |
+    Id,Title,Reason
+    0,RuleTitle,Reason For Overruling
+
+- name: Remediate
+  type: bool
+  description: If enabled we remediate the configuration if possible.
+
+- name: ContextLength
+  type: int
+  description: Length of context to return
+  default: 100
+
+sources:
+- name: FailedChecks
+  query: |
+    
+    LET JSONEnv = "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"
+    LET Env <= parse_json(data=gunzip(string=base64decode(string=JSONEnv)))
+    
+    LET C(E) = if(condition=E, then=1, else=0)
+    
+    LET OverruleChecks <= SELECT * FROM if(
+        condition=format(format="%T", args=OverruleChecks) =~ "string",
+        then={ SELECT * FROM parse_csv(filename=OverruleChecks, accessor='data')})
+    
+    LET O <= OverruleChecks.Id
+    
+    LET _Cmd(cmd) = SELECT Stdout
+      FROM execve(argv=commandline_split(command=cmd), length=1000000)
+    
+    LET CmdOut(cmd, re) = parse_string_with_regex(regex=re,
+        string=cache(func=_Cmd(cmd=cmd)[0].Stdout, key=cmd))
+    
+    LET M <= '(?m)'
+    
+    LET CmdMatch(cmd, re) = cache(func=_Cmd(cmd=cmd)[0].Stdout, key=cmd) =~ M+re
+    LET CmdContext(cmd, re) = format(format="match '%v' on '%v': %v", args=[re,
+           cmd, cache(func=_Cmd(cmd=cmd)[0].Stdout, key=cmd)[:ContextLength] ])
+    
+    LET _Reg(Path) = SELECT Data FROM stat(filename=Path, accessor="registry")
+    
+    LET Reg(k) = _Reg(Path=k)[0].Data
+    
+    LET FMatch(f, re) = read_file(filename=f) =~ M+re
+    LET FContext(f, re) = format(format="match '%v' on file '%v': %v", args=[re,
+         f, read_file(filename=f, length=ContextLength)])
+    
+    
+    
+    
+    LET Check29500 <= SELECT * FROM chain(
+    t0={
+      SELECT 29500 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29500`.`0`)
+      })
+    },
+    t1={
+      SELECT 29500 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29500`.`1`)
+      })
+    })
+    
+    LET Check29500Status <= SELECT Id, Title, sum(item=pass) = 2 OR Id IN O AS OK
+    FROM Check29500
+    GROUP BY 1
+    
+    
+    LET Check29501 <= SELECT * FROM chain(
+    t0={
+      SELECT 29501 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29501`.`0`)
+      })
+    },
+    t1={
+      SELECT 29501 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29501`.`1`)
+      })
+    })
+    
+    LET Check29501Status <= SELECT Id, Title, sum(item=pass) = 2 OR Id IN O AS OK
+    FROM Check29501
+    GROUP BY 1
+    
+    
+    LET Check29502 <= SELECT * FROM chain(
+    t0={
+      SELECT 29502 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29502`.`0`)
+      })
+    },
+    t1={
+      SELECT 29502 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29502`.`1`)
+      })
+    })
+    
+    LET Check29502Status <= SELECT Id, Title, sum(item=pass) = 2 OR Id IN O AS OK
+    FROM Check29502
+    GROUP BY 1
+    
+    
+    LET Check29503 <= SELECT * FROM chain(
+    t0={
+      SELECT 29503 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29503`.`0`)
+      })
+    },
+    t1={
+      SELECT 29503 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29503`.`1`)
+      })
+    })
+    
+    LET Check29503Status <= SELECT Id, Title, sum(item=pass) = 2 OR Id IN O AS OK
+    FROM Check29503
+    GROUP BY 1
+    
+    
+    LET Check29504 <= SELECT * FROM chain(
+    t0={
+      SELECT 29504 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29504`.`0`)
+      })
+    })
+    
+    LET Check29504Status <= SELECT Id, Title, sum(item=pass) = 1 OR Id IN O AS OK
+    FROM Check29504
+    GROUP BY 1
+    
+    
+    LET Check29505 <= SELECT * FROM chain(
+    t0={
+      SELECT 29505 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29505`.`0`)
+      })
+    },
+    t1={
+      SELECT 29505 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29505`.`1`)
+      })
+    })
+    
+    LET Check29505Status <= SELECT Id, Title, sum(item=pass) = 2 OR Id IN O AS OK
+    FROM Check29505
+    GROUP BY 1
+    
+    
+    LET Check29506 <= SELECT * FROM chain(
+    t0={
+      SELECT 29506 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29506`.`0`)
+      })
+    },
+    t1={
+      SELECT 29506 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29506`.`1`)
+      })
+    })
+    
+    LET Check29506Status <= SELECT Id, Title, sum(item=pass) = 2 OR Id IN O AS OK
+    FROM Check29506
+    GROUP BY 1
+    
+    
+    LET Check29507 <= SELECT * FROM chain(
+    t0={
+      SELECT 29507 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29507`.`0`)
+      })
+    })
+    
+    LET Check29507Status <= SELECT Id, Title, sum(item=pass) = 1 OR Id IN O AS OK
+    FROM Check29507
+    GROUP BY 1
+    
+    
+    LET Check29508 <= SELECT * FROM chain(
+    t0={
+      SELECT 29508 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29508`.`0`)
+      })
+    },
+    t1={
+      SELECT 29508 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29508`.`1`)
+      })
+    })
+    
+    LET Check29508Status <= SELECT Id, Title, sum(item=pass) = 2 OR Id IN O AS OK
+    FROM Check29508
+    GROUP BY 1
+    
+    
+    LET Check29509 <= SELECT * FROM chain(
+    t0={
+      SELECT 29509 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29509`.`0`)
+      })
+    },
+    t1={
+      SELECT 29509 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29509`.`1`)
+      })
+    })
+    
+    LET Check29509Status <= SELECT Id, Title, sum(item=pass) = 2 OR Id IN O AS OK
+    FROM Check29509
+    GROUP BY 1
+    
+    
+    LET Check29510 <= SELECT * FROM chain(
+    t0={
+      SELECT 29510 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29510`.`0`)
+      })
+    },
+    t1={
+      SELECT 29510 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29510`.`1`)
+      })
+    })
+    
+    LET Check29510Status <= SELECT Id, Title, sum(item=pass) = 2 OR Id IN O AS OK
+    FROM Check29510
+    GROUP BY 1
+    
+    
+    LET Check29511 <= SELECT * FROM chain(
+    t0={
+      SELECT 29511 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29511`.`0`)
+      })
+    })
+    
+    LET Check29511Status <= SELECT Id, Title, sum(item=pass) = 1 OR Id IN O AS OK
+    FROM Check29511
+    GROUP BY 1
+    
+    
+    LET Check29512 <= SELECT * FROM chain(
+    t0={
+      SELECT 29512 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29512`.`0`)
+      })
+    },
+    t1={
+      SELECT 29512 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29512`.`1`)
+      })
+    })
+    
+    LET Check29512Status <= SELECT Id, Title, sum(item=pass) = 2 OR Id IN O AS OK
+    FROM Check29512
+    GROUP BY 1
+    
+    
+    LET Check29513 <= SELECT * FROM chain(
+    t0={
+      SELECT 29513 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29513`.`0`)
+      })
+    },
+    t1={
+      SELECT 29513 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29513`.`1`)
+      })
+    })
+    
+    LET Check29513Status <= SELECT Id, Title, sum(item=pass) = 2 OR Id IN O AS OK
+    FROM Check29513
+    GROUP BY 1
+    
+    
+    LET Check29514 <= SELECT * FROM chain(
+    t0={
+      SELECT 29514 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29514`.`0`)
+      })
+    },
+    t1={
+      SELECT 29514 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29514`.`1`)
+      })
+    })
+    
+    LET Check29514Status <= SELECT Id, Title, sum(item=pass) = 2 OR Id IN O AS OK
+    FROM Check29514
+    GROUP BY 1
+    
+    
+    LET Check29515 <= SELECT * FROM chain(
+    t0={
+      SELECT 29515 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29515`.`0`)
+      })
+    })
+    
+    LET Check29515Status <= SELECT Id, Title, sum(item=pass) = 1 OR Id IN O AS OK
+    FROM Check29515
+    GROUP BY 1
+    
+    
+    LET Check29516 <= SELECT * FROM chain(
+    t0={
+      SELECT 29516 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29516`.`0`)
+      })
+    },
+    t1={
+      SELECT 29516 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29516`.`1`)
+      })
+    })
+    
+    LET Check29516Status <= SELECT Id, Title, sum(item=pass) = 2 OR Id IN O AS OK
+    FROM Check29516
+    GROUP BY 1
+    
+    
+    LET Check29517 <= SELECT * FROM chain(
+    t0={
+      SELECT 29517 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29517`.`0`)
+      })
+    },
+    t1={
+      SELECT 29517 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29517`.`1`)
+      })
+    })
+    
+    LET Check29517Status <= SELECT Id, Title, sum(item=pass) = 2 OR Id IN O AS OK
+    FROM Check29517
+    GROUP BY 1
+    
+    
+    LET Check29518 <= SELECT * FROM chain(
+    t0={
+      SELECT 29518 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29518`.`0`)
+      })
+    },
+    t1={
+      SELECT 29518 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29518`.`1`)
+      })
+    })
+    
+    LET Check29518Status <= SELECT Id, Title, sum(item=pass) = 2 OR Id IN O AS OK
+    FROM Check29518
+    GROUP BY 1
+    
+    
+    LET Check29519 <= SELECT * FROM chain(
+    t0={
+      SELECT 29519 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29519`.`0`)
+      })
+    })
+    
+    LET Check29519Status <= SELECT Id, Title, sum(item=pass) = 1 OR Id IN O AS OK
+    FROM Check29519
+    GROUP BY 1
+    
+    
+    LET Check29520 <= SELECT * FROM chain(
+    t0={
+      SELECT 29520 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29520`.`0`)
+      })
+    },
+    t1={
+      SELECT 29520 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29520`.`1`)
+      })
+    })
+    
+    LET Check29520Status <= SELECT Id, Title, sum(item=pass) = 2 OR Id IN O AS OK
+    FROM Check29520
+    GROUP BY 1
+    
+    
+    LET Check29521 <= SELECT * FROM chain(
+    t0={
+      SELECT 29521 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29521`.`0`)
+      })
+    },
+    t1={
+      SELECT 29521 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29521`.`1`)
+      })
+    })
+    
+    LET Check29521Status <= SELECT Id, Title, sum(item=pass) = 2 OR Id IN O AS OK
+    FROM Check29521
+    GROUP BY 1
+    
+    
+    LET Check29522 <= SELECT * FROM chain(
+    t0={
+      SELECT 29522 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29522`.`0`)
+      })
+    },
+    t1={
+      SELECT 29522 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29522`.`1`)
+      })
+    })
+    
+    LET Check29522Status <= SELECT Id, Title, sum(item=pass) = 2 OR Id IN O AS OK
+    FROM Check29522
+    GROUP BY 1
+    
+    
+    LET Check29523 <= SELECT * FROM chain(
+    t0={
+      SELECT 29523 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29523`.`0`)
+      })
+    },
+    t1={
+      SELECT 29523 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29523`.`1`)
+      })
+    })
+    
+    LET Check29523Status <= SELECT Id, Title, sum(item=pass) = 2 OR Id IN O AS OK
+    FROM Check29523
+    GROUP BY 1
+    
+    
+    LET Check29524 <= SELECT * FROM chain(
+    t0={
+      SELECT 29524 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29524`.`0`)
+      })
+    },
+    t1={
+      SELECT 29524 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29524`.`1`)
+      })
+    })
+    
+    LET Check29524Status <= SELECT Id, Title, sum(item=pass) = 2 OR Id IN O AS OK
+    FROM Check29524
+    GROUP BY 1
+    
+    
+    LET Check29525 <= SELECT * FROM chain(
+    t0={
+      SELECT 29525 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29525`.`0`)
+      })
+    },
+    t1={
+      SELECT 29525 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29525`.`1`)
+      })
+    })
+    
+    LET Check29525Status <= SELECT Id, Title, sum(item=pass) > 0 OR Id IN O AS OK
+    FROM Check29525
+    GROUP BY 1
+    
+    
+    LET Check29526 <= SELECT * FROM chain(
+    t0={
+      SELECT 29526 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29526`.`0`)
+      })
+    },
+    t1={
+      SELECT 29526 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29526`.`1`)
+      })
+    })
+    
+    LET Check29526Status <= SELECT Id, Title, sum(item=pass) = 2 OR Id IN O AS OK
+    FROM Check29526
+    GROUP BY 1
+    
+    
+    LET Check29527 <= SELECT * FROM chain(
+    t0={
+      SELECT 29527 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29527`.`0`)
+      })
+    },
+    t1={
+      SELECT 29527 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29527`.`1`)
+      })
+    },
+    t2={
+      SELECT 29527 AS Id, 2 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29527`.`2`)
+      })
+    })
+    
+    LET Check29527Status <= SELECT Id, Title, sum(item=pass) = 3 OR Id IN O AS OK
+    FROM Check29527
+    GROUP BY 1
+    
+    
+    LET Check29528 <= SELECT * FROM chain(
+    t0={
+      SELECT 29528 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, FMatch(f=f, re=re) AS Value, FContext(f=f, re=re) AS Context
+        FROM foreach(row=Env.`29528`.`0`)
+      })
+    },
+    t1={
+      SELECT 29528 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, FMatch(f=f, re=re) AS Value, FContext(f=f, re=re) AS Context
+        FROM foreach(row=Env.`29528`.`1`)
+      })
+    })
+    
+    LET Check29528Status <= SELECT Id, Title, sum(item=pass) = 2 OR Id IN O AS OK
+    FROM Check29528
+    GROUP BY 1
+    
+    
+    LET Check29529 <= SELECT * FROM chain(
+    t0={
+      SELECT 29529 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29529`.`0`)
+      })
+    })
+    
+    LET Check29529Status <= SELECT Id, Title, sum(item=pass) = 1 OR Id IN O AS OK
+    FROM Check29529
+    GROUP BY 1
+    
+    
+    LET Check29530 <= SELECT * FROM chain(
+    t0={
+      SELECT 29530 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, FMatch(f=f, re=re) AS Value, FContext(f=f, re=re) AS Context
+        FROM foreach(row=Env.`29530`.`0`)
+      })
+    })
+    
+    LET Check29530Status <= SELECT Id, Title, sum(item=pass) = 1 OR Id IN O AS OK
+    FROM Check29530
+    GROUP BY 1
+    
+    
+    LET Check29531 <= SELECT * FROM chain(
+    t0={
+      SELECT 29531 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29531`.`0`)
+      })
+    })
+    
+    LET Check29531Status <= SELECT Id, Title, sum(item=pass) = 1 OR Id IN O AS OK
+    FROM Check29531
+    GROUP BY 1
+    
+    
+    LET Check29532 <= SELECT * FROM chain(
+    t0={
+      SELECT 29532 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29532`.`0`)
+      })
+    })
+    
+    LET Check29532Status <= SELECT Id, Title, sum(item=pass) = 1 OR Id IN O AS OK
+    FROM Check29532
+    GROUP BY 1
+    
+    
+    LET Check29533 <= SELECT * FROM chain(
+    t0={
+      SELECT 29533 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29533`.`0`)
+      })
+    },
+    t1={
+      SELECT 29533 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29533`.`1`)
+      })
+    },
+    t2={
+      SELECT 29533 AS Id, 2 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29533`.`2`)
+      })
+    })
+    
+    LET Check29533Status <= SELECT Id, Title, sum(item=pass) = 3 OR Id IN O AS OK
+    FROM Check29533
+    GROUP BY 1
+    
+    
+    LET Check29534 <= SELECT * FROM chain(
+    t0={
+      SELECT 29534 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29534`.`0`)
+      })
+    },
+    t1={
+      SELECT 29534 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29534`.`1`)
+      })
+    })
+    
+    LET Check29534Status <= SELECT Id, Title, sum(item=pass) = 2 OR Id IN O AS OK
+    FROM Check29534
+    GROUP BY 1
+    
+    
+    LET Check29536 <= SELECT * FROM chain(
+    t0={
+      SELECT 29536 AS Id, 0 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29536`.`0`)
+      })
+    })
+    
+    LET Check29536Status <= SELECT Id, Title, sum(item=pass) = 1 OR Id IN O AS OK
+    FROM Check29536
+    GROUP BY 1
+    
+    
+    LET Check29537 <= SELECT * FROM chain(
+    t0={
+      SELECT 29537 AS Id, 0 AS TestId, Title,
+         C(E=Value  > 0) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, int(int=CmdOut(cmd=cmd, re=re).g1 || 0) AS Value, '' AS Context
+        FROM foreach(row=Env.`29537`.`0`)
+      })
+    },
+    t1={
+      SELECT 29537 AS Id, 1 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29537`.`1`)
+      })
+    },
+    t2={
+      SELECT 29537 AS Id, 2 AS TestId, Title,
+         C(E=Value) AS pass, Value, expected, Context
+      FROM foreach(row={
+        SELECT *, CmdMatch(cmd=cmd, re=re) AS Value, CmdContext(cmd=cmd, re=re) AS Context
+        FROM foreach(row=Env.`29537`.`2`)
+      })
+    })
+    
+    LET Check29537Status <= SELECT Id, Title, sum(item=pass) = 3 OR Id IN O AS OK
+    FROM Check29537
+    GROUP BY 1
+    
+    LET Failures <= SELECT * FROM chain(a0=Check29500Status,
+     a1=Check29501Status,
+     a2=Check29502Status,
+     a3=Check29503Status,
+     a4=Check29504Status,
+     a5=Check29505Status,
+     a6=Check29506Status,
+     a7=Check29507Status,
+     a8=Check29508Status,
+     a9=Check29509Status,
+     a10=Check29510Status,
+     a11=Check29511Status,
+     a12=Check29512Status,
+     a13=Check29513Status,
+     a14=Check29514Status,
+     a15=Check29515Status,
+     a16=Check29516Status,
+     a17=Check29517Status,
+     a18=Check29518Status,
+     a19=Check29519Status,
+     a20=Check29520Status,
+     a21=Check29521Status,
+     a22=Check29522Status,
+     a23=Check29523Status,
+     a24=Check29524Status,
+     a25=Check29525Status,
+     a26=Check29526Status,
+     a27=Check29527Status,
+     a28=Check29528Status,
+     a29=Check29529Status,
+     a30=Check29530Status,
+     a31=Check29531Status,
+     a32=Check29532Status,
+     a33=Check29533Status,
+     a34=Check29534Status,
+     a36=Check29536Status,
+     a37=Check29537Status)
+    WHERE NOT OK
+    
+    LET AllTests <= SELECT * FROM chain(a0=Check29500,
+     a1=Check29501,
+     a2=Check29502,
+     a3=Check29503,
+     a4=Check29504,
+     a5=Check29505,
+     a6=Check29506,
+     a7=Check29507,
+     a8=Check29508,
+     a9=Check29509,
+     a10=Check29510,
+     a11=Check29511,
+     a12=Check29512,
+     a13=Check29513,
+     a14=Check29514,
+     a15=Check29515,
+     a16=Check29516,
+     a17=Check29517,
+     a18=Check29518,
+     a19=Check29519,
+     a20=Check29520,
+     a21=Check29521,
+     a22=Check29522,
+     a23=Check29523,
+     a24=Check29524,
+     a25=Check29525,
+     a26=Check29526,
+     a27=Check29527,
+     a28=Check29528,
+     a29=Check29529,
+     a30=Check29530,
+     a31=Check29531,
+     a32=Check29532,
+     a33=Check29533,
+     a34=Check29534,
+     a36=Check29536,
+     a37=Check29537)
+    
+    SELECT * FROM Failures
+
+- name: FailedTests
+  query: |
+    -- For failed checks show all tests
+    SELECT Id, TestId, CheckDetails, Value, Context, pass
+    FROM foreach(row={
+      SELECT Id AS FailedId FROM Failures
+    },
+    query={
+      SELECT *,
+         get(item=Env,
+             member=format(format="%v.%v", args=[Id, TestId])) AS CheckDetails
+      FROM AllTests
+      WHERE Id = FailedId
+    })
+
+- name: AllTests
+  query: |
+    SELECT * FROM AllTests
+
+- name: Remediation
+  query: |
+    
+    SELECT * FROM if(condition=Remediate, then={
+      SELECT * FROM chain(
+      
+    )})
+    
+
+- name: Stats
+  query: |
+    LET TotalFailed <= SELECT count() AS Total FROM Failures GROUP BY 1
+    LET TotalChecks <= 198
+
+    SELECT TotalFailed[0].Total AS TotalFailed, TotalChecks FROM scope()
+
