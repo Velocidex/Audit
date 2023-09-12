@@ -3,7 +3,7 @@ ArtifactName: Darwin.Audit.CISMacOS13
 Precondition: |
   SELECT * FROM info() WHERE OS =~ "darwin"
 Description: |
-  This artifact was generated from the Wahzu SCA project.
+  This artifact was generated from the Wazuh SCA project.
 
   Using the cis_apple_macOS_13.x.yml.
 Type: SCA
