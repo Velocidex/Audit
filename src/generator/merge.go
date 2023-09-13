@@ -35,11 +35,11 @@ func (self *Check) Merge(other *Check) error {
 		return nil
 	}
 
-	self.Verified = other.Verified
+	self.Disabled = other.Disabled
 	self.Remediate = other.Remediate
 
 	// Do not mess with verified rules
-	if other.Verified {
+	if !other.Disabled {
 		self.Rules = other.Rules
 		return nil
 	}

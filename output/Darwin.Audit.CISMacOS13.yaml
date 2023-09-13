@@ -407,7 +407,10 @@ sources:
 
 - name: AllTests
   query: |
-    SELECT * FROM AllTests
+    SELECT *,
+      get(item=Env,
+          member=format(format="%v.%v", args=[Id, TestId])) AS CheckDetails
+    FROM AllTests
 
 - name: Remediation
   query: |

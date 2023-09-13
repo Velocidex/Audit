@@ -3,14 +3,12 @@ package generator
 import "github.com/Velocidex/ordereddict"
 
 type Check struct {
-	Id        string  `json:"Id,omitempty"`
+	Id       string `json:"Id,omitempty"`
+	Disabled bool   `json:"Disabled,omitempty"`
+
 	Title     string  `json:"Title,omitempty"`
 	Condition string  `json:"Condition,omitempty"`
 	Rules     []*Test `json:"Rules,omitempty"`
-
-	// Once we manually verify the check this will be set
-	// true. Further SCA imports will use the existing rules.
-	Verified bool `json:"Verified"`
 
 	// Any VQL that should be run to remediate this check (bring into
 	// compliance)

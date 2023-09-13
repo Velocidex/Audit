@@ -28,7 +28,6 @@ Checks:
       cmd: systemctl is-enabled tmp.mount
       re: enabled|generated
     Context: CmdContext(cmd=cmd, re=re)
-  Verified: true
 - Id: "29501"
   Title: Ensure nodev option set on /tmp partition.
   Condition: all
@@ -49,7 +48,6 @@ Checks:
       cmd: findmnt --kernel /tmp
       re: nodev
     Context: CmdContext(cmd=cmd, re=re)
-  Verified: true
 - Id: "29502"
   Title: Ensure noexec option set on /tmp partition.
   Condition: all
@@ -70,7 +68,6 @@ Checks:
       cmd: findmnt --kernel /tmp
       re: noexec
     Context: CmdContext(cmd=cmd, re=re)
-  Verified: true
 - Id: "29503"
   Title: Ensure nosuid option set on /tmp partition.
   Condition: all
@@ -91,7 +88,6 @@ Checks:
       cmd: findmnt --kernel /tmp
       re: nosuid
     Context: CmdContext(cmd=cmd, re=re)
-  Verified: true
 - Id: "29504"
   Title: Ensure separate partition exists for /var.
   Condition: all
@@ -104,7 +100,6 @@ Checks:
       cmd: findmnt --kernel /var
       re: ^/var\s+
     Context: CmdContext(cmd=cmd, re=re)
-  Verified: true
 - Id: "29505"
   Title: Ensure nodev option set on /var partition.
   Condition: all
@@ -125,7 +120,6 @@ Checks:
       cmd: findmnt --kernel /var
       re: nodev
     Context: CmdContext(cmd=cmd, re=re)
-  Verified: true
 - Id: "29506"
   Title: Ensure nosuid option set on /var partition.
   Condition: all
@@ -146,7 +140,6 @@ Checks:
       cmd: findmnt --kernel /var
       re: nosuid
     Context: CmdContext(cmd=cmd, re=re)
-  Verified: true
 - Id: "29507"
   Title: Ensure separate partition exists for /var/tmp.
   Condition: all
@@ -159,7 +152,6 @@ Checks:
       cmd: findmnt --kernel /var/tmp
       re: ^/var/tmp\s+
     Context: CmdContext(cmd=cmd, re=re)
-  Verified: true
 - Id: "29508"
   Title: Ensure noexec option set on /var/tmp partition.
   Condition: all
@@ -180,7 +172,6 @@ Checks:
       cmd: findmnt --kernel /var/tmp
       re: noexec
     Context: CmdContext(cmd=cmd, re=re)
-  Verified: true
 - Id: "29509"
   Title: Ensure nosuid option set on /var/tmp partition.
   Condition: all
@@ -201,7 +192,6 @@ Checks:
       cmd: findmnt --kernel /var/tmp
       re: nosuid
     Context: CmdContext(cmd=cmd, re=re)
-  Verified: true
 - Id: "29510"
   Title: Ensure nodev option set on /var/tmp partition.
   Condition: all
@@ -222,7 +212,6 @@ Checks:
       cmd: findmnt --kernel /var/tmp
       re: nodev
     Context: CmdContext(cmd=cmd, re=re)
-  Verified: true
 - Id: "29511"
   Title: Ensure separate partition exists for /var/log.
   Condition: all
@@ -235,7 +224,6 @@ Checks:
       cmd: findmnt --kernel /var/log
       re: ^/var/log\s+
     Context: CmdContext(cmd=cmd, re=re)
-  Verified: true
 - Id: "29512"
   Title: Ensure nodev option set on /var/log partition.
   Condition: all
@@ -256,7 +244,6 @@ Checks:
       cmd: findmnt --kernel /var/log
       re: nodev
     Context: CmdContext(cmd=cmd, re=re)
-  Verified: true
 - Id: "29513"
   Title: Ensure noexec option set on /var/log partition.
   Condition: all
@@ -277,7 +264,6 @@ Checks:
       cmd: findmnt --kernel /var/log
       re: noexec
     Context: CmdContext(cmd=cmd, re=re)
-  Verified: true
 - Id: "29514"
   Title: Ensure nosuid option set on /var/log partition.
   Condition: all
@@ -298,7 +284,6 @@ Checks:
       cmd: findmnt --kernel /var/log
       re: nosuid
     Context: CmdContext(cmd=cmd, re=re)
-  Verified: true
 - Id: "29515"
   Title: Ensure separate partition exists for /var/log/audit.
   Condition: all
@@ -311,7 +296,6 @@ Checks:
       cmd: findmnt --kernel /var/log/audit
       re: ^/var/log/audit\s+
     Context: CmdContext(cmd=cmd, re=re)
-  Verified: true
 - Id: "29516"
   Title: Ensure noexec option set on /var/log/audit partition.
   Condition: all
@@ -332,7 +316,6 @@ Checks:
       cmd: findmnt --kernel /var/log/audit
       re: noexec
     Context: CmdContext(cmd=cmd, re=re)
-  Verified: true
 - Id: "29517"
   Title: Ensure nodev option set on /var/log/audit partition.
   Condition: all
@@ -353,7 +336,6 @@ Checks:
       cmd: findmnt --kernel /var/log/audit
       re: nodev
     Context: CmdContext(cmd=cmd, re=re)
-  Verified: true
 - Id: "29518"
   Title: Ensure nosuid option set on /var/log/audit partition.
   Condition: all
@@ -374,7 +356,6 @@ Checks:
       cmd: findmnt --kernel /var/log/audit
       re: nosuid
     Context: CmdContext(cmd=cmd, re=re)
-  Verified: true
 - Id: "29519"
   Title: Ensure separate partition exists for /home.
   Condition: all
@@ -387,7 +368,6 @@ Checks:
       cmd: findmnt --kernel /home
       re: ^/home\s+
     Context: CmdContext(cmd=cmd, re=re)
-  Verified: true
 - Id: "29520"
   Title: Ensure nodev option set on /home partition.
   Condition: all
@@ -408,7 +388,6 @@ Checks:
       cmd: findmnt --kernel /home
       re: nodev
     Context: CmdContext(cmd=cmd, re=re)
-  Verified: true
 - Id: "29521"
   Title: Ensure nosuid option set on /home partition.
   Condition: all
@@ -429,7 +408,6 @@ Checks:
       cmd: findmnt --kernel /home
       re: nosuid
     Context: CmdContext(cmd=cmd, re=re)
-  Verified: true
 - Id: "29522"
   Title: Ensure nodev option set on /dev/shm partition.
   Condition: all
@@ -450,7 +428,6 @@ Checks:
       cmd: findmnt --kernel /dev/shm
       re: nodev
     Context: CmdContext(cmd=cmd, re=re)
-  Verified: true
 - Id: "29523"
   Title: Ensure noexec option set on /dev/shm partition.
   Condition: all
@@ -471,7 +448,6 @@ Checks:
       cmd: findmnt --kernel /dev/shm
       re: noexec
     Context: CmdContext(cmd=cmd, re=re)
-  Verified: true
 - Id: "29524"
   Title: Ensure nosuid option set on /dev/shm partition.
   Condition: all
@@ -492,7 +468,6 @@ Checks:
       cmd: findmnt --kernel /dev/shm
       re: nosuid
     Context: CmdContext(cmd=cmd, re=re)
-  Verified: true
 - Id: "29525"
   Title: Disable Automounting.
   Condition: any
@@ -514,7 +489,6 @@ Checks:
       cmd: systemctl is-enabled autofs
       re: disabled
     Context: CmdContext(cmd=cmd, re=re)
-  Verified: true
 - Id: "29526"
   Title: Ensure AIDE is installed.
   Condition: all
@@ -539,7 +513,6 @@ Checks:
         aide-common
       re: install ok installed
     Context: CmdContext(cmd=cmd, re=re)
-  Verified: true
 - Id: "29527"
   Title: Ensure filesystem integrity is regularly checked.
   Condition: all
@@ -568,7 +541,6 @@ Checks:
       cmd: systemctl status aidecheck.timer
       re: active
     Context: CmdContext(cmd=cmd, re=re)
-  Verified: true
 - Id: "29528"
   Title: Ensure bootloader password is set.
   Condition: all
@@ -587,7 +559,6 @@ Checks:
     Env:
       f: /boot/grub/grub.cfg
       re: ^\s*\t*password
-  Verified: true
 - Id: "29529"
   Title: Ensure permissions on bootloader config are configured.
   Condition: all
@@ -600,7 +571,6 @@ Checks:
       cmd: stat -L /boot/grub/grub.cfg
       re: Access:\s*\(0400/-r--------\)\s*Uid:\s*\(\s*\t*0/\s*\t*root\)\s*\t*Gid:\s*\(\s*\t*0/\s*\t*root\)
     Context: CmdContext(cmd=cmd, re=re)
-  Verified: true
 - Id: "29530"
   Title: Ensure authentication required for single user mode.
   Condition: all
@@ -612,7 +582,6 @@ Checks:
     Env:
       f: /etc/shadow
       re: ^root:\$\w
-  Verified: true
 - Id: "29531"
   Title: Ensure prelink is not installed.
   Condition: all
@@ -627,7 +596,6 @@ Checks:
         prelink
       re: 'dpkg-query: no packages found matching prelink'
     Context: CmdContext(cmd=cmd, re=re)
-  Verified: true
 - Id: "29532"
   Title: Ensure Automatic Error Reporting is not enabled.
   Condition: all
@@ -640,7 +608,6 @@ Checks:
       cmd: systemctl is-active apport.service
       re: inactive
     Context: CmdContext(cmd=cmd, re=re)
-  Verified: true
 - Id: "29533"
   Title: Ensure core dumps are restricted.
   Condition: all
@@ -672,7 +639,6 @@ Checks:
         /etc/security/limits.conf /etc/security/limits.d
       re: ^* hard core 0
     Context: CmdContext(cmd=cmd, re=re)
-  Verified: true
 - Id: "29534"
   Title: Ensure AppArmor is installed.
   Condition: all
@@ -697,8 +663,8 @@ Checks:
         apparmor-utils
       re: install ok installed
     Context: CmdContext(cmd=cmd, re=re)
-  Verified: true
 - Id: "29535"
+  Disabled: true
   Title: Ensure AppArmor is enabled in the bootloader configuration.
   Condition: none
   Rules:
@@ -716,7 +682,6 @@ Checks:
     Env:
       f: /boot/grub/grub.cfg
       re: ^\s*\t*linux && !r:security=apparmor
-  Verified: false
 - Id: "29536"
   Title: Ensure all AppArmor Profiles are in enforce or complain mode.
   Condition: all
@@ -729,7 +694,6 @@ Checks:
       cmd: apparmor_status
       re: ^0\s*processes are unconfined
     Context: CmdContext(cmd=cmd, re=re)
-  Verified: true
 - Id: "29537"
   Title: Ensure all AppArmor Profiles are enforcing.
   Condition: all
@@ -757,8 +721,8 @@ Checks:
       cmd: apparmor_status
       re: ^0\s*processes are unconfined
     Context: CmdContext(cmd=cmd, re=re)
-  Verified: true
 - Id: "29538"
+  Disabled: true
   Title: Ensure message of the day is configured properly.
   Condition: any
   Rules:
@@ -776,8 +740,8 @@ Checks:
     Env:
       f: /etc/motd
       re: \\v|\\r|\\m|\\s|Debian|Ubuntu
-  Verified: false
 - Id: "29539"
+  Disabled: true
   Title: Ensure local login warning banner is configured properly.
   Condition: none
   Rules:
@@ -788,8 +752,8 @@ Checks:
     Env:
       f: /etc/issue
       re: \\v|\\r|\\m|\\s|Debian|Ubuntu
-  Verified: false
 - Id: "29540"
+  Disabled: true
   Title: Ensure remote login warning banner is configured properly.
   Condition: none
   Rules:
@@ -800,8 +764,8 @@ Checks:
     Env:
       f: /etc/issue.net
       re: \\v|\\r|\\m|\\s|Debian|Ubuntu
-  Verified: false
 - Id: "29541"
+  Disabled: true
   Title: Ensure permissions on /etc/motd are configured.
   Condition: any
   Rules:
@@ -819,8 +783,8 @@ Checks:
     Env:
       cmd: stat -L /etc/motd
       re: Access:\s*\(0644/-rw-r--r--\)\s*Uid:\s*\(\s*\t*0/\s*\t*root\)\s*\t*Gid:\s*\(\s*\t*0/\s*\t*root\)
-  Verified: false
 - Id: "29542"
+  Disabled: true
   Title: Ensure permissions on /etc/issue are configured.
   Condition: all
   Rules:
@@ -831,8 +795,8 @@ Checks:
     Env:
       cmd: stat -L /etc/issue
       re: Access:\s*\(0644/-rw-r--r--\)\s*Uid:\s*\(\s*\t*0/\s*\t*root\)\s*\t*Gid:\s*\(\s*\t*0/\s*\t*root\)
-  Verified: false
 - Id: "29543"
+  Disabled: true
   Title: Ensure permissions on /etc/issue.net are configured.
   Condition: all
   Rules:
@@ -843,8 +807,8 @@ Checks:
     Env:
       cmd: stat -L /etc/issue.net
       re: Access:\s*\(0644/-rw-r--r--\)\s*Uid:\s*\(\s*\t*0/\s*\t*root\)\s*\t*Gid:\s*\(\s*\t*0/\s*\t*root\)
-  Verified: false
 - Id: "29544"
+  Disabled: true
   Title: Ensure GNOME Display Manager is removed.
   Condition: all
   Rules:
@@ -857,8 +821,8 @@ Checks:
       cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
         gdm3
       re: 'unknown ok not-installed|dpkg-query: no packages found matching gdm3'
-  Verified: false
 - Id: "29545"
+  Disabled: true
   Title: Ensure XDCMP is not enabled.
   Condition: any
   Rules:
@@ -876,8 +840,8 @@ Checks:
     Env:
       f: /etc/gdm3/custom.conf
       re: ^\s*Enable\s*=\s*true
-  Verified: false
 - Id: "29546"
+  Disabled: true
   Title: Ensure updates, patches, and additional security software are installed.
   Condition: none
   Rules:
@@ -888,8 +852,8 @@ Checks:
     Env:
       cmd: apt -s upgrade
       re: ^The following packages will be upgraded
-  Verified: false
 - Id: "29547"
+  Disabled: true
   Title: Ensure chrony is running as user _chrony.
   Condition: all
   Rules:
@@ -903,8 +867,8 @@ Checks:
   - WhereExpression: 'NOT '
     OriginalTest: not c:sh -c "ps -ef |grep chronyd | grep -v grep " -> !r:^_chrony
       && r:chronyd\s
-  Verified: false
 - Id: "29548"
+  Disabled: true
   Title: Ensure chrony is enabled and running.
   Condition: all
   Rules:
@@ -922,16 +886,16 @@ Checks:
     Env:
       cmd: systemctl is-active chrony.service
       re: ^active
-  Verified: false
 - Id: "29549"
+  Disabled: true
   Title: Ensure systemd-timesyncd configured with authorized timeserver.
   Condition: all
   Rules:
   - OriginalTest: d:/etc/systemd
   - OriginalTest: d:/etc/systemd -> r:\.+.conf$
   - OriginalTest: d:/etc/systemd -> r:\.+.conf$ -> r:^\s*\t*NTP=\w|^\s*\t*FallbackNTP=\w
-  Verified: false
 - Id: "29550"
+  Disabled: true
   Title: Ensure systemd-timesyncd is enabled and running.
   Condition: all
   Rules:
@@ -949,8 +913,8 @@ Checks:
     Env:
       cmd: systemctl is-active systemd-timesyncd.service
       re: ^active
-  Verified: false
 - Id: "29551"
+  Disabled: true
   Title: Ensure ntp access control is configured.
   Condition: all
   Rules:
@@ -979,8 +943,8 @@ Checks:
       f: /etc/ntp.conf
       re: ^restrict\s+-6\s+default && r:\s+kod && r:\s+nomodify && r:\s+notrap &&
         r:\s+nopeer && r:\s+noquery
-  Verified: false
 - Id: "29552"
+  Disabled: true
   Title: Ensure ntp is configured with authorized timeserver.
   Condition: all
   Rules:
@@ -998,8 +962,8 @@ Checks:
     Env:
       f: /etc/ntp.conf
       re: ^\s*\t*pool
-  Verified: false
 - Id: "29553"
+  Disabled: true
   Title: Ensure ntp is running as user ntp.
   Condition: all
   Rules:
@@ -1019,8 +983,8 @@ Checks:
       re: ntpd\s
   - WhereExpression: 'NOT '
     OriginalTest: not c:sh -c "ps -ef |grep ntpd | grep -v grep " -> !r:^ntp && r:ntpd\s
-  Verified: false
 - Id: "29554"
+  Disabled: true
   Title: Ensure ntp is enabled and running.
   Condition: all
   Rules:
@@ -1038,8 +1002,8 @@ Checks:
     Env:
       cmd: systemctl is-active ntp.service
       re: ^active
-  Verified: false
 - Id: "29555"
+  Disabled: true
   Title: Ensure X Window System is not installed.
   Condition: all
   Rules:
@@ -1053,8 +1017,8 @@ Checks:
       cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
         xserver-xorg
       re: 'unknown ok not-installed|dpkg-query: no packages found matching xserver-xorg'
-  Verified: false
 - Id: "29556"
+  Disabled: true
   Title: Ensure Avahi Server is not installed.
   Condition: all
   Rules:
@@ -1068,8 +1032,8 @@ Checks:
       cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
         avahi-daemon
       re: 'unknown ok not-installed|dpkg-query: no packages found matching avahi-daemon'
-  Verified: false
 - Id: "29557"
+  Disabled: true
   Title: Ensure CUPS is not installed.
   Condition: all
   Rules:
@@ -1082,8 +1046,8 @@ Checks:
       cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
         cups
       re: 'unknown ok not-installed|dpkg-query: no packages found matching cups'
-  Verified: false
 - Id: "29558"
+  Disabled: true
   Title: Ensure DHCP Server is not installed.
   Condition: all
   Rules:
@@ -1097,8 +1061,8 @@ Checks:
       cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
         isc-dhcp-server
       re: 'unknown ok not-installed|dpkg-query: no packages found matching isc-dhcp-server'
-  Verified: false
 - Id: "29559"
+  Disabled: true
   Title: Ensure LDAP server is not installed.
   Condition: all
   Rules:
@@ -1111,8 +1075,8 @@ Checks:
       cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
         slapd
       re: 'unknown ok not-installed|dpkg-query: no packages found matching slapd'
-  Verified: false
 - Id: "29560"
+  Disabled: true
   Title: Ensure NFS is not installed.
   Condition: all
   Rules:
@@ -1126,8 +1090,8 @@ Checks:
       cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
         nfs-kernel-server
       re: 'unknown ok not-installed|dpkg-query: no packages found matching nfs-kernel-server'
-  Verified: false
 - Id: "29561"
+  Disabled: true
   Title: Ensure DNS Server is not installed.
   Condition: all
   Rules:
@@ -1140,8 +1104,8 @@ Checks:
       cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
         bind9
       re: 'unknown ok not-installed|dpkg-query: no packages found matching bind9'
-  Verified: false
 - Id: "29562"
+  Disabled: true
   Title: Ensure FTP Server is not installed.
   Condition: all
   Rules:
@@ -1155,8 +1119,8 @@ Checks:
       cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
         vsftpd
       re: 'unknown ok not-installed|dpkg-query: no packages found matching vsftpd'
-  Verified: false
 - Id: "29563"
+  Disabled: true
   Title: Ensure HTTP server is not installed.
   Condition: all
   Rules:
@@ -1170,8 +1134,8 @@ Checks:
       cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
         apache2
       re: 'unknown ok not-installed|dpkg-query: no packages found matching apache2'
-  Verified: false
 - Id: "29564"
+  Disabled: true
   Title: Ensure IMAP and POP3 server are not installed.
   Condition: all
   Rules:
@@ -1195,8 +1159,8 @@ Checks:
       cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
         dovecot-pop3d
       re: 'unknown ok not-installed|dpkg-query: no packages found matching dovecot-pop3d'
-  Verified: false
 - Id: "29565"
+  Disabled: true
   Title: Ensure Samba is not installed.
   Condition: all
   Rules:
@@ -1209,8 +1173,8 @@ Checks:
       cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
         samba
       re: 'unknown ok not-installed|dpkg-query: no packages found matching samba'
-  Verified: false
 - Id: "29566"
+  Disabled: true
   Title: Ensure HTTP Proxy Server is not installed.
   Condition: all
   Rules:
@@ -1223,8 +1187,8 @@ Checks:
       cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
         squid
       re: 'unknown ok not-installed|dpkg-query: no packages found matching squid'
-  Verified: false
 - Id: "29567"
+  Disabled: true
   Title: Ensure SNMP Server is not installed.
   Condition: all
   Rules:
@@ -1237,8 +1201,8 @@ Checks:
       cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
         snmp
       re: 'unknown ok not-installed|dpkg-query: no packages found matching snmp'
-  Verified: false
 - Id: "29568"
+  Disabled: true
   Title: Ensure NIS Server is not installed.
   Condition: all
   Rules:
@@ -1251,8 +1215,8 @@ Checks:
       cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
         nis
       re: 'unknown ok not-installed|dpkg-query: no packages found matching nis'
-  Verified: false
 - Id: "29569"
+  Disabled: true
   Title: Ensure mail transfer agent is configured for local-only mode.
   Condition: none
   Rules:
@@ -1275,8 +1239,8 @@ Checks:
     Env:
       cmd: ss -lntu
       re: '!r:127.0.0.1:25|[::1]:25'
-  Verified: false
 - Id: "29570"
+  Disabled: true
   Title: Ensure rsync service is either not installed or masked.
   Condition: any
   Rules:
@@ -1303,8 +1267,8 @@ Checks:
     Env:
       cmd: systemctl is-enabled rsync
       re: ^masked
-  Verified: false
 - Id: "29571"
+  Disabled: true
   Title: Ensure NIS Client is not installed.
   Condition: all
   Rules:
@@ -1317,8 +1281,8 @@ Checks:
       cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
         nis
       re: 'unknown ok not-installed|dpkg-query: no packages found matching nis'
-  Verified: false
 - Id: "29572"
+  Disabled: true
   Title: Ensure rsh client is not installed.
   Condition: all
   Rules:
@@ -1332,8 +1296,8 @@ Checks:
       cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
         rsh-client
       re: 'unknown ok not-installed|dpkg-query: no packages found matching rsh-client'
-  Verified: false
 - Id: "29573"
+  Disabled: true
   Title: Ensure talk client is not installed.
   Condition: all
   Rules:
@@ -1346,8 +1310,8 @@ Checks:
       cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
         talk
       re: 'install ok installed|dpkg-query: no packages found matching talk'
-  Verified: false
 - Id: "29574"
+  Disabled: true
   Title: Ensure telnet client is not installed.
   Condition: all
   Rules:
@@ -1361,8 +1325,8 @@ Checks:
       cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
         telnet
       re: 'unknown ok not-installed|dpkg-query: no packages found matching telnet'
-  Verified: false
 - Id: "29575"
+  Disabled: true
   Title: Ensure LDAP client is not installed.
   Condition: all
   Rules:
@@ -1376,8 +1340,8 @@ Checks:
       cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
         ldap-utils
       re: 'unknown ok not-installed|dpkg-query: no packages found matching ldap-utils'
-  Verified: false
 - Id: "29576"
+  Disabled: true
   Title: Ensure RPC is not installed.
   Condition: all
   Rules:
@@ -1391,8 +1355,8 @@ Checks:
       cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
         rpcbind
       re: 'unknown ok not-installed|dpkg-query: no packages found matching rpcbind'
-  Verified: false
 - Id: "29577"
+  Disabled: true
   Title: Ensure ufw is installed.
   Condition: all
   Rules:
@@ -1405,8 +1369,8 @@ Checks:
       cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
         ufw
       re: install ok installed
-  Verified: false
 - Id: "29578"
+  Disabled: true
   Title: Ensure iptables-persistent is not installed with ufw.
   Condition: all
   Rules:
@@ -1429,8 +1393,8 @@ Checks:
       cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
         iptables-persistent
       re: 'unknown ok not-installed|dpkg-query: no packages found matching iptables-persistent'
-  Verified: false
 - Id: "29579"
+  Disabled: true
   Title: Ensure ufw service is enabled.
   Condition: all
   Rules:
@@ -1455,8 +1419,8 @@ Checks:
     Env:
       cmd: ufw status
       re: \sactive
-  Verified: false
 - Id: "29580"
+  Disabled: true
   Title: Ensure ufw loopback traffic is configured.
   Condition: all
   Rules:
@@ -1512,8 +1476,8 @@ Checks:
     Env:
       cmd: systemctl is-enabled ufw.service
       re: ^enabled
-  Verified: false
 - Id: "29581"
+  Disabled: true
   Title: Ensure ufw default deny firewall policy.
   Condition: all
   Rules:
@@ -1557,8 +1521,8 @@ Checks:
     Env:
       cmd: ufw status verbose
       re: deny\s+\(routed\)|reject\s+\(routed\)|disabled\s+\(routed\)
-  Verified: false
 - Id: "29582"
+  Disabled: true
   Title: Ensure nftables is installed.
   Condition: all
   Rules:
@@ -1593,8 +1557,8 @@ Checks:
         iptables
       re: 'unknown ok not-installed|dpkg-query: no packages found matching iptables|deinstall
         ok config-files'
-  Verified: false
 - Id: "29583"
+  Disabled: true
   Title: Ensure ufw is uninstalled or disabled with nftables.
   Condition: all
   Rules:
@@ -1629,8 +1593,8 @@ Checks:
         iptables
       re: 'unknown ok not-installed|dpkg-query: no packages found matching iptables|deinstall
         ok config-files'
-  Verified: false
 - Id: "29584"
+  Disabled: true
   Title: Ensure iptables are flushed with nftables.
   Condition: all
   Rules:
@@ -1657,8 +1621,8 @@ Checks:
     Env:
       cmd: sh -c "ip6tables -L | grep -Evi '^chain|^target'"
       re: ^\w+
-  Verified: false
 - Id: "29585"
+  Disabled: true
   Title: Ensure a nftables table exists.
   Condition: all
   Rules:
@@ -1669,8 +1633,8 @@ Checks:
     Env:
       cmd: nft list tables
       re: ^table\s
-  Verified: false
 - Id: "29586"
+  Disabled: true
   Title: Ensure nftables base chains exist.
   Condition: all
   Rules:
@@ -1695,8 +1659,8 @@ Checks:
     Env:
       cmd: nft list ruleset
       re: hook output
-  Verified: false
 - Id: "29587"
+  Disabled: true
   Title: Ensure nftables loopback traffic is configured.
   Condition: all
   Rules:
@@ -1724,8 +1688,8 @@ Checks:
     Env:
       cmd: sh -c "nft list ruleset | awk '/hook input/,/}/'"
       re: ip6 saddr ::1
-  Verified: false
 - Id: "29588"
+  Disabled: true
   Title: Ensure nftables default deny firewall policy.
   Condition: all
   Rules:
@@ -1750,8 +1714,8 @@ Checks:
     Env:
       cmd: nft list ruleset
       re: hook output && !r:policy drop
-  Verified: false
 - Id: "29589"
+  Disabled: true
   Title: Ensure nftables service is enabled.
   Condition: all
   Rules:
@@ -1762,8 +1726,8 @@ Checks:
     Env:
       cmd: systemctl is-enabled nftables
       re: enabled
-  Verified: false
 - Id: "29590"
+  Disabled: true
   Title: Ensure iptables packages are installed.
   Condition: all
   Rules:
@@ -1781,8 +1745,8 @@ Checks:
     Env:
       cmd: apt list iptables-persistent
       re: installed
-  Verified: false
 - Id: "29591"
+  Disabled: true
   Title: Ensure nftables is not installed with iptables.
   Condition: all
   Rules:
@@ -1811,8 +1775,8 @@ Checks:
         nftables
       re: 'unknown ok not-installed|dpkg-query: no packages found matching nftables|deinstall
         ok config-files'
-  Verified: false
 - Id: "29592"
+  Disabled: true
   Title: Ensure ufw is uninstalled or disabled with iptables.
   Condition: any
   Rules:
@@ -1841,8 +1805,8 @@ Checks:
     Env:
       cmd: systemctl is-enabled ufw
       re: masked
-  Verified: false
 - Id: "29593"
+  Disabled: true
   Title: Ensure iptables default deny firewall policy.
   Condition: all
   Rules:
@@ -1870,8 +1834,8 @@ Checks:
     Env:
       cmd: iptables -L
       re: Chain OUTPUT \(policy DROP\)|Chain OUTPUT \(policy REJECT\)
-  Verified: false
 - Id: "29594"
+  Disabled: true
   Title: Ensure iptables loopback traffic is configured.
   Condition: all
   Rules:
@@ -1896,8 +1860,8 @@ Checks:
     Env:
       cmd: iptables -L OUTPUT -v -n
       re: \.*ACCEPT\.*all\.**\.*lo\.*0.0.0.0/0\.*0.0.0.0/0
-  Verified: false
 - Id: "29595"
+  Disabled: true
   Title: Ensure ip6tables default deny firewall policy.
   Condition: all
   Rules:
@@ -1940,8 +1904,8 @@ Checks:
     Env:
       cmd: ip6tables -L
       re: policy DROP
-  Verified: false
 - Id: "29596"
+  Disabled: true
   Title: Ensure ip6tables loopback traffic is configured.
   Condition: all
   Rules:
@@ -1966,8 +1930,8 @@ Checks:
     Env:
       cmd: ip6tables -L OUTPUT -v -n
       re: \.*ACCEPT\.*all\.**\.*lo\.*::/0\.*::/0
-  Verified: false
 - Id: "29597"
+  Disabled: true
   Title: Ensure auditd is installed.
   Condition: all
   Rules:
@@ -1989,8 +1953,8 @@ Checks:
       cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
         audispd-plugins
       re: install ok installed
-  Verified: false
 - Id: "29598"
+  Disabled: true
   Title: Ensure auditd service is enabled and active.
   Condition: all
   Rules:
@@ -2008,8 +1972,8 @@ Checks:
     Env:
       cmd: systemctl is-active auditd
       re: ^active
-  Verified: false
 - Id: "29599"
+  Disabled: true
   Title: Ensure auditing for processes that start prior to auditd is enabled.
   Condition: all
   Rules:
@@ -2021,8 +1985,8 @@ Checks:
     Env:
       f: /boot/grub/grub.cfg
       re: ^\s*\t*linux && !n:audit=(\d+) compare == 1
-  Verified: false
 - Id: "29600"
+  Disabled: true
   Title: Ensure audit_backlog_limit is sufficient.
   Condition: all
   Rules:
@@ -2034,8 +1998,8 @@ Checks:
     Env:
       f: /boot/grub/grub.cfg
       re: ^\s*\t*linux && !n:audit_backlog_limit=(\d+) compare >= 8192
-  Verified: false
 - Id: "29601"
+  Disabled: true
   Title: Ensure audit log storage size is configured.
   Condition: all
   Rules:
@@ -2046,8 +2010,8 @@ Checks:
     Env:
       f: /etc/audit/auditd.conf
       re: ^\s*\t*max_log_file\s*\t*=\s*\t*\d+
-  Verified: false
 - Id: "29602"
+  Disabled: true
   Title: Ensure audit logs are not automatically deleted.
   Condition: all
   Rules:
@@ -2058,8 +2022,8 @@ Checks:
     Env:
       f: /etc/audit/auditd.conf
       re: ^\s*\t*max_log_file_action\s*\t*=\s*\t*keep_logs
-  Verified: false
 - Id: "29603"
+  Disabled: true
   Title: Ensure system is disabled when audit logs are full.
   Condition: all
   Rules:
@@ -2084,8 +2048,8 @@ Checks:
     Env:
       f: /etc/audit/auditd.conf
       re: ^\s*\t*admin_space_left_action\s*\t*=\s*\t*halt|^\s*\t*admin_space_left_action\s*\t*=\s*\t*single
-  Verified: false
 - Id: "29604"
+  Disabled: true
   Title: Ensure changes to system administration scope (sudoers) is collected.
   Condition: all
   Rules:
@@ -2143,8 +2107,8 @@ Checks:
     Env:
       cmd: auditctl -l
       re: -k scope|key=scope
-  Verified: false
 - Id: "29605"
+  Disabled: true
   Title: Ensure actions as another user are always logged.
   Condition: all
   Rules:
@@ -2244,8 +2208,8 @@ Checks:
     Env:
       cmd: auditctl -l
       re: -k user_emulation|key=user_emulation
-  Verified: false
 - Id: "29606"
+  Disabled: true
   Title: Ensure events that modify date and time information are collected.
   Condition: all
   Rules:
@@ -2382,8 +2346,8 @@ Checks:
     Env:
       cmd: auditctl -l
       re: -k time-change|key=time-change
-  Verified: false
 - Id: "29607"
+  Disabled: true
   Title: Ensure events that modify the system's network environment are collected.
   Condition: all
   Rules:
@@ -2615,8 +2579,8 @@ Checks:
     Env:
       cmd: auditctl -l
       re: -k system-locale|key=system-locale
-  Verified: false
 - Id: "29608"
+  Disabled: true
   Title: Ensure unsuccessful file access attempts are collected.
   Condition: all
   Rules:
@@ -2964,8 +2928,8 @@ Checks:
     Env:
       cmd: auditctl -l
       re: -k access|key=access
-  Verified: false
 - Id: "29609"
+  Disabled: true
   Title: Ensure events that modify user/group information are collected.
   Condition: all
   Rules:
@@ -3105,8 +3069,8 @@ Checks:
     Env:
       cmd: auditctl -l
       re: -k identity|key=identity
-  Verified: false
 - Id: "29610"
+  Disabled: true
   Title: Ensure discretionary access control permission modification events are collected.
   Condition: all
   Rules:
@@ -3522,8 +3486,8 @@ Checks:
     Env:
       cmd: auditctl -l
       re: -k perm_mod|key=perm_mod
-  Verified: false
 - Id: "29611"
+  Disabled: true
   Title: Ensure successful file system mounts are collected.
   Condition: all
   Rules:
@@ -3623,8 +3587,8 @@ Checks:
     Env:
       cmd: auditctl -l
       re: -k mounts|key=mounts
-  Verified: false
 - Id: "29612"
+  Disabled: true
   Title: Ensure session initiation information is collected.
   Condition: all
   Rules:
@@ -3709,8 +3673,8 @@ Checks:
     Env:
       cmd: auditctl -l
       re: -k session|key=session
-  Verified: false
 - Id: "29613"
+  Disabled: true
   Title: Ensure login and logout events are collected.
   Condition: all
   Rules:
@@ -3770,8 +3734,8 @@ Checks:
     Env:
       cmd: auditctl -l
       re: -k logins|key=logins
-  Verified: false
 - Id: "29614"
+  Disabled: true
   Title: Ensure file deletion events by users are collected.
   Condition: all
   Rules:
@@ -3921,8 +3885,8 @@ Checks:
     Env:
       cmd: auditctl -l
       re: -k delete|key=delete
-  Verified: false
 - Id: "29615"
+  Disabled: true
   Title: Ensure events that modify the system's Mandatory Access Controls are collected.
   Condition: all
   Rules:
@@ -3982,8 +3946,8 @@ Checks:
     Env:
       cmd: auditctl -l
       re: -k MAC-policy|key=MAC-policy
-  Verified: false
 - Id: "29616"
+  Disabled: true
   Title: Ensure successful and unsuccessful attempts to use the chcon command are
     recorded.
   Condition: all
@@ -4036,8 +4000,8 @@ Checks:
     Env:
       cmd: auditctl -l
       re: -k perm_chng|key=perm_chng
-  Verified: false
 - Id: "29617"
+  Disabled: true
   Title: Ensure successful and unsuccessful attempts to use the setfacl command are
     recorded.
   Condition: all
@@ -4090,8 +4054,8 @@ Checks:
     Env:
       cmd: auditctl -l
       re: -k perm_chng|key=perm_chng
-  Verified: false
 - Id: "29618"
+  Disabled: true
   Title: Ensure successful and unsuccessful attempts to use the chacl command are
     recorded.
   Condition: all
@@ -4144,8 +4108,8 @@ Checks:
     Env:
       cmd: auditctl -l
       re: -k priv_cmd|-F key=priv_cmd
-  Verified: false
 - Id: "29619"
+  Disabled: true
   Title: Ensure successful and unsuccessful attempts to use the usermod command are
     recorded.
   Condition: all
@@ -4198,8 +4162,8 @@ Checks:
     Env:
       cmd: auditctl -l
       re: -k usermod|-F key=usermod
-  Verified: false
 - Id: "29620"
+  Disabled: true
   Title: Ensure kernel module loading unloading and modification is collected.
   Condition: all
   Rules:
@@ -4331,8 +4295,8 @@ Checks:
     Env:
       cmd: auditctl -l
       re: -k kernel_modules|-F key=kernel_modules
-  Verified: false
 - Id: "29621"
+  Disabled: true
   Title: Ensure the audit configuration is immutable.
   Condition: all
   Rules:
@@ -4344,8 +4308,8 @@ Checks:
     Env:
       cmd: sh -c "grep -iEh '^\s*\t*-e 2\s*$' /etc/audit/rules.d/*.rules | tail -1"
       re: ^\s*\t*-e 2\s*$
-  Verified: false
 - Id: "29622"
+  Disabled: true
   Title: Ensure the running and on disk configuration is the same.
   Condition: all
   Rules:
@@ -4362,8 +4326,8 @@ Checks:
     Env:
       cmd: augenrules --check
       re: No change
-  Verified: false
 - Id: "29623"
+  Disabled: true
   Title: Ensure only authorized groups are assigned ownership of audit log files.
   Condition: all
   Rules:
@@ -4383,8 +4347,8 @@ Checks:
       cmd: sh -c "DIR_NAME=$(awk -F\"=\" '/^\s*\t*log_file\s*\t*/ {print $2}' /etc/audit/auditd.conf);
         stat -c \"%G\" $DIR_NAME"
       re: adm|root
-  Verified: false
 - Id: "29624"
+  Disabled: true
   Title: Ensure audit configuration files are 640 or more restrictive.
   Condition: all
   Rules:
@@ -4420,8 +4384,8 @@ Checks:
     Env:
       cmd: sh -c "stat -Lc \"%n %u %U %g %G\" /etc/audit/*.conf"
       re: ^/etc/audit && !r:\s*0 root 0 root
-  Verified: false
 - Id: "29625"
+  Disabled: true
   Title: Ensure audit configuration files are owned by root.
   Condition: all
   Rules:
@@ -4441,8 +4405,8 @@ Checks:
     Env:
       cmd: sh -c "stat -Lc \"%n %U\" /etc/audit/*.conf"
       re: ^/etc/audit && !r:root
-  Verified: false
 - Id: "29626"
+  Disabled: true
   Title: Ensure audit configuration files belong to group root.
   Condition: all
   Rules:
@@ -4462,8 +4426,8 @@ Checks:
     Env:
       cmd: sh -c "stat -Lc \"%n %G\" /etc/audit/*.conf"
       re: ^/etc/audit && !r:root
-  Verified: false
 - Id: "29627"
+  Disabled: true
   Title: Ensure audit tools are 755 or more restrictive.
   Condition: all
   Rules:
@@ -4485,8 +4449,8 @@ Checks:
       cmd: stat -c "%n %u %U %g %G" /sbin/auditctl /sbin/aureport /sbin/ausearch /sbin/autrace
         /sbin/auditd /sbin/augenrules
       re: ^/sbin && !r:0 root 0 root
-  Verified: false
 - Id: "29628"
+  Disabled: true
   Title: Ensure audit tools are owned by root.
   Condition: all
   Rules:
@@ -4508,8 +4472,8 @@ Checks:
       cmd: stat -c "%n %u %U %g %G" /sbin/auditctl /sbin/aureport /sbin/ausearch /sbin/autrace
         /sbin/auditd /sbin/augenrules
       re: ^/sbin && !r:0 root 0 root
-  Verified: false
 - Id: "29629"
+  Disabled: true
   Title: Ensure audit tools belong to group root.
   Condition: all
   Rules:
@@ -4531,8 +4495,8 @@ Checks:
       cmd: stat -c "%n %u %U %g %G" /sbin/auditctl /sbin/aureport /sbin/ausearch /sbin/autrace
         /sbin/auditd /sbin/augenrules
       re: ^/sbin && !r:0 root 0 root
-  Verified: false
 - Id: "29630"
+  Disabled: true
   Title: Ensure systemd-journal-remote is installed.
   Condition: all
   Rules:
@@ -4545,8 +4509,8 @@ Checks:
       cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
         systemd-journal-remote
       re: install ok installed
-  Verified: false
 - Id: "29631"
+  Disabled: true
   Title: Ensure systemd-journal-remote is enabled.
   Condition: all
   Rules:
@@ -4557,8 +4521,8 @@ Checks:
     Env:
       cmd: systemctl is-enabled systemd-journal-upload.service
       re: ^\s*\t*enabled$
-  Verified: false
 - Id: "29632"
+  Disabled: true
   Title: Ensure journald is not configured to recieve logs from a remote client.
   Condition: all
   Rules:
@@ -4569,8 +4533,8 @@ Checks:
     Env:
       cmd: systemctl is-enabled systemd-journal-remote.socket
       re: disabled
-  Verified: false
 - Id: "29633"
+  Disabled: true
   Title: Ensure journald service is enabled.
   Condition: all
   Rules:
@@ -4581,8 +4545,8 @@ Checks:
     Env:
       cmd: systemctl is-enabled systemd-journald.service
       re: static
-  Verified: false
 - Id: "29634"
+  Disabled: true
   Title: Ensure journald is configured to compress large log files.
   Condition: all
   Rules:
@@ -4593,8 +4557,8 @@ Checks:
     Env:
       f: /etc/systemd/journald.conf
       re: ^\s*\t*Compress\s*\t*=\s*\t*yes
-  Verified: false
 - Id: "29635"
+  Disabled: true
   Title: Ensure journald is configured to write logfiles to persistent disk.
   Condition: all
   Rules:
@@ -4605,8 +4569,8 @@ Checks:
     Env:
       f: /etc/systemd/journald.conf
       re: ^\s*\t*Storage\s*\t*=\s*\t*persistent
-  Verified: false
 - Id: "29636"
+  Disabled: true
   Title: Ensure journald is not configured to send logs to rsyslog.
   Condition: all
   Rules:
@@ -4617,8 +4581,8 @@ Checks:
     Env:
       f: /etc/systemd/journald.conf
       re: ^\s*\t*ForwardToSyslog\s*\t*=\s*\t*yes
-  Verified: false
 - Id: "29637"
+  Disabled: true
   Title: Ensure rsyslog is installed.
   Condition: all
   Rules:
@@ -4631,8 +4595,8 @@ Checks:
       cmd: dpkg-query -W -f='${binary:Package}\t${Status}\t${db:Status-Status}\n'
         rsyslog
       re: install ok installed
-  Verified: false
 - Id: "29638"
+  Disabled: true
   Title: Ensure rsyslog service is enabled.
   Condition: all
   Rules:
@@ -4643,8 +4607,8 @@ Checks:
     Env:
       cmd: systemctl is-enabled rsyslog
       re: enabled
-  Verified: false
 - Id: "29639"
+  Disabled: true
   Title: Ensure journald is configured to send logs to rsyslog.
   Condition: all
   Rules:
@@ -4662,8 +4626,8 @@ Checks:
     Env:
       f: /etc/systemd/journald.conf
       re: ^\s*\t*ForwardToSyslog\s*\t*=\s*\t*no
-  Verified: false
 - Id: "29640"
+  Disabled: true
   Title: Ensure rsyslog default file permissions are configured.
   Condition: all
   Rules:
@@ -4677,8 +4641,8 @@ Checks:
   - WhereExpression: 'NOT '
     OriginalTest: not d:/etc/rsyslog.d/ -> r:\.+.conf -> r:^\s*\t*\$FileCreateMode
       && !r:0640|0600|0400
-  Verified: false
 - Id: "29641"
+  Disabled: true
   Title: Ensure rsyslog is not configured to receive logs from a remote client.
   Condition: all
   Rules:
@@ -4694,8 +4658,8 @@ Checks:
       f: /etc/rsyslog.conf
       re: ^\s*\t*\$ModLoad imtcp|^\s*\t*module\(load="imtcp"\)|^\s*\t*input\(type="imtcp"
         port="514"\)|^\s*\t*\$InputTCPServerRun
-  Verified: false
 - Id: "29642"
+  Disabled: true
   Title: Ensure cron daemon is enabled and running.
   Condition: all
   Rules:
@@ -4713,8 +4677,8 @@ Checks:
     Env:
       cmd: systemctl status cron
       re: 'Active: active \(running\)'
-  Verified: false
 - Id: "29643"
+  Disabled: true
   Title: Ensure permissions on /etc/crontab are configured.
   Condition: all
   Rules:
@@ -4725,8 +4689,8 @@ Checks:
     Env:
       cmd: stat -L /etc/crontab
       re: '^Access: \(0600/-rw-------\)\s*Uid:\s*\(\s*0/\s*root\)\s*Gid:\s*\(\s*0/\s*root\)$'
-  Verified: false
 - Id: "29644"
+  Disabled: true
   Title: Ensure permissions on /etc/cron.hourly are configured.
   Condition: all
   Rules:
@@ -4738,8 +4702,8 @@ Checks:
     Env:
       cmd: stat -L /etc/cron.hourly
       re: '^Access: \(0700/drwx------\)\s*Uid: \(\s*0/\s*root\)\s*Gid: \(\s*0/\s*root\)$'
-  Verified: false
 - Id: "29645"
+  Disabled: true
   Title: Ensure permissions on /etc/cron.daily are configured.
   Condition: all
   Rules:
@@ -4751,8 +4715,8 @@ Checks:
     Env:
       cmd: stat -L /etc/cron.daily
       re: '^Access: \(0700/drwx------\)\s*Uid: \(\s*0/\s*root\)\s*Gid: \(\s*0/\s*root\)$'
-  Verified: false
 - Id: "29646"
+  Disabled: true
   Title: Ensure permissions on /etc/cron.weekly are configured.
   Condition: all
   Rules:
@@ -4764,8 +4728,8 @@ Checks:
     Env:
       cmd: stat -L /etc/cron.weekly
       re: '^Access: \(0700/drwx------\)\s*Uid: \(\s*0/\s*root\)\s*Gid: \(\s*0/\s*root\)$'
-  Verified: false
 - Id: "29647"
+  Disabled: true
   Title: Ensure permissions on /etc/cron.monthly are configured.
   Condition: all
   Rules:
@@ -4777,8 +4741,8 @@ Checks:
     Env:
       cmd: stat -L /etc/cron.monthly
       re: '^Access: \(0700/drwx------\)\s*Uid: \(\s*0/\s*root\)\s*Gid: \(\s*0/\s*root\)$'
-  Verified: false
 - Id: "29648"
+  Disabled: true
   Title: Ensure permissions on /etc/cron.d are configured.
   Condition: all
   Rules:
@@ -4790,8 +4754,8 @@ Checks:
     Env:
       cmd: stat -L /etc/cron.d
       re: '^Access: \(0700/drwx------\)\s*Uid: \(\s*0/\s*root\)\s*Gid: \(\s*0/\s*root\)$'
-  Verified: false
 - Id: "29649"
+  Disabled: true
   Title: Ensure cron is restricted to authorized users.
   Condition: all
   Rules:
@@ -4817,8 +4781,8 @@ Checks:
     Env:
       cmd: stat -Lc "%n %#a %u %U %g %G" /etc/cron.allow
       re: /etc/cron.allow 0640 0 root 0 root
-  Verified: false
 - Id: "29650"
+  Disabled: true
   Title: Ensure at is restricted to authorized users.
   Condition: all
   Rules:
@@ -4844,8 +4808,8 @@ Checks:
     Env:
       cmd: stat -Lc "%n %#a %u %U %g %G" /etc/at.allow
       re: /etc/at.allow 0640 0 root 0 root
-  Verified: false
 - Id: "29651"
+  Disabled: true
   Title: Ensure permissions on /etc/ssh/sshd_config are configured.
   Condition: all
   Rules:
@@ -4857,8 +4821,8 @@ Checks:
     Env:
       cmd: stat -L /etc/ssh/sshd_config
       re: '^Access: \(0600/-rw-------\)\s*Uid: \(\s*0/\s*root\)\s*Gid: \(\s*0/\s*root\)$'
-  Verified: false
 - Id: "29652"
+  Disabled: true
   Title: Ensure SSH access is limited.
   Condition: all
   Rules:
@@ -4876,8 +4840,8 @@ Checks:
     Env:
       f: /etc/ssh/sshd_config
       re: ^\s*\t*AllowUsers\s+\w+|^\s*\t*AllowGroups\s+\w+|^\s*\t*DenyUsers\s+\w+|^\s*\t*DenyGroups\s+\w+
-  Verified: false
 - Id: "29653"
+  Disabled: true
   Title: Ensure SSH LogLevel is appropriate.
   Condition: all
   Rules:
@@ -4895,8 +4859,8 @@ Checks:
     Env:
       f: /etc/ssh/sshd_config
       re: ^\s*\t*LogLevel\s*\t* && !r:INFO|VERBOSE
-  Verified: false
 - Id: "29654"
+  Disabled: true
   Title: Ensure SSH PAM is enabled.
   Condition: all
   Rules:
@@ -4914,8 +4878,8 @@ Checks:
     Env:
       f: /etc/ssh/sshd_config
       re: ^\s*\t*usepam\s*\t*no
-  Verified: false
 - Id: "29655"
+  Disabled: true
   Title: Ensure SSH root login is disabled.
   Condition: all
   Rules:
@@ -4933,8 +4897,8 @@ Checks:
     Env:
       f: /etc/ssh/sshd_config
       re: ^\s*\t*PermitRootLogin\s*\t*yes
-  Verified: false
 - Id: "29656"
+  Disabled: true
   Title: Ensure SSH HostbasedAuthentication is disabled.
   Condition: all
   Rules:
@@ -4952,8 +4916,8 @@ Checks:
     Env:
       f: /etc/ssh/sshd_config
       re: ^\s*\t*HostbasedAuthentication\s*\t*yes
-  Verified: false
 - Id: "29657"
+  Disabled: true
   Title: Ensure SSH PermitEmptyPasswords is disabled.
   Condition: all
   Rules:
@@ -4971,8 +4935,8 @@ Checks:
     Env:
       f: /etc/ssh/sshd_config
       re: ^\s*\t*PermitEmptyPasswords\s*\t*yes
-  Verified: false
 - Id: "29658"
+  Disabled: true
   Title: Ensure SSH PermitUserEnvironment is disabled.
   Condition: all
   Rules:
@@ -4990,8 +4954,8 @@ Checks:
     Env:
       f: /etc/ssh/sshd_config
       re: ^\s*\t*PermitUserEnvironment\s*\t*yes
-  Verified: false
 - Id: "29659"
+  Disabled: true
   Title: Ensure SSH IgnoreRhosts is enabled.
   Condition: all
   Rules:
@@ -5009,8 +4973,8 @@ Checks:
     Env:
       f: /etc/ssh/sshd_config
       re: ^\s*\t*IgnoreRhosts\s*\t*no
-  Verified: false
 - Id: "29660"
+  Disabled: true
   Title: Ensure SSH X11 forwarding is disabled.
   Condition: all
   Rules:
@@ -5028,8 +4992,8 @@ Checks:
     Env:
       f: /etc/ssh/sshd_config
       re: ^\s*\t*X11Forwarding\s*\t*yes
-  Verified: false
 - Id: "29661"
+  Disabled: true
   Title: Ensure only strong Ciphers are used.
   Condition: none
   Rules:
@@ -5046,8 +5010,8 @@ Checks:
     Env:
       cmd: sshd -T
       re: 3des-cbc|aes128-cbc|aes192-cbc|aes256-cbc
-  Verified: false
 - Id: "29662"
+  Disabled: true
   Title: Ensure only strong MAC algorithms are used.
   Condition: none
   Rules:
@@ -5064,8 +5028,8 @@ Checks:
     Env:
       cmd: sshd -T
       re: hmac-md5|hmac-md5-96|hmac-ripemd160|hmac-sha1|hmac-sha1-96|umac-64@openssh.com|umac-128@openssh.com|hmac-md5-etm@openssh.com|hmac-md5-96-etm@openssh.com|hmac-ripemd160-etm@openssh.com|hmac-sha1-etm@openssh.com|hmac-sha1-96-etm@openssh.com|umac-64-etm@openssh.com|umac-128-etm@openssh.com
-  Verified: false
 - Id: "29663"
+  Disabled: true
   Title: Ensure only strong Key Exchange algorithms are used.
   Condition: none
   Rules:
@@ -5082,8 +5046,8 @@ Checks:
     Env:
       cmd: sshd -T
       re: diffie-hellman-group1-sha1|diffie-hellman-group14-sha1|diffie-hellman-group-exchange-sha1
-  Verified: false
 - Id: "29664"
+  Disabled: true
   Title: Ensure SSH AllowTcpForwarding is disabled.
   Condition: all
   Rules:
@@ -5101,8 +5065,8 @@ Checks:
     Env:
       f: /etc/ssh/sshd_config
       re: ^\s*\t*AllowTcpForwarding\s*\t*yes
-  Verified: false
 - Id: "29665"
+  Disabled: true
   Title: Ensure SSH warning banner is configured.
   Condition: all
   Rules:
@@ -5120,8 +5084,8 @@ Checks:
     Env:
       f: /etc/ssh/sshd_config
       re: ^\s*\t*banner\s*\t*/
-  Verified: false
 - Id: "29666"
+  Disabled: true
   Title: Ensure SSH MaxAuthTries is set to 4 or less.
   Condition: all
   Rules:
@@ -5148,8 +5112,8 @@ Checks:
     Env:
       f: /etc/ssh/sshd_config -> n:^\s*\t*MaxAuthTries\s*\t*(\d+) compare > 4
       re: ..
-  Verified: false
 - Id: "29667"
+  Disabled: true
   Title: Ensure SSH MaxStartups is configured.
   Condition: all
   Rules:
@@ -5228,8 +5192,8 @@ Checks:
       f: /etc/ssh/sshd_config -> n:^\s*\t*maxstartups\s*\t*\d+:\d+:(\d+) compare <=
         60
       re: ..
-  Verified: false
 - Id: "29668"
+  Disabled: true
   Title: Ensure SSH MaxSessions is set to 10 or less.
   Condition: all
   Rules:
@@ -5248,8 +5212,8 @@ Checks:
     Env:
       f: /etc/ssh/sshd_config ->  n:^\s*\t*maxsessions\s*\t*(\d+) compare > 10
       re: ..
-  Verified: false
 - Id: "29669"
+  Disabled: true
   Title: Ensure SSH LoginGraceTime is set to one minute or less.
   Condition: all
   Rules:
@@ -5278,8 +5242,8 @@ Checks:
     Env:
       f: /etc/ssh/sshd_config -> n:^\s*\t*logingracetime\s*\t*(\d+) compare > 60
       re: ..
-  Verified: false
 - Id: "29670"
+  Disabled: true
   Title: Ensure SSH Idle Timeout Interval is configured.
   Condition: all
   Rules:
@@ -5333,8 +5297,8 @@ Checks:
       f: /etc/ssh/sshd_config -> n:^\s*\t*clientalivecountmax\s*\t*(\d+) compare ==
         0
       re: ..
-  Verified: false
 - Id: "29671"
+  Disabled: true
   Title: Ensure sudo is installed.
   Condition: any
   Rules:
@@ -5356,8 +5320,8 @@ Checks:
       cmd: ' dpkg-query -W -f=''${binary:Package}\t${Status}\t${db:Status-Status}\n''
         sudo-ldap'
       re: install ok installed
-  Verified: false
 - Id: "29672"
+  Disabled: true
   Title: Ensure sudo commands use pty.
   Condition: any
   Rules:
@@ -5369,8 +5333,8 @@ Checks:
       f: /etc/sudoers
       re: ^\s*\t*Defaults\s*\t*use_pty
   - OriginalTest: d:/etc/sudoers.d -> r:\.* -> r:^\s*\t*Defaults\s*\t*use_pty
-  Verified: false
 - Id: "29673"
+  Disabled: true
   Title: Ensure sudo log file exists.
   Condition: any
   Rules:
@@ -5382,8 +5346,8 @@ Checks:
       f: /etc/sudoers
       re: ^\s*\t*Defaults\s*\t*logfile=
   - OriginalTest: d:/etc/sudoers.d -> r:\.* -> r:^\s*\t*Defaults\s*\t*logfile=
-  Verified: false
 - Id: "29674"
+  Disabled: true
   Title: Ensure users must provide password for privilege escalation.
   Condition: none
   Rules:
@@ -5395,8 +5359,8 @@ Checks:
       f: /etc/sudoers -> !r:^\s*\t*# && r:NOPASSWD
       re: ..
   - OriginalTest: d:/etc/sudoers.d -> r:\.* -> !r:^\s*\t*# && r:NOPASSWD
-  Verified: false
 - Id: "29675"
+  Disabled: true
   Title: Ensure re-authentication for privilege escalation is not disabled globally.
   Condition: none
   Rules:
@@ -5408,8 +5372,8 @@ Checks:
       f: /etc/sudoers -> !r:^\s*\t*# && r:!authenticate
       re: ..
   - OriginalTest: d:/etc/sudoers.d -> r:\.* -> !r:^\s*\t*# && r:!authenticate
-  Verified: false
 - Id: "29676"
+  Disabled: true
   Title: Ensure sudo authentication timeout is configured correctly.
   Condition: all
   Rules:
@@ -5434,8 +5398,8 @@ Checks:
   - WhereExpression: 'NOT '
     OriginalTest: not d:/etc/sudoers.d -> r:\.+ -> !r:^\s*\t*# && n:timestamp_timeout\s*\t*=\s*\t*(\d+)
       compare > 15
-  Verified: false
 - Id: "29677"
+  Disabled: true
   Title: Ensure access to the su command is restricted.
   Condition: all
   Rules:
@@ -5448,8 +5412,8 @@ Checks:
       f: /etc/pam.d/su -> !r:^\s*\t*# && r:auth\s*\t*required\s*\t*pam_wheel.so &&
         r:use_uid && r:group=\w+
       re: ..
-  Verified: false
 - Id: "29678"
+  Disabled: true
   Title: Ensure password creation requirements are configured.
   Condition: all
   Rules:
@@ -5489,8 +5453,8 @@ Checks:
       f: /etc/security/pwquality.conf -> !r:^\s*\t*# && n:\s*\t*minclass\s*\t*=\s*\t*(\d+)
         compare < 4
       re: ..
-  Verified: false
 - Id: "29679"
+  Disabled: true
   Title: Ensure lockout for failed password attempts is configured.
   Condition: all
   Rules:
@@ -5551,8 +5515,8 @@ Checks:
       f: /etc/security/faillock.conf -> !r:^\s*\t*# && n:unlock_time\s*\t*=\s*\t*(\d+)
         compare > 0 && n:unlock_time\s*\t*=\s*\t*(\d+) compare < 600
       re: ..
-  Verified: false
 - Id: "29680"
+  Disabled: true
   Title: Ensure password reuse is limited.
   Condition: none
   Rules:
@@ -5574,8 +5538,8 @@ Checks:
       f: /etc/pam.d/common-password -> !r:^\s*\t*# && r:password\s*\t*required\s*\t*pam_pwhistory.so
         && !r:remember
       re: ..
-  Verified: false
 - Id: "29681"
+  Disabled: true
   Title: Ensure password hashing algorithm is up to date with the latest standards.
   Condition: all
   Rules:
@@ -5593,8 +5557,8 @@ Checks:
     Env:
       f: /etc/login.defs
       re: ^\s*\t*ENCRYPT_METHOD\s*\t*yescrypt
-  Verified: false
 - Id: "29682"
+  Disabled: true
   Title: Ensure minimum days between password changes is configured.
   Condition: all
   Rules:
@@ -5613,8 +5577,8 @@ Checks:
     Env:
       f: '/etc/shadow -> n:^\w+:\$\.*:\d+:(\d+): compare == 0'
       re: ..
-  Verified: false
 - Id: "29683"
+  Disabled: true
   Title: Ensure password expiration is 365 days or less.
   Condition: all
   Rules:
@@ -5634,8 +5598,8 @@ Checks:
       f: '/etc/shadow -> !r:^\w+:!|^\w+:\p: && n:^\w+:\S*:\S*:\S*:(\d+):\S*:\S*:\S*:\S*
         compare > 365'
       re: ..
-  Verified: false
 - Id: "29684"
+  Disabled: true
   Title: Ensure password expiration warning days is 7 or more.
   Condition: all
   Rules:
@@ -5661,8 +5625,8 @@ Checks:
     Env:
       f: /etc/shadow
       re: ^\w+:\S*:\S*:\S*:\S*::\S*:\S*:\S*
-  Verified: false
 - Id: "29685"
+  Disabled: true
   Title: Ensure inactive password lock is 30 days or less.
   Condition: all
   Rules:
@@ -5696,8 +5660,8 @@ Checks:
     Env:
       f: '/etc/shadow -> !r:^\w+:!|^\w+:\p: && r:^\w+:\S*:\S*:\S*:\S*:\S*::\S*:\S*'
       re: ..
-  Verified: false
 - Id: "29686"
+  Disabled: true
   Title: Ensure default group for the root account is GID 0.
   Condition: all
   Rules:
@@ -5708,8 +5672,8 @@ Checks:
     Env:
       f: /etc/passwd
       re: ^root:x:0:0
-  Verified: false
 - Id: "29687"
+  Disabled: true
   Title: Ensure permissions on /etc/passwd are configured.
   Condition: any
   Rules:
@@ -5727,8 +5691,8 @@ Checks:
     Env:
       cmd: stat -Lc "%n %a %u/%U %g/%G" /etc/passwd
       re: 644|640|604|600
-  Verified: false
 - Id: "29688"
+  Disabled: true
   Title: Ensure permissions on /etc/passwd- are configured.
   Condition: any
   Rules:
@@ -5746,8 +5710,8 @@ Checks:
     Env:
       cmd: stat -Lc "%n %a %u/%U %g/%G" /etc/passwd-
       re: 644|640|604|600
-  Verified: false
 - Id: "29689"
+  Disabled: true
   Title: Ensure permissions on /etc/group are configured.
   Condition: all
   Rules:
@@ -5765,8 +5729,8 @@ Checks:
     Env:
       cmd: stat -Lc "%n %a %u/%U %g/%G" /etc/group
       re: 644|640|604|600
-  Verified: false
 - Id: "29690"
+  Disabled: true
   Title: Ensure permissions on /etc/group- are configured.
   Condition: all
   Rules:
@@ -5784,8 +5748,8 @@ Checks:
     Env:
       cmd: stat -Lc "%n %a %u/%U %g/%G" /etc/group-
       re: 644|640|604|600
-  Verified: false
 - Id: "29691"
+  Disabled: true
   Title: Ensure permissions on /etc/shadow are configured.
   Condition: all
   Rules:
@@ -5803,8 +5767,8 @@ Checks:
     Env:
       cmd: stat -Lc "%n %a %u %U %g %G" /etc/shadow
       re: 640|600|400|500
-  Verified: false
 - Id: "29692"
+  Disabled: true
   Title: Ensure permissions on /etc/shadow- are configured.
   Condition: all
   Rules:
@@ -5822,8 +5786,8 @@ Checks:
     Env:
       cmd: stat -Lc "%n %a %u %U %g %G" /etc/shadow-
       re: 640|600|400|500
-  Verified: false
 - Id: "29693"
+  Disabled: true
   Title: Ensure permissions on /etc/gshadow are configured.
   Condition: all
   Rules:
@@ -5841,8 +5805,8 @@ Checks:
     Env:
       cmd: 'stat -Lc "%n %a %u %U %g %G" /etc/gshadow '
       re: 640|600|400|500
-  Verified: false
 - Id: "29694"
+  Disabled: true
   Title: Ensure permissions on /etc/gshadow- are configured.
   Condition: all
   Rules:
@@ -5860,8 +5824,8 @@ Checks:
     Env:
       cmd: 'stat -Lc "%n %a %u %U %g %G" /etc/gshadow- '
       re: 640|600|400|500
-  Verified: false
 - Id: "29695"
+  Disabled: true
   Title: Ensure accounts in /etc/passwd use shadowed passwords.
   Condition: all
   Rules:
@@ -5872,8 +5836,8 @@ Checks:
     Env:
       f: /etc/passwd
       re: '^\w+:x:'
-  Verified: false
 - Id: "29696"
+  Disabled: true
   Title: Ensure /etc/shadow password fields are not empty.
   Condition: all
   Rules:
@@ -5884,8 +5848,8 @@ Checks:
     Env:
       f: /etc/shadow
       re: '^\w+::'
-  Verified: false
 - Id: "29697"
+  Disabled: true
   Title: Ensure root is the only UID 0 account.
   Condition: all
   Rules:
@@ -5896,4 +5860,3 @@ Checks:
     Env:
       f: '/etc/passwd -> !r:^\s*\t*# && !r:^root: && r:^\w+:\w+:0:'
       re: ..
-  Verified: false

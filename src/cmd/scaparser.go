@@ -276,13 +276,17 @@ func parseSCARule(rule *generator.Test) []*generator.Test {
 		return nil
 	}
 
+	// Warn the user that we cant handle this kind of rule yet
+	fmt.Printf("SCA import: We currently do not know how to handle this rule: %v\n",
+		rule.OriginalTest)
+
 	return nil
 }
 
 // Do our best to convert from SCA rule format to VQL.
 func compileCheck(check *generator.Check) {
 	// Ignore checks that were manually verified.
-	if check.Verified {
+	if !check.Disabled {
 		return
 	}
 
@@ -306,6 +310,10 @@ func buildModel(
 			Id:        fmt.Sprintf("%v", c.Id),
 			Title:     c.Title,
 			Condition: c.Condition,
+
+			// New checks are set to disabled until we can verify
+			// them.
+			Disabled: true,
 		}
 
 		for _, r := range c.Rules {

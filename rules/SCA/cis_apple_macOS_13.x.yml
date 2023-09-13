@@ -19,7 +19,6 @@ Checks:
     Env:
       cmd: softwareupdate -l
       re: No new software available.
-  Verified: true
 - Id: "31001"
   Title: Ensure Auto Update Is Enabled.
   Condition: any
@@ -40,7 +39,6 @@ Checks:
     Env:
       cmd: osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.SoftwareUpdate').objectForKey('AutomaticCheckEnabled')"
       re: \.+
-  Verified: true
 - Id: "31002"
   Title: Ensure Download New Updates When Available Is Enabled.
   Condition: any
@@ -61,7 +59,6 @@ Checks:
     Env:
       cmd: osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.SoftwareUpdate').objectForKey('AutomaticDownload')"
       re: \.+
-  Verified: true
 - Id: "31003"
   Title: Ensure Install of macOS Updates Is Enabled.
   Condition: any
@@ -82,7 +79,6 @@ Checks:
     Env:
       cmd: osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.SoftwareUpdate').objectForKey('AutomaticallyInstallMacOSUpdates')"
       re: \.+
-  Verified: true
 - Id: "31004"
   Title: Ensure Install Application Updates from the App Store Is Enabled.
   Condition: all
@@ -95,7 +91,6 @@ Checks:
     Env:
       cmd: defaults read /Library/Preferences/com.apple.commerce AutoUpdate
       re: ^1$
-  Verified: true
 - Id: "31005"
   Title: Ensure Install Security Responses and System Files Is Enabled.
   Condition: any
@@ -120,7 +115,6 @@ Checks:
       cmd: osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.SoftwareUpdate').objectForKey('ConfigDataInstall')"
         && c:osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.SoftwareUpdate').objectForKey('CriticalUpdateInstall')"
       re: \.+
-  Verified: true
 - Id: "31006"
   Title: Ensure Software Update Deferment Is Less Than or Equal to 30 Days.
   Condition: any
@@ -141,7 +135,6 @@ Checks:
     Env:
       cmd: osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.applicationaccess').objectForKey('enforcedSoftwareUpdateDelay')"
       re: \.+
-  Verified: true
 - Id: "31007"
   Title: Ensure Firewall Is Enabled.
   Condition: any
@@ -162,7 +155,6 @@ Checks:
     Env:
       cmd: defaults read /Library/Preferences/com.apple.security.firewall EnableFirewall
       re: ^1$|^2$|^true$
-  Verified: true
 - Id: "31008"
   Title: Ensure Firewall Stealth Mode Is Enabled.
   Condition: any
@@ -183,7 +175,6 @@ Checks:
     Env:
       cmd: defaults read /Library/Preferences/com.apple.security.firewall EnableStealthMode
       re: ^1$|^2$|^true$
-  Verified: true
 - Id: "31009"
   Title: Ensure Set Time and Date Automatically Is Enabled.
   Condition: all
@@ -195,7 +186,6 @@ Checks:
     Env:
       cmd: /usr/sbin/systemsetup -getusingnetworktime
       re: Network Time:\s*\t*On
-  Verified: true
 - Id: "31010"
   Title: Ensure Time Is Set Within Appropriate Limits.
   Condition: all
@@ -207,7 +197,6 @@ Checks:
     Env:
       cmd: systemsetup -getnetworktimeserver
       re: 'Network Time Server:'
-  Verified: true
 - Id: "31011"
   Title: Ensure DVD or CD Sharing Is Disabled.
   Condition: all
@@ -219,7 +208,6 @@ Checks:
     Env:
       cmd: sh -c "launchctl list | grep -c com.apple.ODSAgent"
       re: ^0$
-  Verified: true
 - Id: "31012"
   Title: Ensure Screen Sharing Is Disabled.
   Condition: all
@@ -231,7 +219,6 @@ Checks:
     Env:
       cmd: sh -c "launchctl list | grep -c com.apple.screensharing"
       re: ^0$
-  Verified: true
 - Id: "31013"
   Title: Ensure File Sharing Is Disabled.
   Condition: all
@@ -243,7 +230,6 @@ Checks:
     Env:
       cmd: sh -c "launchctl list | grep -c com.apple.smbd"
       re: ^0$
-  Verified: true
 - Id: "31014"
   Title: Ensure Printer Sharing Is Disabled.
   Condition: all
@@ -255,7 +241,6 @@ Checks:
     Env:
       cmd: sh -c "cupsctl | grep _share_printers | cut -d '=' -f2"
       re: ^0$
-  Verified: true
 - Id: "31015"
   Title: Ensure Remote Login Is Disabled.
   Condition: all
@@ -267,15 +252,15 @@ Checks:
     Env:
       cmd: systemsetup -getremotelogin
       re: Remote Login:\s*\t*Off
-  Verified: true
 - Id: "31016"
+  Disabled: true
   Title: Ensure Remote Management Is Disabled.
   Condition: all
   Rules:
   - WhereExpression: 'NOT '
     OriginalTest: not p:/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/MacOS/ARDAgent
-  Verified: false
 - Id: "31017"
+  Disabled: true
   Title: Ensure Remote Apple Events Is Disabled.
   Condition: all
   Rules:
@@ -286,8 +271,8 @@ Checks:
     Env:
       cmd: systemsetup -getremoteappleevents
       re: Remote Apple Events:\s*\t*Off
-  Verified: false
 - Id: "31018"
+  Disabled: true
   Title: Ensure Internet Sharing Is Disabled.
   Condition: any
   Rules:
@@ -307,8 +292,8 @@ Checks:
     Env:
       cmd: osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.MCX').objectForKey('forceInternetSharingOff')"
       re: ^true$
-  Verified: false
 - Id: "31019"
+  Disabled: true
   Title: Ensure Content Caching Is Disabled.
   Condition: any
   Rules:
@@ -328,8 +313,8 @@ Checks:
     Env:
       cmd: osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.applicationaccess').objectForKey('allowContentCaching')"
       re: ^0$|^true$
-  Verified: false
 - Id: "31020"
+  Disabled: true
   Title: Ensure Backup Automatically is Enabled If Time Machine Is Enabled.
   Condition: any
   Rules:
@@ -349,8 +334,8 @@ Checks:
     Env:
       cmd: osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.TimeMachine').objectForKey('LastDestinationID')"
       re: ^\.+$
-  Verified: false
 - Id: "31021"
+  Disabled: true
   Title: Ensure Time Machine Volumes Are Encrypted If Time Machine Is Enabled.
   Condition: all
   Rules:
@@ -363,8 +348,8 @@ Checks:
       cmd: ' sh -c "defaults read /Library/Preferences/com.apple.TimeMachine.plist
         | grep -c NotEncrypted"'
       re: ^0$
-  Verified: false
 - Id: "31022"
+  Disabled: true
   Title: Ensure Location Services Is Enabled.
   Condition: all
   Rules:
@@ -383,8 +368,8 @@ Checks:
     Env:
       cmd: sudo -u _locationd /usr/bin/osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.locationd').objectForKey('LocationServicesEnabled')"
       re: ^1$
-  Verified: false
 - Id: "31023"
+  Disabled: true
   Title: Ensure Location Services Is in the Menu Bar.
   Condition: all
   Rules:
@@ -396,8 +381,8 @@ Checks:
     Env:
       cmd: defaults read /Library/Preferences/com.apple.locationmenu.plist ShowSystemServices
       re: ^1$|^true$
-  Verified: false
 - Id: "31024"
+  Disabled: true
   Title: Ensure Gatekeeper Is Enabled.
   Condition: all
   Rules:
@@ -408,8 +393,8 @@ Checks:
     Env:
       cmd: spctl --status
       re: ^assessments enabled
-  Verified: false
 - Id: "31025"
+  Disabled: true
   Title: Ensure FileVault Is Enabled.
   Condition: all
   Rules:
@@ -428,8 +413,8 @@ Checks:
     Env:
       cmd: osascript -l JavaScript -e "osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.MCX').objectForKey('dontAllowFDEDisable')"
       re: ^0$
-  Verified: false
 - Id: "31026"
+  Disabled: true
   Title: Ensure an Administrator Password Is Required to Access System-Wide Preferences.
   Condition: all
   Rules:
@@ -441,8 +426,8 @@ Checks:
     Env:
       cmd: security authorizationdb read system.preferences | grep -A1 shared
       re: '>false<'
-  Verified: false
 - Id: "31027"
+  Disabled: true
   Title: Ensure Power Nap Is Disabled for Intel Macs.
   Condition: all
   Rules:
@@ -453,8 +438,8 @@ Checks:
     Env:
       cmd: sh -c "pmset -g custom"
       re: powernap\s*\t*1
-  Verified: false
 - Id: "31028"
+  Disabled: true
   Title: Ensure Wake for Network Access Is Disabled.
   Condition: any
   Rules:
@@ -481,8 +466,8 @@ Checks:
     Env:
       cmd: sh -c "profiles -P -o stdout | grep 'Wake On Modem Ring'"
       re: =\s*(\d)
-  Verified: false
 - Id: "31029"
+  Disabled: true
   Title: Ensure a Password is Required to Wake the Computer From Sleep or Screen Saver
     Is Enabled.
   Condition: all
@@ -503,8 +488,8 @@ Checks:
     Env:
       cmd: osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.screensaver').objectForKey('askForPasswordDelay')"
       re: ^(\d+)$
-  Verified: false
 - Id: "31030"
+  Disabled: true
   Title: Ensure a Custom Message for the Login Screen Is Enabled.
   Condition: any
   Rules:
@@ -516,8 +501,8 @@ Checks:
     Env:
       cmd: osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.loginwindow').objectForKey('LoginwindowText')"
       re: ^\.+$
-  Verified: false
 - Id: "31031"
+  Disabled: true
   Title: Ensure Login Window Displays as Name and Password Is Enabled.
   Condition: any
   Rules:
@@ -529,8 +514,8 @@ Checks:
     Env:
       cmd: osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.loginwindow').objectForKey('SHOWFULLNAME')"
       re: ^1$|^true$
-  Verified: false
 - Id: "31032"
+  Disabled: true
   Title: Ensure Show Password Hints Is Disabled.
   Condition: any
   Rules:
@@ -550,8 +535,8 @@ Checks:
     Env:
       cmd: osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.loginwindow').objectForKey('RetriesUntilHint')"
       re: \w+
-  Verified: false
 - Id: "31033"
+  Disabled: true
   Title: Ensure Users' Accounts Do Not Have a Password Hint.
   Condition: none
   Rules:
@@ -562,8 +547,8 @@ Checks:
     Env:
       cmd: dscl . -list /Users hint
       re: ^\w*$
-  Verified: false
 - Id: "31034"
+  Disabled: true
   Title: Ensure Guest Account Is Disabled.
   Condition: any
   Rules:
@@ -583,8 +568,8 @@ Checks:
     Env:
       cmd: osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.loginwindow').objectForKey('GuestEnabled')"
       re: ^0$
-  Verified: false
 - Id: "31035"
+  Disabled: true
   Title: Ensure Guest Access to Shared Folders Is Disabled.
   Condition: any
   Rules:
@@ -595,8 +580,8 @@ Checks:
     Env:
       cmd: sysadminctl -smbGuestAccess status
       re: SMB guest access disabled
-  Verified: false
 - Id: "31036"
+  Disabled: true
   Title: Ensure Automatic Login Is Disabled.
   Condition: any
   Rules:
@@ -616,8 +601,8 @@ Checks:
     Env:
       cmd: osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.loginwindow').objectForKey('autoLoginUser')"
       re: ^\.+$
-  Verified: false
 - Id: "31037"
+  Disabled: true
   Title: Ensure Security Auditing Is Enabled.
   Condition: all
   Rules:
@@ -628,8 +613,8 @@ Checks:
     Env:
       cmd: launchctl list
       re: com.apple.auditd
-  Verified: false
 - Id: "31038"
+  Disabled: true
   Title: Ensure Security Auditing Flags For User-Attributable Events Are Configured
     Per Local Organizational Requirements.
   Condition: any
@@ -650,8 +635,8 @@ Checks:
     Env:
       f: /etc/security/audit_control
       re: ^flags && r:-all && r:ad && r:aa && r:lo
-  Verified: false
 - Id: "31039"
+  Disabled: true
   Title: Ensure install.log Is Retained for 365 or More Days and No Maximum Size.
   Condition: all
   Rules:
@@ -669,8 +654,8 @@ Checks:
     Env:
       f: /etc/asl/com.apple.install
       re: ^\s*all_max=
-  Verified: false
 - Id: "31040"
+  Disabled: true
   Title: Ensure Security Auditing Retention Is Enabled.
   Condition: any
   Rules:
@@ -746,8 +731,8 @@ Checks:
       f: /etc/security/audit_control -> n:^expire-after:\s*\d+\w OR (\d+)g compare
         => 5
       re: ..
-  Verified: false
 - Id: "31041"
+  Disabled: true
   Title: Ensure Bonjour Advertising Services Is Disabled.
   Condition: any
   Rules:
@@ -759,8 +744,8 @@ Checks:
     Env:
       cmd: osascript -l JavaScript -e "$.NSUserDefaults.alloc.initWithSuiteName('com.apple.mDNSResponder').objectForKey('NoMulticastAdvertisements')"
       re: ^1$
-  Verified: false
 - Id: "31042"
+  Disabled: true
   Title: Ensure HTTP Server Is Disabled.
   Condition: all
   Rules:
@@ -771,8 +756,8 @@ Checks:
     Env:
       cmd: launchctl list
       re: org.apache.httpd
-  Verified: false
 - Id: "31043"
+  Disabled: true
   Title: Ensure NFS Server Is Disabled.
   Condition: all
   Rules:
@@ -790,16 +775,16 @@ Checks:
     Env:
       f: /etc/exports
       re: ..
-  Verified: false
 - Id: "31044"
+  Disabled: true
   Title: Ensure Home Folders Are Secure.
   Condition: any
   Rules:
   - WhereExpression: 'NOT '
     OriginalTest: not c:sh -c "ls -l /Users | grep -v total" -> !r:^drwx------ &&
       !r:^drwx--x--x
-  Verified: false
 - Id: "31045"
+  Disabled: true
   Title: Ensure System Integrity Protection Status (SIP) Is Enabled.
   Condition: all
   Rules:
@@ -810,8 +795,8 @@ Checks:
     Env:
       cmd: csrutil status
       re: '^System Integrity Protection status: enabled.'
-  Verified: false
 - Id: "31046"
+  Disabled: true
   Title: Ensure Apple Mobile File Integrity (AMFI) Is Enabled.
   Condition: all
   Rules:
@@ -822,8 +807,8 @@ Checks:
     Env:
       cmd: nvram -p
       re: amfi_get_out_of_my_way=1
-  Verified: false
 - Id: "31047"
+  Disabled: true
   Title: Ensure Sealed System Volume (SSV) Is Enabled.
   Condition: all
   Rules:
@@ -835,8 +820,8 @@ Checks:
     Env:
       cmd: csrutil authenticated-root status
       re: '^Authenticated Root status: enabled'
-  Verified: false
 - Id: "31048"
+  Disabled: true
   Title: Ensure Password Account Lockout Threshold Is Configured.
   Condition: all
   Rules:
@@ -848,8 +833,8 @@ Checks:
     Env:
       cmd: pwpolicy -n /Local/Default -getglobalpolicy
       re: maxFailedLoginAttempts=(\d+)
-  Verified: false
 - Id: "31049"
+  Disabled: true
   Title: Ensure Password Minimum Length Is Configured.
   Condition: all
   Rules:
@@ -861,8 +846,8 @@ Checks:
     Env:
       cmd: pwpolicy -n /Local/Default -getglobalpolicy
       re: minChars=(\d+)
-  Verified: false
 - Id: "31050"
+  Disabled: true
   Title: Ensure Complex Password Must Contain Alphabetic Characters Is Configured.
   Condition: any
   Rules:
@@ -882,8 +867,8 @@ Checks:
     Env:
       cmd: sh  -c "pwpolicy -getaccountpolicies | grep -A1 minimumLetters "
       re: '>(\d+)<'
-  Verified: false
 - Id: "31051"
+  Disabled: true
   Title: Ensure Complex Password Must Contain Numeric Character Is Configured.
   Condition: any
   Rules:
@@ -904,8 +889,8 @@ Checks:
       cmd: sh  -c "pwpolicy -getaccountpolicies | grep -A1 minimumNumericCharacters
         "
       re: '>(\d+)<'
-  Verified: false
 - Id: "31052"
+  Disabled: true
   Title: Ensure Complex Password Must Contain Uppercase and Lowercase Characters Is
     Configured.
   Condition: any
@@ -919,8 +904,8 @@ Checks:
       cmd: sh  -c "pwpolicy -getaccountpolicies | grep -A1 minimumMixedCaseCharacters
         "
       re: '>(\d+)<'
-  Verified: false
 - Id: "31053"
+  Disabled: true
   Title: Ensure Password Age Is Configured.
   Condition: all
   Rules:
@@ -932,8 +917,8 @@ Checks:
     Env:
       cmd: pwpolicy -n /Local/Default -getglobalpolicy
       re: maxMinutesUntilChangePassword=(\d+)
-  Verified: false
 - Id: "31054"
+  Disabled: true
   Title: Ensure Password History Is Configured.
   Condition: all
   Rules:
@@ -945,8 +930,8 @@ Checks:
     Env:
       cmd: pwpolicy -n /Local/Default -getglobalpolicy
       re: usingHistory=(\d+)
-  Verified: false
 - Id: "31055"
+  Disabled: true
   Title: Ensure the Sudo Timeout Period Is Set to Zero.
   Condition: all
   Rules:
@@ -964,8 +949,8 @@ Checks:
     Env:
       cmd: stat /etc/sudoers.d
       re: root wheel
-  Verified: false
 - Id: "31056"
+  Disabled: true
   Title: Ensure a Separate Timestamp Is Enabled for Each User/tty Combo.
   Condition: all
   Rules:
@@ -976,8 +961,8 @@ Checks:
     Env:
       cmd: sudo -V
       re: 'Type of authentication timestamp record: tty'
-  Verified: false
 - Id: "31057"
+  Disabled: true
   Title: Ensure the "root" Account Is Disabled.
   Condition: all
   Rules:
@@ -989,8 +974,8 @@ Checks:
     Env:
       cmd: dscl . -read /Users/root AuthenticationAuthority
       re: '^No such key: AuthenticationAuthority'
-  Verified: false
 - Id: "31058"
+  Disabled: true
   Title: Ensure an Administrator Account Cannot Login to Another User's Active and
     Locked Session.
   Condition: all
@@ -1002,8 +987,8 @@ Checks:
     Env:
       cmd: security authorizationdb read system.login.screensaver
       re: use-login-window-ui
-  Verified: false
 - Id: "31059"
+  Disabled: true
   Title: Ensure a Login Window Banner Exists.
   Condition: all
   Rules:
@@ -1015,11 +1000,10 @@ Checks:
     Env:
       cmd: stat -f %A /Library/Security/PolicyBanner.*
       re: \d\d4
-  Verified: false
 - Id: "31060"
+  Disabled: true
   Title: Ensure the Guest Home Folder Does Not Exist.
   Condition: all
   Rules:
   - WhereExpression: 'NOT '
     OriginalTest: not d:/Users/Guest
-  Verified: false
