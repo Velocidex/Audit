@@ -100,7 +100,7 @@ Checks:
 ### Building an artifact
 
 To compile the rule file into an artifact use the `audit` tool with
-the `vql` sub command.
+the `vql` sub command inside of the `Audit` directory.
 
 ```
 $ ./auditor vql ./rules/SCA/cis_win10_enterprise.yml /tmp/
@@ -109,6 +109,8 @@ Will write file to /tmp/Windows.Audit.CISWin10Enterprise.yaml
 
 This generates the artifact file from the rules file. You can import
 this into Velociraptor in the usual way.
+
+**Note** - You may need to run `make auditor` before running the command above.
 
 ### Importing compliance checks from other projects.
 
